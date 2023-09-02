@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:http/http.dart' as http; //dont forget to give it a name
@@ -10,17 +11,18 @@ Map<String, String> myheaders = {'authorization': _basicAuth};
 postRequest(String url, Map data) async {
   //async refers to internet waiting request
   try {
-    var response = await http.post(Uri.parse(url), body: data ,headers: myheaders);
+    var response =
+        await http.post(Uri.parse(url), body: data, headers: myheaders);
     if (response.statusCode == 200) {
       //404 error
       var response_body = jsonDecode(response.body);
       return response_body;
     } else {
-      print("Error caused by: ${response.statusCode}");
+      log("Error caused by: ${response.statusCode}");
       return;
     }
   } catch (e) {
-    print("Error caused by: ${e}");
+    log("Error caused by: ${e}");
     return;
   }
 }
@@ -28,16 +30,16 @@ postRequest(String url, Map data) async {
 getRequest(String url) async {
   //async refers to internet waiting request
   try {
-    var response = await http.get(Uri.parse(url) ,headers: myheaders);
+    var response = await http.get(Uri.parse(url), headers: myheaders);
     if (response.statusCode == 200) {
       //404 error
       var response_body = jsonDecode(response.body);
       return response_body;
     } else {
-      print("Error caused by: ${response.statusCode}");
+      log("Error caused by: ${response.statusCode}");
     }
   } catch (e) {
-    print("Error caused by: ${e}");
+    log("Error caused by: ${e}");
   }
 }
 
@@ -64,7 +66,7 @@ postRequestWithFile(String url, File? file, Map data) async {
   if (myrequest.statusCode == 200) {
     return jsonDecode(response.body);
   } else {
-    print("error${myrequest.statusCode}");
+    log("error${myrequest.statusCode}");
   }
 }
 // }
