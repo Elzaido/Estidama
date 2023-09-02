@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:madenati/controllers/onboarding_controller.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../models/boarding_model.dart';
-import '../network/local/shared_preference.dart';
-import '../shared/component.dart';
+import '../../models/boardingmodel.dart';
+import '../../db/local/shared_preference.dart';
+import '../widgets/onboarding_widget.dart';
 import 'authentication/login.dart';
 
 // ignore: must_be_immutable
@@ -14,6 +16,7 @@ class OnBoarding extends StatefulWidget {
 }
 
 class _OnBoardingState extends State<OnBoarding> {
+  OnBoardingController controller = Get.find();
   List<BoardingModel> boarding = [
     BoardingModel(
       image: 'assets/onboarding1.png',
@@ -32,7 +35,8 @@ class _OnBoardingState extends State<OnBoarding> {
   void submit() {
     CacheHelper.saveDate(key: 'onBoarding', value: true).then((value) {
       if (value) {
-        navigateAndFinish(context: context, widget: LoginPage());
+        controller.navigateAndFinish(
+            context: context, widget: const LoginPage());
       }
     });
   }

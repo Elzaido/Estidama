@@ -1,23 +1,23 @@
 import 'package:flutter/cupertino.dart';
+import '../ui/pages/main_pages/complains.dart';
+import '../ui/pages/main_pages/volunteering.dart';
 
 class GridModel {
-  String? name;
+  String? title;
   String? image;
   Widget? nav;
-  GridModel({required this.name, required this.image, required this.nav});
+  GridModel({required this.title, required this.image, required this.nav});
 }
 
-List<GridModel> GridList = [
+List<GridModel> gridList = [
   GridModel(
-      name: 'تقديم بلاغ',
-      image: 'assets/Grid1.png'),
+      title: 'تقديم بلاغ', image: 'assets/Grid1.png', nav: const Complains()),
   GridModel(
-      name: 'التطوع',
-      image: 'assest/Grid2.png'),
+      title: 'التطوع', image: 'assets/Grid2.png', nav: const Volunteering()),
   GridModel(
-      name: 'إزرع شجرة',
-      image: 'assets/Grid3.png'),
+      title: 'إزرع شجرة', image: 'assets/Grid3.png', nav: const Complains()),
   GridModel(
-      name: 'إعادة التدوير',
-      image: 'assets/Grid4.png'),
+      title: 'إعادة التدوير',
+      image: 'assets/Grid4.png',
+      nav: const Complains()),
 ];
