@@ -24,56 +24,59 @@ class Complains extends StatelessWidget {
           width: double.infinity,
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                title(text: 'ما هو نوع البلاغ'),
-                dropDown(
-                    selected: controller.selectedComplain,
-                    list: controller.complainsList),
-                title(text: 'ما هي درجة خطورة البلاغ'),
-                dropDown(
-                    selected: controller.selectedStatus,
-                    list: controller.complainStatus),
-                descFormField(hint: 'أخبرنا المزيد ...'),
-                formField(
-                  ontap: () {
-                    showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime.parse('2030-01-01'))
-                        .then((value) {
-                      dateControl.text = DateFormat.yMMMd().format(value!);
-                    });
-                  },
-                  readOnly: true,
-                  control: dateControl,
-                  isScure: false,
-                  label: 'تاريخ البلاغ',
-                  prefIcon: const Icon(Icons.date_range_outlined),
-                  validator: (String? v) {
-                    if (v!.isEmpty) {
-                      return 'Date must not be empty';
-                    }
-                    return null;
-                  },
-                ),
-                addLocation(
-                    image: 'assets/location.png',
-                    title: 'حدد الموقع على الخريطة'),
-                button(
-                    onPressed: () {},
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.camera_alt),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text('أضف صورة')
-                      ],
-                    ))
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                children: [
+                  title(text: 'ما هو نوع البلاغ'),
+                  dropDown(
+                      selected: controller.selectedComplain,
+                      list: controller.complainsList),
+                  title(text: 'ما هي درجة خطورة البلاغ'),
+                  dropDown(
+                      selected: controller.selectedStatus,
+                      list: controller.complainStatus),
+                  descFormField(hint: 'أخبرنا المزيد ...'),
+                  formField(
+                    ontap: () {
+                      showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime.now(),
+                              lastDate: DateTime.parse('2030-01-01'))
+                          .then((value) {
+                        dateControl.text = DateFormat.yMMMd().format(value!);
+                      });
+                    },
+                    readOnly: true,
+                    control: dateControl,
+                    isScure: false,
+                    label: 'تاريخ البلاغ',
+                    prefIcon: const Icon(Icons.date_range_outlined),
+                    validator: (String? v) {
+                      if (v!.isEmpty) {
+                        return 'Date must not be empty';
+                      }
+                      return null;
+                    },
+                  ),
+                  addLocation(
+                      image: 'assets/location.png',
+                      title: 'حدد الموقع على الخريطة'),
+                  button(
+                      onPressed: () {},
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.camera_alt),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text('أضف صورة')
+                        ],
+                      ))
+                ],
+              ),
             ),
           ),
         ));

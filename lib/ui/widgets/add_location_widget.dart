@@ -5,7 +5,7 @@ Widget addLocation({
   required String title,
 }) =>
     Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: InkWell(
         onTap: () {},
         child: Container(

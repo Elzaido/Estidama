@@ -6,7 +6,7 @@ Widget title({
     Align(
       alignment: Alignment.centerRight,
       child: Padding(
-        padding: const EdgeInsets.only(top: 15, right: 20),
+        padding: const EdgeInsets.only(right: 5),
         child: Text(
           text,
           style: const TextStyle(
