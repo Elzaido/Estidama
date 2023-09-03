@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:madenati/controllers/login_controller.dart';
 import 'package:madenati/ui/pages/main_pages/luncher.dart';
 import '../../../constants/colors.dart';
 import '../../widgets/formfield_widget.dart';
@@ -27,6 +29,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    LoginController _loginController = Get.find();
+
     return Scaffold(
       body: Center(
           child: SingleChildScrollView(
@@ -131,28 +135,8 @@ class _LoginPageState extends State<LoginPage> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10))),
                               onPressed: () {
-                                if (formKey.currentState!.validate()) {
-                                  if (phoneControl.text == '780710751') {
-                                    defaultToast(
-                                        massage: 'تم تسجيل الدخول بنجاح',
-                                        state: ToastStates.SUCCESS);
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Luncher()),
-                                        (Route<dynamic> route) => false);
-                                  } else {
-                                    defaultToast(
-                                        massage: 'الرجاء إنشاء الحساب أولاً',
-                                        state: ToastStates.ERROR);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Register()));
-                                  }
-                                }
+                                _loginController.onSubmitLogin(phoneControl.text,
+                                    countryControl.text, passControl.text, context);
                               },
                               child: const Text(
                                 "تسجيل دخول",

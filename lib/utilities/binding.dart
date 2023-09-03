@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:madenati/controllers/register_controller.dart';
 import '../controllers/complains_controller.dart';
 import '../controllers/home_controller.dart';
 import '../controllers/launcher_controller.dart';
@@ -38,7 +39,7 @@ class LoginBinding implements Bindings {
 class RegisterBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut((() => LoginController()), fenix: true);
+    Get.lazyPut((() => RegisterController()), fenix: true);
   }
 }
 
