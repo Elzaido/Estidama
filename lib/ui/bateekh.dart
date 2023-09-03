@@ -1,5 +1,4 @@
 
-void aa(){
-
-  print(" bateekh");
+void aa() {
+  print(" bandora");
 }
