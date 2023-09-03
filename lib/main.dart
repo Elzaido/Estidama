@@ -27,11 +27,15 @@ class myApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //onBoarding =true means it finished the page
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: CacheHelper.getData(key: 'onBoarding') == true
-          ? "/launcher"
-          : "/on_boarding",
+          ? CacheHelper.getData(key: "isLogin") == true
+              ? "/launcher"
+              : "/login"
+          : "/on_boarding"
+              ,
       getPages: [
         GetPage(
             name: '/on_boarding',
