@@ -1,11 +1,12 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:http/http.dart' as http; //dont forget to give it a name
 import 'dart:convert'; //converts json to normal and opposite
 import 'package:path/path.dart'; //this is for image uploading
 
-String _basicAuth = 'Basic ' + base64Encode(utf8.encode('zamel_db:estidama12'));
+String _basicAuth = 'Basic ${base64Encode(utf8.encode('zamel_db:estidama12'))}';
 //THIS IS THE PATHWAY FOR API
 Map<String, String> myheaders = {'authorization': _basicAuth};
 postRequest(String url, Map data) async {
@@ -15,14 +16,14 @@ postRequest(String url, Map data) async {
         await http.post(Uri.parse(url), body: data, headers: myheaders);
     if (response.statusCode == 200) {
       //404 error
-      var response_body = jsonDecode(response.body);
-      return response_body;
+      var responseBody = jsonDecode(response.body);
+      return responseBody;
     } else {
       log("Error caused by: ${response.statusCode}");
       return;
     }
   } catch (e) {
-    log("Error caused by: ${e}");
+    log("Error caused by: $e");
     return;
   }
 }
@@ -33,13 +34,13 @@ getRequest(String url) async {
     var response = await http.get(Uri.parse(url), headers: myheaders);
     if (response.statusCode == 200) {
       //404 error
-      var response_body = jsonDecode(response.body);
-      return response_body;
+      var responseBody = jsonDecode(response.body);
+      return responseBody;
     } else {
       log("Error caused by: ${response.statusCode}");
     }
   } catch (e) {
-    log("Error caused by: ${e}");
+    log("Error caused by: $e");
   }
 }
 
