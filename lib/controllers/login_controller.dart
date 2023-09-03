@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/local/shared_preference.dart';
@@ -35,11 +32,8 @@ class LoginController extends GetxController {
   void onSubmitLogin(phoneControl, countryControl, passControl, context) {
     if (phoneControl != "" && countryControl != "" && passControl != "") {
       loginRequest(phoneControl, countryControl, passControl);
-      // print("signed in");
     } else {
       defaultToast(massage: 'الرجاء ملئ الحقول', state: ToastStates.ERROR);
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => const Register()));
     }
   }
 }
