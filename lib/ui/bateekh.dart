@@ -1,5 +1,0 @@
-
-void aa(){
-
-  print(" bateekh");
-}
