@@ -70,4 +70,3 @@ postRequestWithFile(String url, File? file, Map data) async {
     log("error${myrequest.statusCode}");
   }
 }
-// }
