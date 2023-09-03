@@ -1,3 +1,0 @@
-void aa() {
-  print(" bandora");
-}

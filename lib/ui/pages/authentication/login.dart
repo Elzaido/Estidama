@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:madenati/ui/pages/main_pages/luncher.dart';
-import '../../../constants/colors.dart';
+import 'package:madenati/ui/widgets/button_widget.dart';
 import '../../widgets/formfield_widget.dart';
 import '../../widgets/toast_widget.dart';
 import 'register.dart';
@@ -122,52 +122,37 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 45,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: mainColor,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10))),
-                              onPressed: () {
-                                if (formKey.currentState!.validate()) {
-                                  if (phoneControl.text == '780710751') {
-                                    defaultToast(
-                                        massage: 'تم تسجيل الدخول بنجاح',
-                                        state: ToastStates.SUCCESS);
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Luncher()),
-                                        (Route<dynamic> route) => false);
-                                  } else {
-                                    defaultToast(
-                                        massage: 'الرجاء إنشاء الحساب أولاً',
-                                        state: ToastStates.ERROR);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Register()));
-                                  }
+                        button(
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                if (phoneControl.text == '780710751') {
+                                  defaultToast(
+                                      massage: 'تم تسجيل الدخول بنجاح',
+                                      state: ToastStates.SUCCESS);
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Luncher()),
+                                      (Route<dynamic> route) => false);
+                                } else {
+                                  defaultToast(
+                                      massage: 'الرجاء إنشاء الحساب أولاً',
+                                      state: ToastStates.ERROR);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Register()));
                                 }
-                              },
-                              child: const Text(
-                                "تسجيل دخول",
-                                style: TextStyle(
-                                  fontFamily: 'Cairo',
-                                ),
-                              )
-                              // : Center(
-                              // child: CircularProgressIndicator(
-                              //   backgroundColor: Colors.white,
-                              //   color: mainColor,
-                              //   strokeWidth: 3,
-                              // ))
+                              }
+                            },
+                            child: const Text(
+                              "تسجيل دخول",
+                              style: TextStyle(
+                                fontFamily: 'Cairo',
                               ),
-                        ),
+                            )),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
-import '../../../constants/colors.dart';
+import 'package:madenati/constants/colors.dart';
+import 'package:madenati/ui/widgets/button_widget.dart';
 import '../../widgets/formfield_widget.dart';
 import '../../widgets/toast_widget.dart';
 import 'login.dart';
@@ -17,18 +18,28 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   var phone = "";
-
   var formKey = GlobalKey<FormState>();
-
   final nameControl = TextEditingController();
-
   final phoneControl = TextEditingController();
-
   final countryControl = TextEditingController();
-
   final emailControl = TextEditingController();
-
   bool isPass1 = true;
+  bool isMaleSelected = false;
+  bool isFemaleSelected = false;
+
+  void selectMale() {
+    setState(() {
+      isMaleSelected = true;
+      isFemaleSelected = false;
+    });
+  }
+
+  void selectFemale() {
+    setState(() {
+      isMaleSelected = false;
+      isFemaleSelected = true;
+    });
+  }
 
   @override
   void initState() {
@@ -83,7 +94,59 @@ class _RegisterState extends State<Register> {
                         }
                       }),
                   SizedBox(
-                    height: 20,
+                    height: 15,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: isMaleSelected ? null : selectMale,
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                              (states) {
+                                if (states.contains(MaterialState.pressed)) {
+                                  return Colors.green;
+                                }
+                                return isMaleSelected
+                                    ? mainColor
+                                    : const Color.fromARGB(255, 197, 197, 197);
+                              },
+                            ),
+                          ),
+                          child: Text('ذكر',
+                              style: TextStyle(
+                                  color: Colors.white, fontFamily: 'Cairo')),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: isFemaleSelected ? null : selectFemale,
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                              (states) {
+                                if (states.contains(MaterialState.pressed)) {
+                                  return Colors.green;
+                                }
+                                return isFemaleSelected
+                                    ? mainColor
+                                    : const Color.fromARGB(255, 197, 197, 197);
+                              },
+                            ),
+                          ),
+                          child: Text('أنثى',
+                              style: TextStyle(
+                                  color: Colors.white, fontFamily: 'Cairo')),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15,
                   ),
                   formField(
                       control: emailControl,
@@ -146,46 +209,31 @@ class _RegisterState extends State<Register> {
                   SizedBox(
                     height: 20,
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 45,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: mainColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            if (nameControl.text == 'zaid') {
-                              defaultToast(
-                                  massage: 'الحساب موجود بالفعل!',
-                                  state: ToastStates.ERROR);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginPage()));
-                            } else {
-                              defaultToast(
-                                  massage: 'تم إنشاء الحساب بنجاح!',
-                                  state: ToastStates.SUCCESS);
-                              //Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeLayout()));
-                            }
+                  button(
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          if (nameControl.text == 'zaid') {
+                            defaultToast(
+                                massage: 'الحساب موجود بالفعل!',
+                                state: ToastStates.ERROR);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()));
+                          } else {
+                            defaultToast(
+                                massage: 'تم إنشاء الحساب بنجاح!',
+                                state: ToastStates.SUCCESS);
+                            //Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeLayout()));
                           }
-                        },
-                        child: Text(
-                          "إنشاء حساب",
-                          style: TextStyle(
-                            fontFamily: 'Cairo',
-                          ),
-                        )
-                        // : Center(
-                        // child: CircularProgressIndicator(
-                        //   backgroundColor: Colors.white,
-                        //   color: mainColor,
-                        //   strokeWidth: 3,
-                        // ))
+                        }
+                      },
+                      child: Text(
+                        "إنشاء حساب",
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
                         ),
-                  ),
+                      )),
                   SizedBox(
                     height: 20,
                   ),
