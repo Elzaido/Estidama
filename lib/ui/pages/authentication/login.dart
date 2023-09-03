@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:madenati/controllers/login_controller.dart';
 import 'package:madenati/ui/pages/main_pages/luncher.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
 import '../../widgets/formfield_widget.dart';
@@ -27,6 +29,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    LoginController _loginController = Get.find();
+
     return Scaffold(
       body: Center(
           child: SingleChildScrollView(
@@ -122,6 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(
                           height: 20,
                         ),
+
                         button(
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
@@ -151,6 +156,32 @@ class _LoginPageState extends State<LoginPage> {
                               "تسجيل دخول",
                               style: TextStyle(
                                 fontFamily: 'Cairo',
+
+                        SizedBox(
+                          width: double.infinity,
+                          height: 45,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: mainColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              onPressed: () {
+                                _loginController.onSubmitLogin(phoneControl.text,
+                                    countryControl.text, passControl.text, context);
+                              },
+                              child: const Text(
+                                "تسجيل دخول",
+                                style: TextStyle(
+                                  fontFamily: 'Cairo',
+                                ),
+                              )
+                              // : Center(
+                              // child: CircularProgressIndicator(
+                              //   backgroundColor: Colors.white,
+                              //   color: mainColor,
+                              //   strokeWidth: 3,
+                              // ))
+
                               ),
                             )),
                         Row(
