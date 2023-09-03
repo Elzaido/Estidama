@@ -1,0 +1,5 @@
+
+void aa(){
+
+  print(" bateekh");
+}
