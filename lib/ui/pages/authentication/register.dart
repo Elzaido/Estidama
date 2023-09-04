@@ -1,10 +1,11 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable
+// ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/colors.dart';
 import 'package:madenati/controllers/register_controller.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
+import 'package:madenati/ui/widgets/dropdown_widget.dart';
 import '../../widgets/formfield_widget.dart';
 
 class Register extends StatefulWidget {
@@ -91,14 +92,14 @@ class _RegisterState extends State<Register> {
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Cairo'),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   formField(
                       control: nameControl,
                       isScure: false,
                       label: 'الإسم',
-                      prefIcon: Icon(Icons.person_outline),
+                      prefIcon: const Icon(Icons.person_outline),
                       validator: (String? value) {
                         if (value!.length < 8) {
                           return "يجب ان يكون الاسم 8 احرف او اكثر";
@@ -109,7 +110,7 @@ class _RegisterState extends State<Register> {
                           return null;
                         }
                       }),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
@@ -130,12 +131,12 @@ class _RegisterState extends State<Register> {
                               },
                             ),
                           ),
-                          child: Text('ذكر',
+                          child: const Text('ذكر',
                               style: TextStyle(
                                   color: Colors.white, fontFamily: 'Cairo')),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Expanded(
@@ -154,19 +155,14 @@ class _RegisterState extends State<Register> {
                               },
                             ),
                           ),
-                          child: Text('أنثى',
+                          child: const Text('أنثى',
                               style: TextStyle(
                                   color: Colors.white, fontFamily: 'Cairo')),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  //THERE IS NO EMAIL
-
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -184,7 +180,7 @@ class _RegisterState extends State<Register> {
                           )),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Expanded(
@@ -202,6 +198,7 @@ class _RegisterState extends State<Register> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               hintText: "  رقم الهاتف",
+                              hintStyle: const TextStyle(fontFamily: 'Cairo'),
                             ),
                             validator: (value) {
                               if (value!.length < 10) {
@@ -216,21 +213,27 @@ class _RegisterState extends State<Register> {
                           )),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
+                  ),
+                  dropDown(
+                      selected: registerController.selectedProvince,
+                      list: registerController.provinces),
+                  const SizedBox(
+                    height: 5,
                   ),
                   formField(
                       control: passwordControl,
                       isScure: true,
                       label: "ادخل كلمة المرور",
-                      prefIcon: Icon(Icons.password),
+                      prefIcon: const Icon(Icons.lock),
                       validator: (value) {
                         if (value.toString().length < 8) {
                           return "يجب ان تكون كلمة المرور 8 خانات او اكثر";
                         }
                         return null;
                       }),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // dropDown(selected: registerController.selectedProvince, list: registerController.provinces,  ),
@@ -244,13 +247,13 @@ class _RegisterState extends State<Register> {
                               passwordControl.text,
                             )
                           : null,
-                      child: Text(
+                      child: const Text(
                         "إنشاء حساب",
                         style: TextStyle(
                           fontFamily: 'Cairo',
                         ),
                       )),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -260,7 +263,7 @@ class _RegisterState extends State<Register> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text(
+                          child: const Text(
                             'تسجيل الدخول',
                             style: TextStyle(
                               fontFamily: 'Cairo',
@@ -268,13 +271,13 @@ class _RegisterState extends State<Register> {
                               color: Colors.green,
                             ),
                           )),
-                      Text(
+                      const Text(
                         'لديك حساب؟',
                         style: TextStyle(
                           fontFamily: 'Cairo',
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 1,
                       ),
                     ],
