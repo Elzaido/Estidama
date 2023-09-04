@@ -6,9 +6,6 @@ import 'package:madenati/constants/colors.dart';
 import 'package:madenati/controllers/register_controller.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
 import '../../widgets/formfield_widget.dart';
-import '../../widgets/toast_widget.dart';
-import 'login.dart';
-import '../../widgets/dropdown_widget.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -25,7 +22,6 @@ class _RegisterState extends State<Register> {
   final nameControl = TextEditingController();
   final phoneControl = TextEditingController();
   final countryControl = TextEditingController();
-  // final emailControl = TextEditingController();
   final passwordControl = TextEditingController();
 
   bool isPass1 = true;
@@ -54,7 +50,6 @@ class _RegisterState extends State<Register> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     //ITS A GOOD PRACTICE TO DISPOSE THESSE OBJECTS FROM MEMORY TO AVOID MEMORY FULLNESS
     nameControl.dispose();
     countryControl.dispose();
@@ -65,7 +60,6 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     RegisterController registerController = Get.find();
 
     return Scaffold(
@@ -170,8 +164,8 @@ class _RegisterState extends State<Register> {
                   SizedBox(
                     height: 15,
                   ),
-                  //THERE IS NO EMAIL 
-               
+                  //THERE IS NO EMAIL
+
                   SizedBox(
                     height: 20,
                   ),
@@ -213,7 +207,7 @@ class _RegisterState extends State<Register> {
                               if (value!.length < 10) {
                                 return "يجب ان يتكون رقم الهاتف من 10 خانات على الاقل";
                               }
-                              if (value!.isEmpty) {
+                              if (value.isEmpty) {
                                 return 'يجب إدخال رقم الهاتف';
                               } else {
                                 return null;
@@ -231,8 +225,10 @@ class _RegisterState extends State<Register> {
                       label: "ادخل كلمة المرور",
                       prefIcon: Icon(Icons.password),
                       validator: (value) {
-                        if (value.toString().length < 8)
+                        if (value.toString().length < 8) {
                           return "يجب ان تكون كلمة المرور 8 خانات او اكثر";
+                        }
+                        return null;
                       }),
                   SizedBox(
                     height: 20,

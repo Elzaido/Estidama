@@ -1,3 +1,7 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:madenati/constants/hotlinks.dart';
@@ -45,13 +49,13 @@ class RegisterController extends GetxController {
 
     // Format the current date using the DateFormat object.
     String formattedDate = dateFormat.format(get_current_date);
-    print(formattedDate.toString());
+    log(formattedDate.toString());
     var response = await postRequest(signUpLink, {
-      "join_date": "$formattedDate",
-      "password": "$user_password",
-      "gender": "$gender",
-      "number": "$user_phone",
-      "name": "$user_name",
+      "join_date": formattedDate,
+      "password": user_password,
+      "gender": gender,
+      "number": user_phone,
+      "name": user_name,
       "province": "2",
       "status": "online"
     });
@@ -98,8 +102,4 @@ class RegisterController extends GetxController {
       );
     }
   }
-
-  //                           defaultToast(
-  //                               massage: 'تم إنشاء الحساب بنجاح!',
-  //                               state: ToastStates.SUCCESS);
 }
