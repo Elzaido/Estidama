@@ -5,8 +5,7 @@ Widget descFormField({
 }) =>
     Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-      margin: const EdgeInsets.symmetric(
-          vertical: 10, horizontal: 15), // Adjust margin as needed
+      margin: const EdgeInsets.only(bottom: 15), // Adjust margin as needed
       child: TextField(
         textDirection: TextDirection.rtl,
         maxLines: 5,

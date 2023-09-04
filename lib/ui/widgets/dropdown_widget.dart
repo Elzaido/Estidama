@@ -5,7 +5,7 @@ Widget dropDown({
   required List<String> list,
 }) =>
     Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15, top: 3, bottom: 10),
+      padding: const EdgeInsets.only(top: 3, bottom: 15),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(color: Colors.grey, width: 1),
