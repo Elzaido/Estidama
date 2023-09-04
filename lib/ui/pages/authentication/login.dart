@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/login_controller.dart';
-import 'package:madenati/ui/pages/main_pages/luncher.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
 import '../../widgets/formfield_widget.dart';
-import '../../widgets/toast_widget.dart';
 import 'register.dart';
 
 class LoginPage extends StatefulWidget {
@@ -29,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    LoginController _loginController = Get.find();
+    LoginController loginController = Get.find();
 
     return Scaffold(
       body: Center(
@@ -126,64 +124,18 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(
                           height: 20,
                         ),
-
                         button(
                             onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                if (phoneControl.text == '780710751') {
-                                  defaultToast(
-                                      massage: 'تم تسجيل الدخول بنجاح',
-                                      state: ToastStates.SUCCESS);
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Luncher()),
-                                      (Route<dynamic> route) => false);
-                                } else {
-                                  defaultToast(
-                                      massage: 'الرجاء إنشاء الحساب أولاً',
-                                      state: ToastStates.ERROR);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Register()));
-                                }
-                              }
+                              loginController.onSubmitLogin(
+                                  phoneControl.text,
+                                  countryControl.text,
+                                  passControl.text,
+                                  context);
                             },
-                            child: const Text(
-                              "تسجيل دخول",
-                              style: TextStyle(
-                                fontFamily: 'Cairo',
-
-                        SizedBox(
-                          width: double.infinity,
-                          height: 45,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: mainColor,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10))),
-                              onPressed: () {
-                                _loginController.onSubmitLogin(phoneControl.text,
-                                    countryControl.text, passControl.text, context);
-                              },
-                              child: const Text(
-                                "تسجيل دخول",
+                            child: const Text("تسجيل دخول",
                                 style: TextStyle(
                                   fontFamily: 'Cairo',
-                                ),
-                              )
-                              // : Center(
-                              // child: CircularProgressIndicator(
-                              //   backgroundColor: Colors.white,
-                              //   color: mainColor,
-                              //   strokeWidth: 3,
-                              // ))
-
-                              ),
-                            )),
+                                ))),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
