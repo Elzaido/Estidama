@@ -5,7 +5,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../models/boardingmodel.dart';
 import '../../db/local/shared_preference.dart';
 import '../widgets/onboarding_widget.dart';
-import 'authentication/login.dart';
+// import 'authentication/login.dart';
 
 // ignore: must_be_immutable
 class OnBoarding extends StatefulWidget {
@@ -35,8 +35,9 @@ class _OnBoardingState extends State<OnBoarding> {
   void submit() {
     CacheHelper.saveDate(key: 'onBoarding', value: true).then((value) {
       if (value) {
-        controller.navigateAndFinish(
-            context: context, widget: const LoginPage());
+        Get.offNamed("/login");
+        // controller.navigateAndFinish(
+        //     context: context, widget: const LoginPage());
       }
     });
   }
