@@ -33,7 +33,7 @@ class _OnBoardingState extends State<OnBoarding> {
   ];
 
   void submit() {
-    CacheHelper.saveDate(key: 'onBoarding', value: true).then((value) {
+    CacheHelper.saveData(key: 'onBoarding', value: true).then((value) {
       if (value) {
         Get.offNamed("/login");
         // controller.navigateAndFinish(

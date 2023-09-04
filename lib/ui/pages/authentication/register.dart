@@ -1,11 +1,14 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:madenati/constants/colors.dart';
+import 'package:madenati/controllers/register_controller.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
 import '../../widgets/formfield_widget.dart';
 import '../../widgets/toast_widget.dart';
 import 'login.dart';
+import '../../widgets/dropdown_widget.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -22,7 +25,9 @@ class _RegisterState extends State<Register> {
   final nameControl = TextEditingController();
   final phoneControl = TextEditingController();
   final countryControl = TextEditingController();
-  final emailControl = TextEditingController();
+  // final emailControl = TextEditingController();
+  final passwordControl = TextEditingController();
+
   bool isPass1 = true;
   bool isMaleSelected = false;
   bool isFemaleSelected = false;
@@ -48,13 +53,27 @@ class _RegisterState extends State<Register> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    //ITS A GOOD PRACTICE TO DISPOSE THESSE OBJECTS FROM MEMORY TO AVOID MEMORY FULLNESS
+    nameControl.dispose();
+    countryControl.dispose();
+    phoneControl.dispose();
+    passwordControl.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    RegisterController registerController = Get.find();
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Get.back();
           },
           icon: const Icon(
             Icons.arrow_back,
@@ -87,7 +106,10 @@ class _RegisterState extends State<Register> {
                       label: 'الإسم',
                       prefIcon: Icon(Icons.person_outline),
                       validator: (String? value) {
-                        if (value!.isEmpty) {
+                        if (value!.length < 8) {
+                          return "يجب ان يكون الاسم 8 احرف او اكثر";
+                        }
+                        if (value.isEmpty) {
                           return 'يجب إدخال الإسم';
                         } else {
                           return null;
@@ -148,18 +170,8 @@ class _RegisterState extends State<Register> {
                   SizedBox(
                     height: 15,
                   ),
-                  formField(
-                      control: emailControl,
-                      isScure: false,
-                      label: 'الريد الإلكتروني',
-                      prefIcon: Icon(Icons.email),
-                      validator: (String? value) {
-                        if (value!.isEmpty) {
-                          return 'يجب إدخال البريد الإلكتروني';
-                        } else {
-                          return null;
-                        }
-                      }),
+                  //THERE IS NO EMAIL 
+               
                   SizedBox(
                     height: 20,
                   ),
@@ -169,6 +181,7 @@ class _RegisterState extends State<Register> {
                       Expanded(
                         flex: 1,
                         child: TextFormField(
+                          enabled: false,
                           controller: countryControl,
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
@@ -197,6 +210,9 @@ class _RegisterState extends State<Register> {
                               hintText: "  رقم الهاتف",
                             ),
                             validator: (value) {
+                              if (value!.length < 10) {
+                                return "يجب ان يتكون رقم الهاتف من 10 خانات على الاقل";
+                              }
                               if (value!.isEmpty) {
                                 return 'يجب إدخال رقم الهاتف';
                               } else {
@@ -209,25 +225,29 @@ class _RegisterState extends State<Register> {
                   SizedBox(
                     height: 20,
                   ),
+                  formField(
+                      control: passwordControl,
+                      isScure: true,
+                      label: "ادخل كلمة المرور",
+                      prefIcon: Icon(Icons.password),
+                      validator: (value) {
+                        if (value.toString().length < 8)
+                          return "يجب ان تكون كلمة المرور 8 خانات او اكثر";
+                      }),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // dropDown(selected: registerController.selectedProvince, list: registerController.provinces,  ),
                   button(
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          if (nameControl.text == 'zaid') {
-                            defaultToast(
-                                massage: 'الحساب موجود بالفعل!',
-                                state: ToastStates.ERROR);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginPage()));
-                          } else {
-                            defaultToast(
-                                massage: 'تم إنشاء الحساب بنجاح!',
-                                state: ToastStates.SUCCESS);
-                            //Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeLayout()));
-                          }
-                        }
-                      },
+                      onPressed: () => formKey.currentState!.validate()
+                          ? registerController.signUpProcess(
+                              nameControl.text,
+                              phoneControl.text,
+                              "provi", //put the province data here  as number or id begin from 1: irbid
+                              isMaleSelected == true ? "male" : "female",
+                              passwordControl.text,
+                            )
+                          : null,
                       child: Text(
                         "إنشاء حساب",
                         style: TextStyle(

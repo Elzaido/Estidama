@@ -46,11 +46,11 @@ class myApp extends StatelessWidget {
             binding: OnBoardingBinding()),
         GetPage(
             name: "/login",
-            page: () => const LoginPage(),
+            page: (() => const LoginPage()),
             binding: LoginBinding()),
         GetPage(
             name: "/register",
-            page: () => const Register(),
+            page:( () => const Register()),
             binding: RegisterBinding()),
         GetPage(
             name: '/launcher',

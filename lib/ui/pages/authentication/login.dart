@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     LoginController loginController = Get.find();
-
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Center(
             child: SingleChildScrollView(
@@ -40,8 +40,8 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           Image.asset(
                             'assets/login.png',
-                            width: 180,
-                            height: 180,
+                            width: size.width * 0.45,
+                            height: size.height * 0.3,
                           ),
                           const SizedBox(
                             height: 25,
@@ -71,6 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                                 flex: 1,
                                 child: TextFormField(
                                   controller: countryControl,
+                                  enabled: false,
                                   keyboardType: TextInputType.phone,
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(
@@ -141,11 +142,8 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               TextButton(
                                   onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Register()));
+                                    Get.offNamed(
+                                        "/register"); //in getx use this instead of navigator
                                   },
                                   child: const Text(
                                     'إنشاء حساب',
