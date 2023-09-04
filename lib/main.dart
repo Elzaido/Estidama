@@ -36,9 +36,7 @@ class myApp extends StatelessWidget {
           ? CacheHelper.getData(key: "isLogin") == true
               ? "/launcher"
               : "/login"
-          : "/on_boarding"
-              ,
-
+          : "/on_boarding",
       getPages: [
         GetPage(
             name: '/on_boarding',
