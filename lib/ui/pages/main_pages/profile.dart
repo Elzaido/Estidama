@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
+// ignore_for_file: sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import '../../widgets/appbar_widget.dart';
@@ -17,8 +17,8 @@ class Profile extends StatelessWidget {
         child: Column(children: [
           Container(
             height: 140,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
+            child: const Padding(
+              padding: EdgeInsets.all(10.0),
               child: CircleAvatar(
                 backgroundImage: NetworkImage(
                     'https://th.bing.com/th/id/OIP.2s7VxdmHEoDKji3gO_i-5QHaHa?pid=ImgDet&rs=1'),
@@ -26,7 +26,7 @@ class Profile extends StatelessWidget {
               ),
             ),
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
@@ -46,7 +46,7 @@ class Profile extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
             child: Container(
@@ -68,28 +68,30 @@ class Profile extends StatelessWidget {
                 children: [
                   profileButton(
                       onPressed: () {},
-                      icon: Icon(Icons.edit),
+                      icon: const Icon(Icons.edit),
                       text: 'تعديل الملف الشخصي'),
                   separator(),
                   profileButton(
                       onPressed: () {},
                       text: 'تقديم بلاغ',
-                      icon: Icon(Icons.add)),
+                      icon: const Icon(Icons.add)),
                   separator(),
                   profileButton(
                       onPressed: () {},
                       text: 'بلاغاتي',
-                      icon: Icon(Icons.ad_units)),
+                      icon: const Icon(Icons.ad_units)),
                   separator(),
                   profileButton(
                       onPressed: () {},
                       text: 'التقديم للعمل التطوعي',
-                      icon: Icon(Icons.favorite_border)),
+                      icon: const Icon(Icons.favorite_border)),
                   separator(),
                   profileButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/login');
+                      },
                       text: 'تسجيل الخروج',
-                      icon: Icon(Icons.logout)),
+                      icon: const Icon(Icons.logout)),
                 ],
               ),
             ),
