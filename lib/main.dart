@@ -33,7 +33,7 @@ class myApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: CacheHelper.getData(key: 'onBoarding') == true
-          ? CacheHelper.getData(key: "isLogin") == false
+          ? CacheHelper.getData(key: "isLogin") == true
               ? "/launcher"
               : "/login"
           : "/on_boarding",
