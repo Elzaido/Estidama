@@ -1,11 +1,7 @@
-import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/local/shared_preference.dart';
 import 'package:madenati/db/remote/sql.dart';
-// import '../db/local/shared_preference.dart';
 import '../ui/widgets/toast_widget.dart';
 
 ///THIS IS THE LOGIN PAGE CONTROLLER IT HAS ON SUBMIT LOGIN WHICH CHECKS IF CREDENTIALS ARE
