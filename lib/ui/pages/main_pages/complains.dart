@@ -62,7 +62,8 @@ class Complains extends StatelessWidget {
                   ),
                   addLocation(
                       image: 'assets/location.png',
-                      title: 'حدد الموقع على الخريطة'),
+                      title: 'حدد الموقع على الخريطة',
+                      context: context),
                   button(
                       onPressed: () {},
                       child: const Row(

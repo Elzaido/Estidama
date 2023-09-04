@@ -10,12 +10,12 @@ import '../ui/widgets/toast_widget.dart';
 class LoginController extends GetxController {
   loginRequest(phone, country, password) async {
     var response = await postRequest(
-        loginPageLink, {"number": '${phone}', "password": "$password"});
+        loginPageLink, {"number": phone, "password": "$password"});
     //only for testing purposes number is: 4365345, password is 11111111
     ///
     CacheHelper.saveData(key: "isLogin", value: true);
     CacheHelper.saveData(key: "uId", value: "");
-     //get the usr id here
+    //get the usr id here
 
     if (response['auth_status'] == "wrong" || response['status'] == "faild") {
       defaultToast(

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:madenati/controllers/login_controller.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/formfield_widget.dart';
-import 'register.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
