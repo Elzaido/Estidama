@@ -25,7 +25,7 @@ class RegisterController extends GetxController {
     "الكرك",
     "الطفيلة"
   ];
-  String selectedProvince = "";
+  String selectedProvince = "عمان";
   RxString gender = "".obs;
   //in getx this is how we declare variables that are listenable
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:madenati/ui/widgets/appbar_widget.dart';
+import 'package:madenati/ui/widgets/button_widget.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -42,7 +44,7 @@ class MapScreenState extends State<MapScreen> {
 
       // Move the camera to the initial location.
       mapController.moveCamera(
-        CameraUpdate.newLatLngZoom(const LatLng(40.7128, -74.0060), 14.0),
+        CameraUpdate.newLatLngZoom(const LatLng(31.9465296, 35.8841449), 14.0),
       );
     });
   }
@@ -50,46 +52,61 @@ class MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Select Location'),
-      ),
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: const CameraPosition(
-          target: LatLng(40.7128, -74.0060), // Initial coordinates.
-          zoom: 14.0,
-        ),
-        markers: markers,
-        onTap: (LatLng position) {
-          // Remove existing markers and add a new one at the tapped position.
-          setState(() {
-            markers.clear();
-            markers.add(
-              Marker(
-                markerId: MarkerId(position.toString()),
-                position: position,
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                  BitmapDescriptor.hueAzure,
+      appBar: defaultAppBar(context: context, title: 'حدد مكان البلاغ'),
+      body: Stack(children: [
+        GoogleMap(
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: const CameraPosition(
+            target: LatLng(40.7128, -74.0060), // Initial coordinates.
+            zoom: 14.0,
+          ),
+          markers: markers,
+          onTap: (LatLng position) {
+            // Remove existing markers and add a new one at the tapped position.
+            setState(() {
+              markers.clear();
+              markers.add(
+                Marker(
+                  markerId: MarkerId(position.toString()),
+                  position: position,
+                  icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueRed,
+                  ),
+                  infoWindow: const InfoWindow(
+                    title: 'Selected Location',
+                    snippet: 'This is your selected location.',
+                  ),
                 ),
-                infoWindow: const InfoWindow(
-                  title: 'Selected Location',
-                  snippet: 'This is your selected location.',
-                ),
-              ),
-            );
+              );
 
-            // Update the selectedLocation.
-            selectedLocation = position;
-          });
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Return the selected location to the previous screen.
-          Navigator.pop(context, selectedLocation);
-        },
-        child: const Icon(Icons.check),
-      ),
+              // Update the selectedLocation.
+              selectedLocation = position;
+            });
+          },
+        ),
+        Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 65, vertical: 20),
+              child: button(
+                  onPressed: () {
+                    // Return the selected location to the previous screen.
+                    Navigator.pop(context, selectedLocation);
+                  },
+                  child: const Text(
+                    'تم تحديد المكان',
+                    style: TextStyle(fontFamily: 'Cairo'),
+                  )),
+            ))
+      ]),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: mainColor,
+      //   onPressed: () {
+      //     // Return the selected location to the previous screen.
+      //     Navigator.pop(context, selectedLocation);
+      //   },
+      //   child: const Icon(Icons.check),
+      // ),
     );
   }
 }

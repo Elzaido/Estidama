@@ -96,6 +96,8 @@ class _LoginPageState extends State<LoginPage> {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       hintText: "  رقم الهاتف",
+                                      hintStyle:
+                                          const TextStyle(fontFamily: 'Cairo'),
                                     ),
                                     validator: (value) {
                                       if (value!.isEmpty) {
