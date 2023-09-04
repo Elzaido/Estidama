@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:madenati/controllers/register_controller.dart';
 
 Widget dropDown({
   required String selected,
   required List<String> list,
+  required int FLAG
 }) =>
     Padding(
         padding: const EdgeInsets.only(top: 3, bottom: 15),
@@ -37,6 +40,11 @@ Widget dropDown({
                 );
               }).toList(),
               onChanged: (newValue) {
+                RegisterController registerController=Get.find();
+                  if(FLAG==1)
+                  {
+                    registerController.changeProvince(newValue);
+                  }
                 selected = newValue!;
               }),
         ));

@@ -25,10 +25,26 @@ class RegisterController extends GetxController {
     "الكرك",
     "الطفيلة"
   ];
-  String selectedProvince = "عمان";
+  Map<int, String> provincesx = {
+    1: "اربد",
+    2: "الزرقاء",
+    3: "عمان",
+    4: "مأدبا",
+    5: "جرش",
+    6: "عجلون",
+    7: 'معان',
+    8: "المفرق",
+    9: "العقبة",
+    10: "البلقاء",
+    11: "الكرك",
+    12: "الطفيلة"
+  };
+
+  RxString selectedProvince = "عمان".obs;
   RxString gender = "".obs;
   //in getx this is how we declare variables that are listenable
 
+  changeProvince(newValue) => selectedProvince.value = newValue;
 //Future update
   changeGender() => gender.value == "male" ? gender.value = "female" : "male";
 
@@ -36,6 +52,20 @@ class RegisterController extends GetxController {
   // PROVINCES IN DATABASE ARE IN ENGLISH  AND HAVE NDECIES : {IRBID: 1 ,AMMAN: 2}....
   //WE NEED TO SEND THE PROVINCE ID WHICH IS A STRING (PREFERABLE )  TO THE RESPONSE
   //THIS HELPS IN PUTTING MULI LANGAUGE LIKE ARABIC OR CHINEES...
+  String iterateUserProvince(String province) {
+    //THIS FUNCTION IS USED TO LOOP ON THE PROVINCES
+    // AND GET KEYS TO SAVE WITH THE CREDENTIALS
+    int key = 0;
+
+    provincesx.forEach((k, v) {
+      if (v == province) {
+        key = k;
+        return;
+      }
+    });
+    return key.toString();
+  }
+
   Future<void> saveCredentials({
     required String user_name,
     required String user_phone,
@@ -56,7 +86,7 @@ class RegisterController extends GetxController {
       "gender": gender,
       "number": user_phone,
       "name": user_name,
-      "province": "2",
+      "province":  iterateUserProvince(user_province) ,
       "status": "online"
     });
     //STATUS IS CHANGEABLE :ONCE THE USER SIGNS UP THIS MEANS HE IS ONLINE
@@ -86,6 +116,8 @@ class RegisterController extends GetxController {
 
   void signUpProcess(String user_name, String user_phone, String user_province,
       String gender, String user_password) {
+    
+    print(selectedProvince);
     if (user_name.isEmpty ||
         user_phone.isEmpty ||
         user_province.isEmpty ||

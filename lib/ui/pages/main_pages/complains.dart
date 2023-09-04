@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:madenati/controllers/complains_controller.dart';
+import 'package:madenati/ui/pages/main_pages/googlemaps.dart';
 import 'package:madenati/ui/widgets/add_location_widget.dart';
 import 'package:madenati/ui/widgets/appbar_widget.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
@@ -31,11 +32,11 @@ class Complains extends StatelessWidget {
                   title(text: 'ما هو نوع البلاغ'),
                   dropDown(
                       selected: controller.selectedComplain,
-                      list: controller.complainsList),
+                      list: controller.complainsList,FLAG: 0),
                   title(text: 'ما هي درجة خطورة البلاغ'),
                   dropDown(
                       selected: controller.selectedStatus,
-                      list: controller.complainStatus),
+                      list: controller.complainStatus,FLAG: 0),
                   descFormField(hint: 'أخبرنا المزيد ...'),
                   formField(
                     ontap: () {
@@ -65,7 +66,12 @@ class Complains extends StatelessWidget {
                       title: 'حدد الموقع على الخريطة',
                       context: context),
                   button(
-                      onPressed: () {},
+                      onPressed: () {
+                        
+ Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MapScreen()),
+              );                      },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
