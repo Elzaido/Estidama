@@ -32,11 +32,11 @@ class Complains extends StatelessWidget {
                   title(text: 'ما هو نوع البلاغ'),
                   dropDown(
                       selected: controller.selectedComplain,
-                      list: controller.complainsList),
+                      list: controller.complainsList,FLAG: 0),
                   title(text: 'ما هي درجة خطورة البلاغ'),
                   dropDown(
                       selected: controller.selectedStatus,
-                      list: controller.complainStatus),
+                      list: controller.complainStatus,FLAG: 0),
                   descFormField(hint: 'أخبرنا المزيد ...'),
                   formField(
                     ontap: () {
