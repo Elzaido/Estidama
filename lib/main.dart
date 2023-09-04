@@ -34,11 +34,9 @@ class myApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: CacheHelper.getData(key: 'onBoarding') == true
           ? CacheHelper.getData(key: "isLogin") == true
-              ? "/launcher"
+              ? "/login"
               : "/login"
-          : "/on_boarding"
-              ,
-
+          : "/on_boarding",
       getPages: [
         GetPage(
             name: '/on_boarding',
