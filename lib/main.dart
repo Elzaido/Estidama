@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/ui/pages/authentication/register.dart';
+import 'package:madenati/ui/pages/main_pages/googlemaps.dart';
 import 'package:madenati/ui/pages/main_pages/home.dart';
 import 'package:madenati/ui/pages/main_pages/luncher.dart';
 import 'package:madenati/ui/pages/main_pages/my_complains.dart';
@@ -76,6 +77,10 @@ class myApp extends StatelessWidget {
             name: '/volunteering',
             page: (() => const Volunteering()),
             binding: VolunteeringBinding()),
+            GetPage(
+            name: '/map_screen',
+            page: (() => const MapScreen()),
+            binding: MapScreenBinding()),
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:madenati/controllers/map_screen_controller.dart';
 import 'package:madenati/controllers/register_controller.dart';
 import '../controllers/complains_controller.dart';
 import '../controllers/home_controller.dart';
@@ -75,5 +76,12 @@ class VolunteeringBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut((() => VolunteeringController()), fenix: true);
+  }
+}
+
+class MapScreenBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut((() => MapScreenController()), fenix: true);
   }
 }
