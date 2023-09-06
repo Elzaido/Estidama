@@ -53,7 +53,7 @@ class MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: defaultAppBar(context: context, title: 'حدد مكان البلاغ'),
+      // appBar: defaultAppBar(context: context, title: 'حدد مكان البلاغ'),
       body: Stack(children: [
         GoogleMap(
           onMapCreated: _onMapCreated,
@@ -94,7 +94,7 @@ class MapScreenState extends State<MapScreen> {
                     // Return the selected location to the previous screen.
                     // Navigator.pop(context, selectedLocation);
                     // Get.back(arguments: "")
-                    Get.toNamed("/complains",arguments: selectedLocation.toString());
+                    Get.offNamed("/complains",arguments: selectedLocation.toString());
                   },
                   child: const Text(
                     ' حدد المكان',
@@ -102,14 +102,7 @@ class MapScreenState extends State<MapScreen> {
                   )),
             ))
       ]),
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: mainColor,
-      //   onPressed: () {
-      //     // Return the selected location to the previous screen.
-      //     Navigator.pop(context, selectedLocation);
-      //   },
-      //   child: const Icon(Icons.check),
-      // ),
+     
     );
   }
 }

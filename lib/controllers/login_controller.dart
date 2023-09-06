@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
-import 'package:madenati/db/local/shared_preference.dart';
 import 'package:madenati/db/remote/sql.dart';
+import 'package:madenati/ui/pages/authentication/auth_success.dart';
 import '../ui/widgets/toast_widget.dart';
 
 ///THIS IS THE LOGIN PAGE CONTROLLER IT HAS ON SUBMIT LOGIN WHICH CHECKS IF CREDENTIALS ARE
@@ -12,10 +12,6 @@ class LoginController extends GetxController {
     var response = await postRequest(
         loginPageLink, {"number": phone, "password": "$password"});
     //only for testing purposes number is: 4365345, password is 11111111
-    ///
-    CacheHelper.saveData(key: "isLogin", value: true);
-    CacheHelper.saveData(key: "uId", value: "");
-    //get the usr id here
 
     if (response['auth_status'] == "wrong" || response['status'] == "faild") {
       defaultToast(
@@ -23,10 +19,7 @@ class LoginController extends GetxController {
           state: ToastStates.ERROR);
     }
     if (response['status'] == "success") {
-      defaultToast(
-          massage: 'تم تسجيل الدخول بنجاح', state: ToastStates.SUCCESS);
-
-      Get.offAllNamed("/launcher"); //go to laucnher
+      onSuccessfulUserAuth(response, "تم تسجيل الدخول بنجاح");
     }
     return response;
   }
