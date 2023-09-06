@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/remote/sql.dart';
+import 'package:madenati/ui/pages/authentication/auth_success.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
 
 import '../db/local/shared_preference.dart';
@@ -86,7 +87,7 @@ class RegisterController extends GetxController {
       "gender": gender,
       "number": user_phone,
       "name": user_name,
-      "province":  iterateUserProvince(user_province) ,
+      "province": iterateUserProvince(user_province),
       "status": "online"
     });
     //STATUS IS CHANGEABLE :ONCE THE USER SIGNS UP THIS MEANS HE IS ONLINE
@@ -97,15 +98,10 @@ class RegisterController extends GetxController {
           massage: "لم يتم انشاء حساب يرجى التأكد من الحقول",
           state: ToastStates.ERROR);
     }
-
     if (response['status'] == "success") {
-      defaultToast(
-          massage: 'تم تسجيل الدخول بنجاح', state: ToastStates.SUCCESS);
-      CacheHelper.saveData(key: "isLogin", value: true);
-      CacheHelper.saveData(key: "uId", value: "1"); //will do it later
-
-      Get.offAllNamed("/launcher"); //go to laucnher
+      onSuccessfulUserAuth(response, "تم انشاء حساب بنجاح");
     }
+   
     if (response['account_exists'] == "yes") {
       defaultToast(
           massage: "! الحساب موجود مسبقا الرجاء استخدام رقمك الشخصي",
@@ -116,7 +112,6 @@ class RegisterController extends GetxController {
 
   void signUpProcess(String user_name, String user_phone, String user_province,
       String gender, String user_password) {
-    
     print(selectedProvince);
     if (user_name.isEmpty ||
         user_phone.isEmpty ||
