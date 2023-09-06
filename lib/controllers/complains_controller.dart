@@ -1,4 +1,6 @@
- import 'dart:io';
+// ignore_for_file: non_constant_identifier_names
+
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -7,9 +9,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/remote/sql.dart';
-import 'package:madenati/ui/widgets/success_dialog.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
- class ComplainsController extends GetxController {
+
+class ComplainsController extends GetxController {
   bool isDropdownOpen = false;
   RxInt isShowImage = 1.obs;
   List<String> complainsList = [
@@ -18,6 +20,7 @@ import 'package:madenati/ui/widgets/toast_widget.dart';
     'كلاب ضالة',
     'قطع أشجار الغابات',
   ];
+
   RxString selectedComplain = 'دخان المصانع'.obs;
   List<String> complainStatus = [
     'قليلة الخطورة',
@@ -32,17 +35,16 @@ import 'package:madenati/ui/widgets/toast_widget.dart';
   var picker = ImagePicker();
   var response;
   // whichCo
- 
+
   clearFieldsAndGoHome(description, location) {
-     descriptionController.text="";
+    descriptionController.text = "";
     complainImage = null;
-    selectedComplain.value =complainsList[0];
+    selectedComplain.value = complainsList[0];
     selectedComplainStatus.value = complainStatus[0];
-    isShowImage.value=1;
+    isShowImage.value = 1;
     location = "";
     // Get.offNamed("/launcher");
     update();
-    
   }
 
   int fromTextToIntComplain() {
@@ -118,8 +120,7 @@ import 'package:madenati/ui/widgets/toast_widget.dart';
     try {
       response = await postRequestWithFile(addComplainsLink, complainImage, {
         "complainer_id": "5", //get it from Uid
-        "complain_type":
-            "${fromTextToIntComplain().toString()}", //always numbers
+        "complain_type": fromTextToIntComplain().toString(), //always numbers
         "complain_date": getDateAsString,
         "complain_location": location,
         "complain_status": selectedComplainStatus.value.toString(),
@@ -150,16 +151,18 @@ import 'package:madenati/ui/widgets/toast_widget.dart';
       defaultToast(
           massage: "يجب كتابة وصف للبلاغ لايقل عن 20 حرف",
           state: ToastStates.ERROR);
-          return;
+      return;
     }
 
     if (geographic_location == null) {
-      defaultToast(massage: "يجب اختيار موقع البلاغ", state: ToastStates.ERROR);   return;
+      defaultToast(massage: "يجب اختيار موقع البلاغ", state: ToastStates.ERROR);
+      return;
     }
 
     if (complainImage == null) {
       defaultToast(
-          massage: " يجب اختيار صورة لمكان البلاغ", state: ToastStates.ERROR);   return;
+          massage: " يجب اختيار صورة لمكان البلاغ", state: ToastStates.ERROR);
+      return;
     }
 
     uploadComplain(geographic_location, description);

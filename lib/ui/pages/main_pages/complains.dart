@@ -1,20 +1,22 @@
-import 'dart:io';
+// ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:madenati/controllers/complains_controller.dart';
-import 'package:madenati/ui/widgets/add_location_widget.dart';
 import 'package:madenati/ui/widgets/appbar_widget.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
 import 'package:madenati/ui/widgets/complain_form_titles.dart';
 import 'package:madenati/ui/widgets/dropdown_widget.dart';
+import '../../widgets/add_location_widget.dart';
 import '../../widgets/desc_formfield_widget.dart';
- 
+
 class Complains extends StatelessWidget {
   Complains({super.key});
 //
   final dateControl = TextEditingController();
+
+  TextEditingController descriptionController = TextEditingController();
+
   var geographicLocationData = Get.arguments;
 
   @override
@@ -50,20 +52,25 @@ class Complains extends StatelessWidget {
                   ),
                   descFormField(
                       hint: 'الرجاء ذكر تفاصيل عن البلاغ مثل عنوان أو مكان',
-                      textController:complainsController. descriptionController),
-                  addLocation(image: "assets/location.png", title: "اضافة موقع", context: context),
+                      textController:
+                          complainsController.descriptionController),
+                  addLocation(
+                      image: "assets/location.png",
+                      title: "اضافة موقع",
+                      context: context),
                   pickImageWidget(
                     size,
                     complainsController,
                     context,
                   ),
                   Obx(() => complainsController.isShowImage.value != 1
-                      ? ImagePlacerHolderWidget(complainsController)
-                      : Text(" ")),
+                      ? imagePlacerHolderWidget(complainsController)
+                      : const Text(" ")),
                   button(
                       onPressed: () {
                         complainsController.checkComplainsData(
-                            complainsController. descriptionController.text, geographicLocationData);
+                            complainsController.descriptionController.text,
+                            geographicLocationData);
                       },
                       child: const Text(
                         "ارسال الشكوى",
@@ -173,7 +180,7 @@ class Complains extends StatelessWidget {
     );
   }
 
-  Widget ImagePlacerHolderWidget(ComplainsController complainsController) {
+  Widget imagePlacerHolderWidget(ComplainsController complainsController) {
     return Stack(
       children: [
         Container(
@@ -186,8 +193,8 @@ class Complains extends StatelessWidget {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: FileImage(complainsController.complainImage!))),
-        ) 
-        ,Padding(
+        ),
+        Padding(
           padding: const EdgeInsets.all(10.0),
           child: Align(
             alignment: Alignment.topRight,

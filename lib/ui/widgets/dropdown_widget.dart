@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,45 +26,45 @@ Widget dropDown(
               underline: const SizedBox(),
               items: list.map((valueItem) {
                 return DropdownMenuItem(
-                  value: valueItem,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: Text(
-                        valueItem,
-                        style: const TextStyle(
-                          fontFamily: 'Cairo',
+                    value: valueItem,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Text(
+                          valueItem,
+                          style: const TextStyle(
+                            fontFamily: 'Cairo',
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                );
+                    ));
               }).toList(),
               onChanged: (newValue) {
-               try{
-                 switch (FLAG) {
-                  case 1:
-                    RegisterController registerController = Get.find();
+                try {
+                  switch (FLAG) {
+                    case 1:
+                      RegisterController registerController = Get.find();
 
-                    registerController.changeProvince(newValue);
-                    break;
+                      registerController.changeProvince(newValue);
+                      break;
 
-                  case 2:
-                    ComplainsController complainsController = Get.find();
+                    case 2:
+                      ComplainsController complainsController = Get.find();
 
-                    complainsController.switchSelectedComplain(newValue);
-                    break;
+                      complainsController.switchSelectedComplain(newValue);
+                      break;
 
-                  case 3:
-                    ComplainsController complainsController = Get.find();
+                    case 3:
+                      ComplainsController complainsController = Get.find();
 
-                    complainsController.switchSelectedComplainStatus(newValue);
-                    break;
+                      complainsController
+                          .switchSelectedComplainStatus(newValue);
+                      break;
+                  }
+                } catch (exception) {
+                  log('$exception');
                 }
-               }catch (exception){
-                log(e);
-               }
 
                 selected = newValue!;
               }),

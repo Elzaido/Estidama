@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:madenati/controllers/launcher_controller.dart';
+
+LauncherController controller = Get.find();
 
 Widget gridItem({
   required context,
@@ -8,6 +12,7 @@ Widget gridItem({
 }) {
   return InkWell(
       onTap: () {
+        controller.changePage;
         Navigator.push(context, MaterialPageRoute(builder: (context) => nav));
       },
       child: Container(

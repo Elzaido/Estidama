@@ -9,8 +9,6 @@ import 'package:madenati/ui/pages/main_pages/luncher.dart';
 import 'package:madenati/ui/pages/main_pages/my_complains.dart';
 import 'package:madenati/ui/pages/main_pages/volunteering.dart';
 import 'package:madenati/ui/pages/on_boarding.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'constants/ids.dart';
 import 'controllers/complains_controller.dart';
 import 'db/local/shared_preference.dart';
 import 'ui/pages/authentication/login.dart';
@@ -18,10 +16,10 @@ import 'ui/pages/main_pages/complains.dart';
 import 'ui/pages/main_pages/profile.dart';
 import 'utilities/binding.dart';
 
- void main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
-   Get.put(ComplainsController());
+  Get.put(ComplainsController());
   runApp(const myApp());
 }
 
@@ -77,7 +75,7 @@ class myApp extends StatelessWidget {
             name: '/volunteering',
             page: (() => const Volunteering()),
             binding: VolunteeringBinding()),
-            GetPage(
+        GetPage(
             name: '/map_screen',
             page: (() => const MapScreen()),
             binding: MapScreenBinding()),

@@ -246,7 +246,8 @@ class _RegisterState extends State<Register> {
                           ? registerController.signUpProcess(
                               nameControl.text,
                               phoneControl.text,
-                              registerController.selectedProvince.value, //put the province data here  as number or id begin from 1: irbid
+                              registerController.selectedProvince
+                                  .value, //put the province data here  as number or id begin from 1: irbid
                               isMaleSelected == true ? "male" : "female",
                               passwordControl.text,
                             )
