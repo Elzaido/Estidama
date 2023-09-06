@@ -77,7 +77,7 @@ class myApp extends StatelessWidget {
             name: '/volunteering',
             page: (() => const Volunteering()),
             binding: VolunteeringBinding()),
-            GetPage(
+        GetPage(
             name: '/map_screen',
             page: (() => const MapScreen()),
             binding: MapScreenBinding()),

@@ -220,11 +220,7 @@ class _RegisterState extends State<Register> {
                     () => dropDown(
                         selected: registerController.selectedProvince.value,
                         list: registerController.provinces,
-                        onChanged: (newValue) {
-                          registerController.changeProvince(newValue);
-
-                          registerController.selectedProvince.value = newValue!;
-                        }),
+                        FLAG: 1),
                     //flag IS ONLY 1 WHEN ITS DROP DOWN FOR THE PROVINCES JUST BRCAUSE IT HAS SPECIAL SETTING IN ITS FUCTION
                   ),
                   const SizedBox(

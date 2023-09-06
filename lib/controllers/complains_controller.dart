@@ -1,4 +1,5 @@
-import 'dart:developer';
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 import 'dart:math';
 import 'package:get/get.dart';

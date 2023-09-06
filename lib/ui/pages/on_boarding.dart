@@ -19,15 +19,15 @@ class _OnBoardingState extends State<OnBoarding> {
   OnBoardingController controller = Get.find();
   List<BoardingModel> boarding = [
     BoardingModel(
-      image: 'assets/onboarding1.png',
+      image: 'assets/Grid3.png',
       title: 'معاً لبيئة أفضل',
     ),
     BoardingModel(
-      image: 'assets/onboarding3.png',
+      image: 'assets/Grid4.png',
       title: 'ساهم في إعادة التدوير',
     ),
     BoardingModel(
-      image: 'assets/onboarding2.png',
+      image: 'assets/Grid2.png',
       title: 'شارك معنا في العمل التطوعي',
     ),
   ];
@@ -47,92 +47,90 @@ class _OnBoardingState extends State<OnBoarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          actions: [
-            TextButton(
+        body: Stack(
+      children: [
+        Expanded(
+          // PageView means that i have many pages in one page :
+          child: PageView.builder(
+            physics: const BouncingScrollPhysics(),
+            controller: boardController,
+            onPageChanged: (int index) {
+              // if the index equal the index of the last page then :
+              if (index == boarding.length - 1) {
+                setState(() {
+                  isLast = true;
+                });
+              } else {
+                setState(() {
+                  isLast = false;
+                });
+              }
+            },
+            itemBuilder: (context, index) =>
+                boardingItemBuilder(boarding[index]),
+            itemCount: boarding.length,
+          ),
+        ),
+        Align(
+          alignment: Alignment.topRight,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: TextButton(
                 onPressed: () {
                   submit();
                 },
                 child: const Text(
                   'تخطي',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Cairo',
                     fontSize: 18,
                   ),
                 )),
-            const SizedBox(
-              width: 5,
-            )
-          ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 100,
-              ),
-              Expanded(
-                // PageView means that i have many pages in one page :
-                child: PageView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  controller: boardController,
-                  onPageChanged: (int index) {
-                    // if the index equal the index of the last page then :
-                    if (index == boarding.length - 1) {
-                      setState(() {
-                        isLast = true;
-                      });
-                    } else {
-                      setState(() {
-                        isLast = false;
-                      });
-                    }
-                  },
-                  itemBuilder: (context, index) =>
-                      boardingItemBuilder(boarding[index]),
-                  itemCount: boarding.length,
-                ),
-              ),
-              Row(
-                children: [
-                  SmoothPageIndicator(
-                    controller: boardController,
-                    count: boarding.length,
-                    effect: const ExpandingDotsEffect(
-                      activeDotColor: Colors.green,
-                      dotHeight: 10,
-                      dotWidth: 10,
-                      expansionFactor: 4,
-                      spacing: 5,
-                    ),
-                  ),
-                  const Spacer(),
-                  FloatingActionButton(
-                      backgroundColor: Colors.green,
-                      onPressed: () {
-                        if (isLast) {
-                          submit();
-                        } else {
-                          boardController.nextPage(
-                              duration: const Duration(
-                                milliseconds: 750,
-                              ),
-                              curve: Curves.fastLinearToSlowEaseIn);
-                        }
-                      },
-                      child: const Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.white,
-                      ))
-                ],
-              )
-            ],
           ),
-        ));
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              children: [
+                SmoothPageIndicator(
+                  controller: boardController,
+                  count: boarding.length,
+                  effect: const ExpandingDotsEffect(
+                    dotColor: Colors.white,
+                    activeDotColor: Colors.green,
+                    dotHeight: 10,
+                    dotWidth: 10,
+                    expansionFactor: 4,
+                    spacing: 5,
+                  ),
+                ),
+                const Spacer(),
+                FloatingActionButton(
+                    backgroundColor: Colors.green,
+                    onPressed: () {
+                      if (isLast) {
+                        submit();
+                      } else {
+                        boardController.nextPage(
+                            duration: const Duration(
+                              milliseconds: 750,
+                            ),
+                            curve: Curves.fastLinearToSlowEaseIn);
+                      }
+                    },
+                    child: const Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.white,
+                    ))
+              ],
+            ),
+          ),
+        )
+      ],
+    ));
   }
 }

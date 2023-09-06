@@ -1,18 +1,13 @@
-import 'dart:io';
+// ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:madenati/constants/colors.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:madenati/controllers/complains_controller.dart';
-import 'package:madenati/ui/widgets/add_location_widget.dart';
 import 'package:madenati/ui/widgets/appbar_widget.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
 import 'package:madenati/ui/widgets/complain_form_titles.dart';
 import 'package:madenati/ui/widgets/dropdown_widget.dart';
 import '../../widgets/desc_formfield_widget.dart';
-import '../../widgets/access_photo.dart';
 
 class Complains extends StatelessWidget {
   Complains({super.key});
@@ -37,7 +32,6 @@ class Complains extends StatelessWidget {
               child: Column(
                 children: [
                   title(text: 'ما هو نوع البلاغ'),
-
                   Obx(
                     () => dropDown(
                         selected: complainsController.selectedComplain.value
@@ -53,7 +47,6 @@ class Complains extends StatelessWidget {
                             .toString(),
                         list: complainsController.complainStatus,
                         FLAG: 3),
-
                   ),
                   descFormField(
                       hint: 'الرجاء ذكر تفاصيل عن البلاغ مثل عنوان أو مكان',
@@ -63,10 +56,11 @@ class Complains extends StatelessWidget {
                     complainsController,
                     context,
                   ),
-                 Obx( ()=>complainsController.isShowImage.value!=1? ImagePlacerHolderWidget(complainsController):Text("data")),
+                  Obx(() => complainsController.isShowImage.value != 1
+                      ? imagePlacerHolderWidget(complainsController)
+                      : const Text("data")),
                   button(
                       onPressed: () {
-
                         complainsController.sendComplain(
                             descriptionController.text, geographicLocationData);
                       },
@@ -177,22 +171,21 @@ class Complains extends StatelessWidget {
       ).paddingAll(5),
     );
   }
- 
-  Widget ImagePlacerHolderWidget(ComplainsController complainsController) {
+
+  Widget imagePlacerHolderWidget(ComplainsController complainsController) {
     return Stack(
       children: [
         Container(
-                height: 300,
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(5.0),
-                      topRight: Radius.circular(5.0),
-                    ),
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: FileImage(complainsController.complainImage!))),
-              )
-        
+          height: 300,
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(5.0),
+                topRight: Radius.circular(5.0),
+              ),
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: FileImage(complainsController.complainImage!))),
+        )
       ],
     );
   }
