@@ -1,14 +1,12 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/remote/sql.dart';
+import 'package:madenati/ui/pages/authentication/auth_success.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
-
-import '../db/local/shared_preference.dart';
 
 class RegisterController extends GetxController {
   List<String> provinces = [
@@ -98,15 +96,10 @@ class RegisterController extends GetxController {
           massage: "لم يتم انشاء حساب يرجى التأكد من الحقول",
           state: ToastStates.ERROR);
     }
-
     if (response['status'] == "success") {
-      defaultToast(
-          massage: 'تم تسجيل الدخول بنجاح', state: ToastStates.SUCCESS);
-      CacheHelper.saveData(key: "isLogin", value: true);
-      CacheHelper.saveData(key: "uId", value: "1"); //will do it later
-
-      Get.offAllNamed("/launcher"); //go to laucnher
+      onSuccessfulUserAuth(response, "تم انشاء حساب بنجاح");
     }
+
     if (response['account_exists'] == "yes") {
       defaultToast(
           massage: "! الحساب موجود مسبقا الرجاء استخدام رقمك الشخصي",

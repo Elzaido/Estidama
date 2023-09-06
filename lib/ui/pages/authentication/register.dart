@@ -266,7 +266,8 @@ class _RegisterState extends State<Register> {
                     children: [
                       TextButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            Get.back();
+                            // Navigator.pop(context);
                           },
                           child: const Text(
                             'تسجيل الدخول',

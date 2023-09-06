@@ -9,7 +9,7 @@ Widget descFormField(
       child: TextField(
         controller: textController,
         textDirection: TextDirection.rtl,
-        maxLines: 5,
+        maxLines: 5,autofocus:false,
         // Set the number of lines you want to display
         decoration: InputDecoration(
             hintText: hint,

@@ -7,6 +7,7 @@ import 'package:madenati/ui/widgets/appbar_widget.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
 import 'package:madenati/ui/widgets/complain_form_titles.dart';
 import 'package:madenati/ui/widgets/dropdown_widget.dart';
+import '../../widgets/add_location_widget.dart';
 import '../../widgets/desc_formfield_widget.dart';
 
 class Complains extends StatelessWidget {
@@ -15,6 +16,7 @@ class Complains extends StatelessWidget {
   final dateControl = TextEditingController();
 
   TextEditingController descriptionController = TextEditingController();
+
   var geographicLocationData = Get.arguments;
 
   @override
@@ -50,7 +52,12 @@ class Complains extends StatelessWidget {
                   ),
                   descFormField(
                       hint: 'الرجاء ذكر تفاصيل عن البلاغ مثل عنوان أو مكان',
-                      textController: descriptionController),
+                      textController:
+                          complainsController.descriptionController),
+                  addLocation(
+                      image: "assets/location.png",
+                      title: "اضافة موقع",
+                      context: context),
                   pickImageWidget(
                     size,
                     complainsController,
@@ -58,11 +65,12 @@ class Complains extends StatelessWidget {
                   ),
                   Obx(() => complainsController.isShowImage.value != 1
                       ? imagePlacerHolderWidget(complainsController)
-                      : const Text("data")),
+                      : const Text(" ")),
                   button(
                       onPressed: () {
-                        complainsController.sendComplain(
-                            descriptionController.text, geographicLocationData);
+                        complainsController.checkComplainsData(
+                            complainsController.descriptionController.text,
+                            geographicLocationData);
                       },
                       child: const Text(
                         "ارسال الشكوى",
@@ -185,7 +193,23 @@ class Complains extends StatelessWidget {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: FileImage(complainsController.complainImage!))),
-        )
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Align(
+            alignment: Alignment.topRight,
+            child: CircleAvatar(
+              backgroundColor: Colors.blue,
+              radius: 20,
+              child: IconButton(
+                  color: Colors.white,
+                  onPressed: () {
+                    complainsController.removePostImage();
+                  },
+                  icon: const Icon(Icons.close)),
+            ),
+          ),
+        ),
       ],
     );
   }

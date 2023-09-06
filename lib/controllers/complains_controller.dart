@@ -2,8 +2,11 @@
 
 import 'dart:io';
 import 'dart:math';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/remote/sql.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
@@ -25,90 +28,147 @@ class ComplainsController extends GetxController {
     'عالية الخطورة'
   ];
   RxString selectedComplainStatus = 'قليلة الخطورة'.obs;
-  RxString camer_file_path = "".obs;
-  File? image;
   Random randy = Random();
-  // File? my_file;
-  // File? my_file;
+  TextEditingController descriptionController = TextEditingController();
+
   File? complainImage;
   var picker = ImagePicker();
+  var response;
+  // whichCo
 
-  //this file is for open camera
-  ////
-  ///
+  clearFieldsAndGoHome(description, location) {
+    descriptionController.text = "";
+    complainImage = null;
+    selectedComplain.value = complainsList[0];
+    selectedComplainStatus.value = complainStatus[0];
+    isShowImage.value = 1;
+    location = "";
+    // Get.offNamed("/launcher");
+    update();
+  }
+
+  int fromTextToIntComplain() {
+    int complainNumber = 0;
+    switch (selectedComplain.value) {
+      case 'دخان المصانع':
+        complainNumber = 1;
+        break;
+      case 'نقص في حاويات القمامة':
+        complainNumber = 2;
+        break;
+      case 'كلاب ضالة':
+        complainNumber = 3;
+        break;
+      case 'قطع أشجار الغابات':
+        complainNumber = 4;
+        break;
+    }
+    return complainNumber;
+  }
+
   switchSelectedComplain(newValue) => selectedComplain.value = newValue;
   switchSelectedComplainStatus(newValue) =>
       selectedComplainStatus.value = newValue;
   toggleDropdown() => isDropdownOpen = !isDropdownOpen;
-  // bool checkFullFields(location, image, String description) =>
-  //     location != "" && image != null && description.length > 20 ? true : false;
 
   pickComplainImageFromGallery() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    try {
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    if (pickedFile != null) {
-      complainImage = File(pickedFile.path);
-      int a = randy.nextInt(300);
-      isShowImage.value = a;
+      if (pickedFile != null) {
+        complainImage = File(pickedFile.path);
+        int a = randy.nextInt(300);
+        isShowImage.value = a;
 
-      update();
-      // print(complainImage);
-    } else {
-      // log('No image selected');
+        update();
+      }
+    } catch (exe) {
+      return;
     }
   }
 
   pickComplainImageFromCamera() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    try {
+      final pickedFile = await picker.pickImage(source: ImageSource.camera);
 
-    if (pickedFile != null) {
-      complainImage = File(pickedFile.path);
-      int a = randy.nextInt(300);
-      isShowImage.value = a;
+      if (pickedFile != null) {
+        complainImage = File(pickedFile.path);
+        int a = randy.nextInt(300);
+        isShowImage.value = a;
 
-      update();
-    } else {
-      // log('No image selected');
+        update();
+      } else {
+        print('No image selected');
+      }
+    } catch (ex) {
+      return;
     }
   }
 
   void removePostImage() {
     complainImage = null;
     isShowImage.value = 1;
-
+//
     update();
   }
 
-  uploadComplain(String location, File image) async {
-    var response = await postRequestWithFile(addComplainsLink, image, {
-      "complainer_id": 1,
-      "complain_type": 1,
-      "complain_date": "ss",
-      "complain_location": location,
-      "complain_status": "dangerous",
-      "complain_description": 'heloo',
-    });
+  uploadComplain(String location, String description) async {
+    DateTime _currentDate = DateTime.now();
+    DateFormat _dateFormatter = DateFormat.yMd();
+    String getDateAsString = _dateFormatter.format(_currentDate);
 
-    if (response['status'] == "faild") print("fuuuck");
+    try {
+      response = await postRequestWithFile(addComplainsLink, complainImage, {
+        "complainer_id": "5", //get it from Uid
+        "complain_type": fromTextToIntComplain().toString(), //always numbers
+        "complain_date": getDateAsString,
+        "complain_location": location,
+        "complain_status": selectedComplainStatus.value.toString(),
+        "complain_description": description,
+      });
+      if (response['status'] == 'success') {
+        defaultToast(
+            massage: "تم ارسال البلاغ بنجاح", state: ToastStates.SUCCESS);
+        clearFieldsAndGoHome(description, location);
+      }
+
+      if (response['status'] == 'faild') {
+        defaultToast(massage: "faild", state: ToastStates.SUCCESS);
+      }
+    } catch (exe) {
+      defaultToast(
+          massage: "حدث خطب ما يرجى الاعادة لاحقا", state: ToastStates.SUCCESS);
+    }
+
     return response;
   }
 
-  sendComplain(String description, geographic_location) {
+  void checkComplainsData(
+    String description,
+    geographic_location,
+  ) {
     if (description.length < 20) {
       defaultToast(
           massage: "يجب كتابة وصف للبلاغ لايقل عن 20 حرف",
           state: ToastStates.ERROR);
+      return;
     }
 
     if (geographic_location == null) {
       defaultToast(massage: "يجب اختيار موقع البلاغ", state: ToastStates.ERROR);
+      return;
     }
 
     if (complainImage == null) {
       defaultToast(
           massage: " يجب اختيار صورة لمكان البلاغ", state: ToastStates.ERROR);
+      return;
     }
-    print(complainImage!.path);
-    uploadComplain(geographic_location, complainImage!);
+
+    uploadComplain(geographic_location, description);
+
+    //COMPLAINS DATA:
+    // 1 IMAGE FILE, LOCATION STRING , COMPLAIN STRING,
+    //STATUS STRING, UID STRING , DATE STRING
   }
 }

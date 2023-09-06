@@ -9,6 +9,7 @@ import 'package:madenati/ui/pages/main_pages/luncher.dart';
 import 'package:madenati/ui/pages/main_pages/my_complains.dart';
 import 'package:madenati/ui/pages/main_pages/volunteering.dart';
 import 'package:madenati/ui/pages/on_boarding.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'constants/ids.dart';
 import 'controllers/complains_controller.dart';
 import 'db/local/shared_preference.dart';
@@ -17,11 +18,10 @@ import 'ui/pages/main_pages/complains.dart';
 import 'ui/pages/main_pages/profile.dart';
 import 'utilities/binding.dart';
 
-void main() async {
+ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
-  uId = CacheHelper.getData(key: 'uId');
-  Get.put(ComplainsController());
+   Get.put(ComplainsController());
   runApp(const myApp());
 }
 
