@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:madenati/constants/colors.dart';
 import 'package:madenati/controllers/complains_controller.dart';
-import 'package:madenati/ui/pages/main_pages/googlemaps.dart';
 import 'package:madenati/ui/widgets/add_location_widget.dart';
 import 'package:madenati/ui/widgets/appbar_widget.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
@@ -15,6 +15,7 @@ class Complains extends StatelessWidget {
   Complains({super.key});
 //
   final dateControl = TextEditingController();
+  final descControl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +31,23 @@ class Complains extends StatelessWidget {
               child: Column(
                 children: [
                   title(text: 'ما هو نوع البلاغ'),
-                  dropDown(
-                      selected: controller.selectedComplain,
-                      list: controller.complainsList,FLAG: 0),
+                  Obx(() => dropDown(
+                      selected: controller.selectedComplain.value,
+                      list: controller.complainsList,
+                      onChanged: (newValue) {
+                        controller.changeCompalin(newValue);
+                        controller.selectedComplain.value = newValue!;
+                      })),
                   title(text: 'ما هي درجة خطورة البلاغ'),
-                  dropDown(
-                      selected: controller.selectedStatus,
-                      list: controller.complainStatus,FLAG: 0),
-                  descFormField(hint: 'أخبرنا المزيد ...'),
+                  Obx(() => dropDown(
+                      selected: controller.selectedStatus.value,
+                      list: controller.complainStatus,
+                      onChanged: (newValue) {
+                        controller.changeStatus(newValue);
+                        controller.selectedStatus.value = newValue!;
+                      })),
+                  descFormField(
+                      hint: 'أخبرنا المزيد ...', controller: descControl),
                   formField(
                     ontap: () {
                       showDatePicker(
@@ -67,11 +77,65 @@ class Complains extends StatelessWidget {
                       context: context),
                   button(
                       onPressed: () {
-                        
- Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MapScreen()),
-              );                      },
+                        showDialog(
+                            context: context,
+                            builder: (context1) => AlertDialog(
+                                    title: const Text(
+                                      'أضف صورة',
+                                      style: TextStyle(
+                                        fontFamily: 'Cairo',
+                                      ),
+                                      textAlign: TextAlign.end,
+                                    ),
+                                    actions: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 10),
+                                        child: button(
+                                            onPressed: () {
+                                              controller
+                                                  .pickComplainImageFromCamera();
+                                              Navigator.pop(context1, true);
+                                            },
+                                            child: const Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text('إلتقط صورة',
+                                                    style: TextStyle(
+                                                        fontFamily: 'Cairo')),
+                                                SizedBox(width: 5),
+                                                Icon(Icons.camera),
+                                              ],
+                                            )),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 10),
+                                        child: button(
+                                            onPressed: () {
+                                              controller
+                                                  .pickComplainImageFromGallery();
+                                              Navigator.pop(context1, true);
+                                            },
+                                            child: const Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'إختر من المعرض',
+                                                  style: TextStyle(
+                                                      fontFamily: 'Cairo'),
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Icon(Icons.image),
+                                              ],
+                                            )),
+                                      ),
+                                    ]));
+                      },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -81,7 +145,42 @@ class Complains extends StatelessWidget {
                           ),
                           Text('أضف صورة')
                         ],
-                      ))
+                      )),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  if (controller.complainImage != null)
+                    Stack(
+                      children: [
+                        Container(
+                            height: 400,
+                            decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(5.0),
+                                  topRight: Radius.circular(5.0),
+                                ),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image:
+                                        FileImage(controller.complainImage!)))),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: CircleAvatar(
+                              backgroundColor: mainColor,
+                              radius: 20,
+                              child: IconButton(
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    controller.removePostImage();
+                                  },
+                                  icon: const Icon(Icons.close)),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                 ],
               ),
             ),

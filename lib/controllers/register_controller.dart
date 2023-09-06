@@ -25,6 +25,7 @@ class RegisterController extends GetxController {
     "الكرك",
     "الطفيلة"
   ];
+
   Map<int, String> provincesx = {
     1: "اربد",
     2: "الزرقاء",
@@ -86,7 +87,7 @@ class RegisterController extends GetxController {
       "gender": gender,
       "number": user_phone,
       "name": user_name,
-      "province":  iterateUserProvince(user_province) ,
+      "province": iterateUserProvince(user_province),
       "status": "online"
     });
     //STATUS IS CHANGEABLE :ONCE THE USER SIGNS UP THIS MEANS HE IS ONLINE
@@ -116,8 +117,7 @@ class RegisterController extends GetxController {
 
   void signUpProcess(String user_name, String user_phone, String user_province,
       String gender, String user_password) {
-    
-    print(selectedProvince);
+    log('$selectedProvince');
     if (user_name.isEmpty ||
         user_phone.isEmpty ||
         user_province.isEmpty ||

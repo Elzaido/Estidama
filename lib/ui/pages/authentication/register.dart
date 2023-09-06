@@ -220,7 +220,11 @@ class _RegisterState extends State<Register> {
                     () => dropDown(
                         selected: registerController.selectedProvince.value,
                         list: registerController.provinces,
-                        FLAG: 1),
+                        onChanged: (newValue) {
+                          registerController.changeProvince(newValue);
+
+                          registerController.selectedProvince.value = newValue!;
+                        }),
                     //flag IS ONLY 1 WHEN ITS DROP DOWN FOR THE PROVINCES JUST BRCAUSE IT HAS SPECIAL SETTING IN ITS FUCTION
                   ),
                   const SizedBox(
@@ -246,7 +250,8 @@ class _RegisterState extends State<Register> {
                           ? registerController.signUpProcess(
                               nameControl.text,
                               phoneControl.text,
-                              registerController.selectedProvince.value, //put the province data here  as number or id begin from 1: irbid
+                              registerController.selectedProvince
+                                  .value, //put the province data here  as number or id begin from 1: irbid
                               isMaleSelected == true ? "male" : "female",
                               passwordControl.text,
                             )
