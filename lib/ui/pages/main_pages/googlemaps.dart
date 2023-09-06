@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:madenati/ui/widgets/appbar_widget.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
@@ -91,10 +92,12 @@ class MapScreenState extends State<MapScreen> {
               child: button(
                   onPressed: () {
                     // Return the selected location to the previous screen.
-                    Navigator.pop(context, selectedLocation);
+                    // Navigator.pop(context, selectedLocation);
+                    // Get.back(arguments: "")
+                    Get.toNamed("/complains",arguments: selectedLocation.toString());
                   },
                   child: const Text(
-                    'تم تحديد المكان',
+                    ' حدد المكان',
                     style: TextStyle(fontFamily: 'Cairo'),
                   )),
             ))

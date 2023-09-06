@@ -1,12 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:madenati/controllers/complains_controller.dart';
 import 'package:madenati/controllers/register_controller.dart';
 
-Widget dropDown({
-  required String selected,
-  required List<String> list,
-  required int FLAG
-}) =>
+Widget dropDown(
+        {required String selected,
+        required List<String> list,
+        required int FLAG}) =>
     Padding(
         padding: const EdgeInsets.only(top: 3, bottom: 15),
         child: Container(
@@ -40,11 +42,30 @@ Widget dropDown({
                 );
               }).toList(),
               onChanged: (newValue) {
-                RegisterController registerController=Get.find();
-                  if(FLAG==1)
-                  {
+               try{
+                 switch (FLAG) {
+                  case 1:
+                    RegisterController registerController = Get.find();
+
                     registerController.changeProvince(newValue);
-                  }
+                    break;
+
+                  case 2:
+                    ComplainsController complainsController = Get.find();
+
+                    complainsController.switchSelectedComplain(newValue);
+                    break;
+
+                  case 3:
+                    ComplainsController complainsController = Get.find();
+
+                    complainsController.switchSelectedComplainStatus(newValue);
+                    break;
+                }
+               }catch (exception){
+                log(e);
+               }
+
                 selected = newValue!;
               }),
         ));

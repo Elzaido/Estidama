@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../pages/main_pages/googlemaps.dart';
 
 Widget addLocation(
-        {required String image, required String title, required context}) =>
+        {required String image, required String title, required context }) =>
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: InkWell(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: ((context) => const MapScreen())));
+          //updated from navigator to getnamed 
+          Get.toNamed("/map_screen");
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: ((context) => const MapScreen())));
         },
         child: Container(
           decoration: BoxDecoration(
