@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:madenati/ui/widgets/appbar_widget.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
 
 class MapScreen extends StatefulWidget {
@@ -94,7 +93,8 @@ class MapScreenState extends State<MapScreen> {
                     // Return the selected location to the previous screen.
                     // Navigator.pop(context, selectedLocation);
                     // Get.back(arguments: "")
-                    Get.offNamed("/complains",arguments: selectedLocation.toString());
+                    Get.offNamed("/complains",
+                        arguments: selectedLocation.toString());
                   },
                   child: const Text(
                     ' حدد المكان',
@@ -102,7 +102,6 @@ class MapScreenState extends State<MapScreen> {
                   )),
             ))
       ]),
-     
     );
   }
 }
