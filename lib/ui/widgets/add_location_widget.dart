@@ -7,7 +7,7 @@ Widget addLocation(
         required context,
         required int whichPage}) =>
     Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 15),
       child: InkWell(
         onTap: () {
           //updated from navigator to getnamed
@@ -49,10 +49,10 @@ Widget addLocation(
                 children: [
                   Image(
                     image: AssetImage(image),
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                   Container(
-                      height: 110,
+                      height: 100,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         boxShadow: [

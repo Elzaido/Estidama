@@ -12,7 +12,7 @@ class GridModel {
 }
 
 List<GridModel> gridList = [
-  GridModel(title: 'تقديم بلاغ', image: 'assets/Grid1.png', nav: Complains()),
+  GridModel(title: 'تقديم شكوى', image: 'assets/Grid1.png', nav: Complains()),
   GridModel(
       title: 'التطوع', image: 'assets/Grid2.png', nav: const Volunteering()),
   GridModel(

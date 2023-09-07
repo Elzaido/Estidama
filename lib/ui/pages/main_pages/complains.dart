@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:madenati/constants/colors.dart';
 import 'package:madenati/controllers/complains_controller.dart';
 import 'package:madenati/ui/widgets/appbar_widget.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
@@ -24,7 +25,7 @@ class Complains extends StatelessWidget {
     ComplainsController complainsController = Get.find();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: defaultAppBar(context: context, title: 'تقديم بلاغ'),
+        appBar: defaultAppBar(context: context, title: 'تقديم شكوى'),
         body: SizedBox(
           width: double.infinity,
           child: SingleChildScrollView(
@@ -33,7 +34,7 @@ class Complains extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 children: [
-                  title(text: 'ما هو نوع البلاغ'),
+                  title(text: 'ما هو نوع شكوى'),
                   Obx(
                     () => dropDown(
                         selected: complainsController.selectedComplain.value
@@ -41,7 +42,7 @@ class Complains extends StatelessWidget {
                         list: complainsController.complainsList,
                         FLAG: 2),
                   ),
-                  title(text: 'ما هي درجة خطورة البلاغ'),
+                  title(text: 'ما هي درجة خطورة الشكوى'),
                   Obx(
                     () => dropDown(
                         selected: complainsController
@@ -51,12 +52,12 @@ class Complains extends StatelessWidget {
                         FLAG: 3),
                   ),
                   descFormField(
-                      hint: 'الرجاء ذكر تفاصيل عن البلاغ مثل عنوان أو مكان',
+                      hint: 'الرجاء ذكر تفاصيل أكثر عن الشكوى ...',
                       textController:
                           complainsController.descriptionController),
                   addLocation(
                       image: "assets/location.png",
-                      title: "اضافة موقع",
+                      title: "إضافة موقع الشكوى",
                       context: context,
                       whichPage: 1),
                   pickImageWidget(
@@ -74,10 +75,13 @@ class Complains extends StatelessWidget {
                             geographicLocationData);
                       },
                       child: const Text(
-                        "ارسال الشكوى",
+                        "إرسال الشكوى",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontFamily: "Cairo"),
-                      )).paddingAll(5),
+                      )),
+                  const SizedBox(
+                    height: 10,
+                  )
                 ],
               ),
             ),
@@ -91,127 +95,126 @@ class Complains extends StatelessWidget {
     context,
   ) {
     return InkWell(
-      onTap: () async {
-        showDialog(
-            context: context,
-            builder: (
-              context1,
-            ) =>
-                AlertDialog(
-                    title: const Text(
-                      'أضف صورة',
-                      style: TextStyle(
-                        fontFamily: 'Cairo',
+        onTap: () async {
+          showDialog(
+              context: context,
+              builder: (
+                context1,
+              ) =>
+                  AlertDialog(
+                      title: const Text(
+                        'أضف صورة',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                        ),
+                        textAlign: TextAlign.end,
                       ),
-                      textAlign: TextAlign.end,
-                    ),
-                    actions: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        child: button(
-                            //choosing image  from camera
-                            onPressed: () {
-                              // complainsController.isShowImage.value = 0;
-                              complainsController.pickComplainImageFromCamera();
-                              Navigator.pop(context1, true);
-                              complainsController.isShowImage.value = 1;
-                            },
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('إلتقط صورة',
-                                    style: TextStyle(fontFamily: 'Cairo')),
-                                SizedBox(width: 5),
-                                Icon(Icons.camera),
-                              ],
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        child: button(
-                            onPressed: () {
-                              // complainsController.isShowImage.value = 0;
-                              complainsController
-                                  .pickComplainImageFromGallery();
-                              Navigator.pop(context1, true);
-                            },
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'إختر من المعرض',
-                                  style: TextStyle(fontFamily: 'Cairo'),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Icon(Icons.image),
-                              ],
-                            )),
-                      ),
-                    ]));
-      },
-      child: Container(
-        width: size.width * 0.9,
-        height: 40,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.green)),
-        child: const Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'أضف صورة',
-                style: TextStyle(
-                  color: Colors.green,
-                  fontFamily: "Cairo",
+                      actions: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: button(
+                              //choosing image  from camera
+                              onPressed: () {
+                                // complainsController.isShowImage.value = 0;
+                                complainsController
+                                    .pickComplainImageFromCamera();
+                                Navigator.pop(context1, true);
+                                complainsController.isShowImage.value = 1;
+                              },
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('إلتقط صورة',
+                                      style: TextStyle(fontFamily: 'Cairo')),
+                                  SizedBox(width: 5),
+                                  Icon(Icons.camera),
+                                ],
+                              )),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: button(
+                              onPressed: () {
+                                // complainsController.isShowImage.value = 0;
+                                complainsController
+                                    .pickComplainImageFromGallery();
+                                Navigator.pop(context1, true);
+                              },
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'إختر من المعرض',
+                                    style: TextStyle(fontFamily: 'Cairo'),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Icon(Icons.image),
+                                ],
+                              )),
+                        ),
+                      ]));
+        },
+        child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.green)),
+          child: const Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'أضف صورة',
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontFamily: "Cairo",
+                  ),
                 ),
-              ),
-              Icon(
-                Icons.add_a_photo,
-                color: Colors.green,
-              )
-            ],
+                Icon(
+                  Icons.add_a_photo,
+                  color: Colors.green,
+                )
+              ],
+            ),
           ),
-        ),
-      ).paddingAll(5),
-    );
+        ));
   }
 
   Widget imagePlacerHolderWidget(ComplainsController complainsController) {
-    return Stack(
-      children: [
-        Container(
-          height: 300,
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(5.0),
-                topRight: Radius.circular(5.0),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: Stack(
+        children: [
+          Container(
+            height: 300,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: FileImage(complainsController.complainImage!))),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: CircleAvatar(
+                backgroundColor: mainColor,
+                radius: 20,
+                child: IconButton(
+                    color: Colors.white,
+                    onPressed: () {
+                      complainsController.removePostImage();
+                    },
+                    icon: const Icon(Icons.close)),
               ),
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: FileImage(complainsController.complainImage!))),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Align(
-            alignment: Alignment.topRight,
-            child: CircleAvatar(
-              backgroundColor: Colors.blue,
-              radius: 20,
-              child: IconButton(
-                  color: Colors.white,
-                  onPressed: () {
-                    complainsController.removePostImage();
-                  },
-                  icon: const Icon(Icons.close)),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

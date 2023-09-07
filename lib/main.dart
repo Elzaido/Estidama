@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:madenati/controllers/volunteering_controller.dart';
 import 'package:madenati/ui/pages/authentication/register.dart';
 import 'package:madenati/ui/pages/main_pages/googlemaps.dart';
 import 'package:madenati/ui/pages/main_pages/home.dart';
@@ -23,6 +24,7 @@ void main() async {
   await CacheHelper.init();
   Get.put(ComplainsController());
   Get.put(RecyclingController());
+  Get.put(VolunteeringController());
   runApp(const myApp());
 }
 

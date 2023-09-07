@@ -5,7 +5,7 @@ Widget carousel({required List<Widget> items, required Size size}) =>
     CarouselSlider(
         items: items,
         options: CarouselOptions(
-          height: size.height * 0.33,
+          height: size.height * 0.31,
           initialPage: 0,
           viewportFraction: 1.0,
           enableInfiniteScroll: true,
