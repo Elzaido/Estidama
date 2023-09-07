@@ -18,7 +18,5 @@ List<GridModel> gridList = [
   GridModel(
       title: 'إزرع شجرة', image: 'assets/Grid3.png', nav: const TreePlanting()),
   GridModel(
-      title: 'إعادة التدوير',
-      image: 'assets/Grid4.png',
-      nav: const Recycling()),
+      title: 'إعادة التدوير', image: 'assets/Grid4.png', nav: Recycling()),
 ];

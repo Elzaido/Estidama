@@ -39,7 +39,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   curved_navigation_bar: ^1.0.3
-  sqflite: ^2.3.0
   intl: ^0.18.1
   google_maps_flutter: ^2.5.0
   url_launcher: ^6.1.14
@@ -51,6 +50,7 @@ flutter_native_splash:
   web: false
   color: "#FFFFFF"
   image: "assets/logo.png"
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

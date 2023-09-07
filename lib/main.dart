@@ -7,6 +7,7 @@ import 'package:madenati/ui/pages/main_pages/googlemaps.dart';
 import 'package:madenati/ui/pages/main_pages/home.dart';
 import 'package:madenati/ui/pages/main_pages/luncher.dart';
 import 'package:madenati/ui/pages/main_pages/my_complains.dart';
+import 'package:madenati/ui/pages/main_pages/recycling.dart';
 import 'package:madenati/ui/pages/main_pages/volunteering.dart';
 import 'package:madenati/ui/pages/on_boarding.dart';
 import 'controllers/complains_controller.dart';
@@ -78,6 +79,10 @@ class myApp extends StatelessWidget {
         GetPage(
             name: '/map_screen',
             page: (() => const MapScreen()),
+            binding: MapScreenBinding()),
+        GetPage(
+            name: '/recycling',
+            page: (() => Recycling()),
             binding: MapScreenBinding()),
       ],
     );
