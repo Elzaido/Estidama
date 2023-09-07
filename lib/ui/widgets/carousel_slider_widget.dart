@@ -11,7 +11,7 @@ Widget carousel({required List<Widget> items, required Size size}) =>
           enableInfiniteScroll: true,
           reverse: false,
           autoPlay: true,
-          autoPlayInterval: const Duration(seconds: 4),
+          autoPlayInterval: const Duration(seconds: 5),
           autoPlayAnimationDuration: const Duration(seconds: 1),
           autoPlayCurve: Curves.fastOutSlowIn,
           scrollDirection: Axis.horizontal,

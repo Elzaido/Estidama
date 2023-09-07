@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 Widget addLocation(
-        {required String image, required String title, required context}) =>
+        {required String image,
+        required String title,
+        required context,
+        required int whichPage}) =>
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: InkWell(
         onTap: () {
           //updated from navigator to getnamed
-          Get.toNamed("/map_screen");
-          // Navigator.push(context,
-          //     MaterialPageRoute(builder: ((context) => const MapScreen())));
+          Get.toNamed("/map_screen", arguments: whichPage);
         },
         child: Container(
           decoration: BoxDecoration(
@@ -67,10 +68,10 @@ Widget addLocation(
                         child: Text(
                           title,
                           style: const TextStyle(
-                              fontFamily: 'Cairo',
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                            fontFamily: 'Cairo',
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
                           maxLines: 2,
                           textAlign: TextAlign.center,
                         ),

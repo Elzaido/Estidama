@@ -13,8 +13,7 @@ import '../../widgets/add_location_widget.dart';
 
 class Recycling extends StatelessWidget {
   Recycling({super.key});
-//
-  final dateControl = TextEditingController();
+
   final itemWeightcontroller = TextEditingController();
   var geographicLocationData = Get.arguments;
 
@@ -39,7 +38,7 @@ class Recycling extends StatelessWidget {
                             .selectedRecyclingItem.value
                             .toString(),
                         list: recyclingController.recyclingItemList,
-                        FLAG: 2),
+                        FLAG: 4),
                   ),
                   formField(
                     control: itemWeightcontroller,
@@ -57,7 +56,8 @@ class Recycling extends StatelessWidget {
                   addLocation(
                       image: "assets/location.png",
                       title: "أضف موقعك",
-                      context: context),
+                      context: context,
+                      whichPage: 2),
                   pickImageWidget(
                     size,
                     recyclingController,
@@ -180,36 +180,39 @@ class Recycling extends StatelessWidget {
   }
 
   Widget imagePlacerHolderWidget(RecyclingController recyclingController) {
-    return Stack(
-      children: [
-        Container(
-          height: 300,
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(5.0),
-                topRight: Radius.circular(5.0),
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Stack(
+        children: [
+          Container(
+            height: 300,
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(5.0),
+                  topRight: Radius.circular(5.0),
+                ),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: FileImage(recyclingController.recyclingItemImage!))),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: CircleAvatar(
+                backgroundColor: mainColor,
+                radius: 20,
+                child: IconButton(
+                    color: Colors.white,
+                    onPressed: () {
+                      recyclingController.removeRecyclingItemImage();
+                    },
+                    icon: const Icon(Icons.close)),
               ),
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: FileImage(recyclingController.recyclingItemImage!))),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Align(
-            alignment: Alignment.topRight,
-            child: CircleAvatar(
-              backgroundColor: mainColor,
-              radius: 20,
-              child: IconButton(
-                  color: Colors.white,
-                  onPressed: () {
-                    recyclingController.removeRecyclingItemImage();
-                  },
-                  icon: const Icon(Icons.close)),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

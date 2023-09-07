@@ -11,6 +11,7 @@ import 'package:madenati/ui/pages/main_pages/recycling.dart';
 import 'package:madenati/ui/pages/main_pages/volunteering.dart';
 import 'package:madenati/ui/pages/on_boarding.dart';
 import 'controllers/complains_controller.dart';
+import 'controllers/recycling_controller.dart';
 import 'db/local/shared_preference.dart';
 import 'ui/pages/authentication/login.dart';
 import 'ui/pages/main_pages/complains.dart';
@@ -21,6 +22,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   Get.put(ComplainsController());
+  Get.put(RecyclingController());
   runApp(const myApp());
 }
 
