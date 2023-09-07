@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'separator_widget.dart';
 
 Widget myComplainItem(context, Map list) {
-  MyComplainsController controller = Get.find();
   return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Container(
@@ -90,9 +87,7 @@ Widget myComplainItem(context, Map list) {
                   )),
                   Expanded(
                       child: InkWell(
-                    onTap: () {
-                      controller.deleteFromDB(id: list['id']);
-                    },
+                    onTap: () {},
                     child: const Column(
                       children: [
                         Icon(

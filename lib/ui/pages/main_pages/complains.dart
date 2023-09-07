@@ -57,7 +57,8 @@ class Complains extends StatelessWidget {
                   addLocation(
                       image: "assets/location.png",
                       title: "اضافة موقع",
-                      context: context),
+                      context: context,
+                      whichPage: 1),
                   pickImageWidget(
                     size,
                     complainsController,

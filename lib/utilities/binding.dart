@@ -8,6 +8,7 @@ import '../controllers/login_controller.dart';
 import '../controllers/mycomplains_controller.dart';
 import '../controllers/onboarding_controller.dart';
 import '../controllers/profile_controller.dart';
+import '../controllers/recycling_controller.dart';
 import '../controllers/volunteering_controller.dart';
 
 //HERE IN THIS CLASS WE CONNECT THE CONTROLLERS PAGES WITH THE PAGES INTERFACES
@@ -83,5 +84,12 @@ class MapScreenBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut((() => MapScreenController()), fenix: true);
+  }
+}
+
+class RecyclingBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut((() => RecyclingController()), fenix: true);
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -11,6 +13,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class MapScreenState extends State<MapScreen> {
+  var whichPage = Get.arguments;
   LatLng? selectedLocation; // This will store the selected location.
 
   // Create a controller for the Google Map.
@@ -90,11 +93,11 @@ class MapScreenState extends State<MapScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 65, vertical: 20),
               child: button(
                   onPressed: () {
-                    // Return the selected location to the previous screen.
-                    // Navigator.pop(context, selectedLocation);
-                    // Get.back(arguments: "")
-                    Get.offNamed("/complains",
-                        arguments: selectedLocation.toString());
+                    whichPage == 1
+                        ? Get.offNamed("/complains",
+                            arguments: selectedLocation.toString())
+                        : Get.offNamed("/recycling",
+                            arguments: selectedLocation.toString());
                   },
                   child: const Text(
                     ' حدد المكان',

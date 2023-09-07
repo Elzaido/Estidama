@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/complains_controller.dart';
+import 'package:madenati/controllers/recycling_controller.dart';
 import 'package:madenati/controllers/register_controller.dart';
 
 Widget dropDown(
@@ -60,6 +61,11 @@ Widget dropDown(
 
                       complainsController
                           .switchSelectedComplainStatus(newValue);
+                      break;
+                    case 4:
+                      RecyclingController recyclingController = Get.find();
+
+                      recyclingController.switchSelectedRecyclingItem(newValue);
                       break;
                   }
                 } catch (exception) {
