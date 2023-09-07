@@ -11,6 +11,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size=MediaQuery.of(context).size;
     return Scaffold(
         appBar:
             defaultAppBar(context: context, title: 'الرئيسية', isHome: true),
@@ -20,7 +21,7 @@ class Home extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             child: Column(
               children: [
-                carousel(items: images),
+                carousel(items: images,size:size ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -28,24 +29,28 @@ class Home extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 12,
-                  childAspectRatio: 1 / 1.30,
-                  children: gridList.map((item) {
-                    return gridItem(
-                        context: context,
-                        nav: item.nav!,
-                        image: item.image!,
-                        title: item.title!);
-                  }).toList(),
-                ),
+                UseActionGridView(context)
               ],
             ),
           ),
         ));
+  }
+
+  Widget UseActionGridView(context) {
+    return GridView.count(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisCount: 2,
+      mainAxisSpacing: 12,
+      crossAxisSpacing: 12,
+      childAspectRatio: 1 / 1.30,
+      children: gridList.map((item) {
+        return gridItem(
+            context: context,
+            nav: item.nav!,
+            image: item.image!,
+            title: item.title!);
+      }).toList(),
+    );
   }
 }

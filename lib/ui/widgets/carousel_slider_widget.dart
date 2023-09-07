@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-Widget carousel({required List<Widget> items}) => CarouselSlider(
+Widget carousel({required List<Widget> items, required Size size}) => CarouselSlider(
     items: items,
     options: CarouselOptions(
-      height: 270.0,
+      height: size.height *0.33,
       initialPage: 0,
       viewportFraction: 1.0,
       enableInfiniteScroll: true,
