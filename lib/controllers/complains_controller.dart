@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
 
 import 'dart:io';
 import 'dart:math';
@@ -35,7 +35,6 @@ class ComplainsController extends GetxController {
   File? complainImage;
   var picker = ImagePicker();
   var response;
-  // whichCo
 
   clearFieldsAndGoHome(description, location) {
     descriptionController.text = "";

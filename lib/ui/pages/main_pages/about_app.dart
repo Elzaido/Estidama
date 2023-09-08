@@ -32,36 +32,42 @@ class AboutAppState extends State<AboutApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: defaultAppBar(context: context, title: 'نبذة عن التطبيق'),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            AnimatedOpacity(
-              opacity: imageOpacity,
-              duration: const Duration(milliseconds: 500),
-              child: gradientImage(
-                image: 'assets/about.png',
-              ),
-            ),
-            AnimatedOpacity(
-              opacity: textOpacity,
-              duration: const Duration(milliseconds: 500),
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Text(
-                  aboutAppText,
-                  style: const TextStyle(fontSize: 16, fontFamily: 'Cairo'),
-                  textAlign: TextAlign.justify,
-                  textDirection: TextDirection.rtl,
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.pop(context);
+        return Future.value(false);
+      },
+      child: Scaffold(
+        appBar: defaultAppBar(context: context, title: 'نبذة عن التطبيق'),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              AnimatedOpacity(
+                opacity: imageOpacity,
+                duration: const Duration(milliseconds: 500),
+                child: gradientImage(
+                  image: 'assets/about.png',
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-          ],
+              AnimatedOpacity(
+                opacity: textOpacity,
+                duration: const Duration(milliseconds: 500),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Text(
+                    aboutAppText,
+                    style: const TextStyle(fontSize: 16, fontFamily: 'Cairo'),
+                    textAlign: TextAlign.justify,
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
         ),
       ),
     );
