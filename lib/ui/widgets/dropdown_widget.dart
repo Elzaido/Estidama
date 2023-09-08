@@ -75,6 +75,13 @@ Widget dropDown(
                       volunteeringController
                           .switchSelectedVolunteringType(newValue);
                       break;
+                    case 6:
+                      VolunteeringController volunteeringController =
+                          Get.find();
+
+                      volunteeringController
+                          .switchSelectedVolunteringGroup(newValue);
+                      break;
                   }
                 } catch (exception) {
                   log('$exception');

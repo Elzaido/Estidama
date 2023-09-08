@@ -5,9 +5,10 @@ Widget addLocation(
         {required String image,
         required String title,
         required context,
-        required int whichPage}) =>
+        required int whichPage,
+        required Size size}) =>
     Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: InkWell(
         onTap: () {
           //updated from navigator to getnamed
@@ -31,6 +32,7 @@ Widget addLocation(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16.0),
             child: Container(
+              height: size.height * 0.13,
               decoration: BoxDecoration(
                 borderRadius:
                     BorderRadius.circular(16.0), // Adjust the radius as needed
@@ -38,10 +40,10 @@ Widget addLocation(
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.4), // Shadow color
-                    spreadRadius: 2,
-                    blurRadius: 4,
+                    spreadRadius: 1,
+                    blurRadius: 2,
                     offset: const Offset(
-                        0, 2), // Shadow position [horizontal, vertical]
+                        0, 1), // Shadow position [horizontal, vertical]
                   ),
                 ],
               ),
@@ -52,7 +54,7 @@ Widget addLocation(
                     fit: BoxFit.cover,
                   ),
                   Container(
-                      height: 100,
+                      height: size.height * 0.13,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         boxShadow: [

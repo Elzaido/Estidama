@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:madenati/ui/pages/main_pages/about_app.dart';
 import '../ui/pages/main_pages/complains.dart';
 import '../ui/pages/main_pages/recycling.dart';
 import '../ui/pages/main_pages/tree.dart';
@@ -19,4 +20,8 @@ List<GridModel> gridList = [
       title: 'إزرع شجرة', image: 'assets/Grid3.png', nav: const TreePlanting()),
   GridModel(
       title: 'إعادة التدوير', image: 'assets/Grid4.png', nav: Recycling()),
+  GridModel(
+      title: 'نبذة عن التطبيق',
+      image: 'assets/logo1.gif',
+      nav: const AboutApp())
 ];

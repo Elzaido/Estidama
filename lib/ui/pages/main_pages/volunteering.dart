@@ -112,6 +112,25 @@ class VolunteeringState extends State<Volunteering> {
                                         ),
                                       ),
                                       Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 11),
+                                        child: title(text: 'جهة التطوع'),
+                                      ),
+                                      Obx(
+                                        () => Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: dropDown(
+                                              selected: volunteeringController
+                                                  .selectedVolunteringGroup
+                                                  .value
+                                                  .toString(),
+                                              list: volunteeringController
+                                                  .volunteringGroupList,
+                                              FLAG: 6),
+                                        ),
+                                      ),
+                                      Padding(
                                         padding: const EdgeInsets.all(10),
                                         child: button(
                                             onPressed: () {

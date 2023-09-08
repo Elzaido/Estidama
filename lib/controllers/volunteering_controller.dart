@@ -6,22 +6,17 @@ class VolunteeringController extends GetxController {
     'زراعة',
     'نظافة',
   ];
-  RxString selectedVolunteringType = 'زراعة'.obs;
+  List<String> volunteringGroupList = [
+    'مدرسة',
+    'أهل حي',
+    'جمعية خيرية',
+  ];
 
-  int fromTextToIntComplain() {
-    int volunteringTypeNumber = 0;
-    switch (selectedVolunteringType.value) {
-      case 'زراعة':
-        volunteringTypeNumber = 1;
-        break;
-      case 'نظافة':
-        volunteringTypeNumber = 2;
-        break;
-    }
-    return volunteringTypeNumber;
-  }
+  RxString selectedVolunteringGroup = 'مدرسة'.obs;
+  RxString selectedVolunteringType = 'زراعة'.obs;
 
   switchSelectedVolunteringType(newValue) =>
       selectedVolunteringType.value = newValue;
-  toggleDropdown() => isDropdownOpen = !isDropdownOpen;
+  switchSelectedVolunteringGroup(newValue) =>
+      selectedVolunteringGroup.value = newValue;
 }
