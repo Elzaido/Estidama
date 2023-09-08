@@ -57,7 +57,8 @@ class Recycling extends StatelessWidget {
                       image: "assets/location.png",
                       title: "أضف موقعك",
                       context: context,
-                      whichPage: 2),
+                      whichPage: 2,
+                      size: size),
                   pickImageWidget(
                     size,
                     recyclingController,
@@ -76,7 +77,7 @@ class Recycling extends StatelessWidget {
                         "إرسال",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontFamily: "Cairo"),
-                      )).paddingAll(5),
+                      )),
                 ],
               ),
             ),
@@ -152,8 +153,7 @@ class Recycling extends StatelessWidget {
                     ]));
       },
       child: Container(
-        width: size.width * 0.9,
-        height: 40,
+        height: 50,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: Colors.green)),
@@ -168,6 +168,9 @@ class Recycling extends StatelessWidget {
                   fontFamily: "Cairo",
                 ),
               ),
+              SizedBox(
+                width: 5,
+              ),
               Icon(
                 Icons.add_a_photo,
                 color: Colors.green,
@@ -175,22 +178,19 @@ class Recycling extends StatelessWidget {
             ],
           ),
         ),
-      ).paddingAll(5),
+      ),
     );
   }
 
   Widget imagePlacerHolderWidget(RecyclingController recyclingController) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.symmetric(vertical: 15),
       child: Stack(
         children: [
           Container(
             height: 300,
             decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(5.0),
-                  topRight: Radius.circular(5.0),
-                ),
+                borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
                     fit: BoxFit.cover,
                     image: FileImage(recyclingController.recyclingItemImage!))),

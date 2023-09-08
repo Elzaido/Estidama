@@ -26,12 +26,11 @@ Widget carsoulItem({
             fit: BoxFit.cover,
           ),
           Container(
-              height: 1000,
-              width: 200,
+              width: 180,
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: mainColor.withOpacity(0.7),
+                    color: mainColor.withOpacity(0.8),
                     spreadRadius: 6,
                     blurRadius: 6,
                   ),
@@ -39,22 +38,22 @@ Widget carsoulItem({
               ),
               child: Align(
                 alignment: Alignment.topRight,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 35,
-                        fontFamily: 'Cairo',
-                        color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 35,
+                          fontFamily: 'Cairo',
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.right,
+                        textDirection: TextDirection.ltr,
                       ),
-                      textAlign: TextAlign.right,
-                      textDirection: TextDirection.ltr,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Text(
+                      Text(
                         text,
                         style: const TextStyle(
                           fontSize: 14,
@@ -64,8 +63,8 @@ Widget carsoulItem({
                         textAlign: TextAlign.right,
                         textDirection: TextDirection.ltr,
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               )),
         ],

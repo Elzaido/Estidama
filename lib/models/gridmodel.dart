@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:madenati/ui/pages/main_pages/about_app.dart';
 import '../ui/pages/main_pages/complains.dart';
 import '../ui/pages/main_pages/recycling.dart';
 import '../ui/pages/main_pages/tree.dart';
@@ -12,11 +13,15 @@ class GridModel {
 }
 
 List<GridModel> gridList = [
-  GridModel(title: 'تقديم بلاغ', image: 'assets/Grid1.png', nav: Complains()),
+  GridModel(title: 'تقديم شكوى', image: 'assets/Grid1.png', nav: Complains()),
   GridModel(
       title: 'التطوع', image: 'assets/Grid2.png', nav: const Volunteering()),
   GridModel(
       title: 'إزرع شجرة', image: 'assets/Grid3.png', nav: const TreePlanting()),
   GridModel(
       title: 'إعادة التدوير', image: 'assets/Grid4.png', nav: Recycling()),
+  GridModel(
+      title: 'نبذة عن التطبيق',
+      image: 'assets/logo1.gif',
+      nav: const AboutApp())
 ];

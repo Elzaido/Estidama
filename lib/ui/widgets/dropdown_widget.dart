@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:madenati/controllers/complains_controller.dart';
 import 'package:madenati/controllers/recycling_controller.dart';
 import 'package:madenati/controllers/register_controller.dart';
+import 'package:madenati/controllers/volunteering_controller.dart';
 
 Widget dropDown(
         {required String selected,
@@ -66,6 +67,20 @@ Widget dropDown(
                       RecyclingController recyclingController = Get.find();
 
                       recyclingController.switchSelectedRecyclingItem(newValue);
+                      break;
+                    case 5:
+                      VolunteeringController volunteeringController =
+                          Get.find();
+
+                      volunteeringController
+                          .switchSelectedVolunteringType(newValue);
+                      break;
+                    case 6:
+                      VolunteeringController volunteeringController =
+                          Get.find();
+
+                      volunteeringController
+                          .switchSelectedVolunteringGroup(newValue);
                       break;
                   }
                 } catch (exception) {

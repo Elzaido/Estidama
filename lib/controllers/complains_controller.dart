@@ -14,13 +14,15 @@ class ComplainsController extends GetxController {
   bool isDropdownOpen = false;
   RxInt isShowImage = 1.obs;
   List<String> complainsList = [
-    'دخان المصانع',
+    'صرف صحي',
+    'ضوضاء و ضجيج',
+    'تراكم نفايات',
     'نقص في حاويات القمامة',
-    'كلاب ضالة',
-    'قطع أشجار الغابات',
+    'تلوث هواء',
+    'معامل طوب / حجر'
   ];
 
-  RxString selectedComplain = 'دخان المصانع'.obs;
+  RxString selectedComplain = 'صرف صحي'.obs;
   List<String> complainStatus = [
     'قليلة الخطورة',
     'متوسطة الخطورة',
@@ -68,7 +70,6 @@ class ComplainsController extends GetxController {
   switchSelectedComplain(newValue) => selectedComplain.value = newValue;
   switchSelectedComplainStatus(newValue) =>
       selectedComplainStatus.value = newValue;
-  toggleDropdown() => isDropdownOpen = !isDropdownOpen;
 
   pickComplainImageFromGallery() async {
     try {

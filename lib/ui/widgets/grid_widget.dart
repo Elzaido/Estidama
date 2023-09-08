@@ -36,7 +36,7 @@ Widget gridItem({
             decoration: BoxDecoration(
               borderRadius:
                   BorderRadius.circular(16.0), // Adjust the radius as needed
-              color: const Color.fromARGB(255, 247, 247, 247),
+              color: Colors.white,
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.4), // Shadow color
@@ -49,9 +49,11 @@ Widget gridItem({
             ),
             child: Stack(
               children: [
-                Image(
-                  image: AssetImage(image),
-                  fit: BoxFit.fill,
+                Center(
+                  child: Image(
+                    image: AssetImage(image),
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Container(
                     height: 300,
