@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/launcher_controller.dart';
@@ -12,7 +14,8 @@ Widget gridItem({
 }) {
   return InkWell(
       onTap: () {
-        controller.changePage;
+        controller.isBottomNavigationBarVisible.value = false;
+        log('${controller.isBottomNavigationBarVisible.value}');
         Navigator.push(context, MaterialPageRoute(builder: (context) => nav));
       },
       child: Container(
