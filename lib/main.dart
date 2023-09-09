@@ -22,7 +22,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   Get.put(ComplainsController());
-  Get.put(RecyclingController());  
+  Get.put(RecyclingController());
   runApp(const myApp());
 }
 
