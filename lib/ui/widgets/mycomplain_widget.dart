@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:madenati/constants/hotlinks.dart';
+import 'package:madenati/controllers/mycomplains_controller.dart';
+import 'package:madenati/models/mycomplains_model.dart';
+import 'package:madenati/ui/widgets/grid_widget.dart';
 import 'separator_widget.dart';
 
-Widget myComplainItem(context, Map list) {
+Widget myComplainItem(
+    context, ComplainsModel complainModel,     MyComplainsController _myComplainsController,index) {
+  // print(complainModel.complainDate);
+  MyComplainsController controller=Get.find();
   return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Container(
@@ -32,7 +40,7 @@ Widget myComplainItem(context, Map list) {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
-                          list['title'],
+                          complainModel.complainDescription.toString(),
                           maxLines: 2,
                           textAlign: TextAlign.end,
                           overflow: TextOverflow.ellipsis,
@@ -43,7 +51,7 @@ Widget myComplainItem(context, Map list) {
                           ),
                         ),
                         Text(
-                          list['desc'],
+                          complainModel.complainDate.toString(),
                           textAlign: TextAlign.end,
                           style: const TextStyle(
                               fontSize: 15, fontFamily: 'Cairo'),
@@ -54,40 +62,45 @@ Widget myComplainItem(context, Map list) {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: Image(
+                  child: complainModel.complainImagePath==""? Image(
                     image: NetworkImage(
-                      list['image'],
+                      "$complainImages/${complainModel.complainImagePath.toString()}",
                     ),
                     height: 100,
                     width: 100,
                     fit: BoxFit.cover,
-                  ),
+                  ): const Icon(Icons.photo,size: 50,color: Colors.green,),
                 ),
               ]),
               separator(),
               Row(
                 children: [
+                  // Expanded(
+                  //     child: InkWell(
+                  //   onTap: () {},
+                  //   child: const Column(
+                  //     children: [
+                  //       Icon(
+                  //         Icons.edit,
+                  //         color: Colors.orange,
+                  //       ),
+                  //       Text(
+                  //         'تعديل',
+                  //         style: TextStyle(
+                  //           fontFamily: 'Cairo',
+                  //         ),
+                  //       )
+                  //     ],
+                  //   ),
+                  // )),
                   Expanded(
                       child: InkWell(
-                    onTap: () {},
-                    child: const Column(
-                      children: [
-                        Icon(
-                          Icons.edit,
-                          color: Colors.orange,
-                        ),
-                        Text(
-                          'تعديل',
-                          style: TextStyle(
-                            fontFamily: 'Cairo',
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-                  Expanded(
-                      child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                    
+                      print(complainModel.complainId.toString());
+                      _myComplainsController
+                          .deleteComplain(complainModel.complainId.toString(),index);
+                    },
                     child: const Column(
                       children: [
                         Icon(
