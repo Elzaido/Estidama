@@ -64,9 +64,10 @@ class MyComplains extends StatelessWidget {
                       );
                     } else {
                       if (snapshot.hasData) {
+                       controller. complain_length.value=snapshot.data['data'].length;
                         return snapshot.data.length != 0
-                            ? ListView.separated(
-                                itemCount: controller.complainList.length,
+                            ?Obx(()=> ListView.separated(
+                                itemCount: controller.complain_length.value,
                                 separatorBuilder: (context, index) =>
                                     separator(),
                                 itemBuilder: (context, index) {
@@ -101,7 +102,7 @@ class MyComplains extends StatelessWidget {
                                   return const Center(
                                       child: Text("لايوجد بلاغات حتى الآن"));
                                 })
-                            : const Center(
+                          )  : const Center(
                                 child: Center(
                                     child: Text("لايوجد بلاغات حتى الآن")));
                       }
