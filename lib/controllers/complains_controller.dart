@@ -51,20 +51,29 @@ class ComplainsController extends GetxController {
   int fromTextToIntComplain() {
     int complainNumber = 0;
     switch (selectedComplain.value) {
-      case 'دخان المصانع':
+      case 'صرف صحي':
         complainNumber = 1;
         break;
-      case 'نقص في حاويات القمامة':
+      case 'ضوضاء و ضجيج':
         complainNumber = 2;
         break;
-      case 'كلاب ضالة':
+      case 'تراكم نفايات':
         complainNumber = 3;
         break;
-      case 'قطع أشجار الغابات':
+      case 'نقص في حاويات القمامة':
+        complainNumber = 4;
+        break;
+      case 'تلوث هواء':
+        complainNumber = 4;
+        break;
+      case 'معامل طوب / حجر':
+        complainNumber = 4;
+        break;
+        case 'حيوانات ضالة ورعي جائر':
         complainNumber = 4;
         break;
     }
-    return complainNumber;
+    return 1;
   }
 
   switchSelectedComplain(newValue) => selectedComplain.value = newValue;

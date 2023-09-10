@@ -93,15 +93,21 @@ class MapScreenState extends State<MapScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 65, vertical: 20),
               child: button(
                   onPressed: () {
-                    switch (whichPage) {
-                      case 1:
+                    // switch (whichPage) {
+                    //   case 1:
                         
-                        break;
+                    //     break;
 
-                        case 2:
+                    //     case 2:
                         
-                      default:
-                    }
+                    //   default:
+                    // }
+                    // if(selectedLocation ==Null){
+                    //   selectedLocation="";
+
+                    // }else{
+                    //   selectedLocation=
+                    // }
                     whichPage == 1
                         ? Get.offNamed("/complains",
                             arguments: selectedLocation.toString())

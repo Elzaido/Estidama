@@ -3,6 +3,7 @@ import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/local/shared_preference.dart';
 import 'package:madenati/db/remote/sql.dart';
 import 'package:madenati/models/mycomplains_model.dart';
+import 'package:madenati/ui/widgets/toast_widget.dart';
 // import '../constants/hotlinks.dart';
 
 class MyComplainsController extends GetxController {
@@ -13,6 +14,7 @@ class MyComplainsController extends GetxController {
   }
 
   RxList<ComplainsModel> complainList = [ComplainsModel()].obs;
+  RxInt complain_length=0.obs;
   // List<Map> myComplainsList = [];
   // RxList myComplains = [].obs;
   retriveCurrentUserComplains() async {
@@ -35,6 +37,9 @@ class MyComplainsController extends GetxController {
     if (response['status'] == 'success') print("yess");
     // complainList.value.(index);
     complainList.removeAt(index);
+    complain_length.value--;
+    defaultToast(massage: "تم حذف البلاغ بنجاح", state: ToastStates.SUCCESS);
+    // complainList.length--;
     update();
     // Get.off("/mycomplains");
     return response;
