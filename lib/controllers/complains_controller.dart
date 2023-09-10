@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:madenati/constants/hotlinks.dart';
+import 'package:madenati/db/local/shared_preference.dart';
 import 'package:madenati/db/remote/sql.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
 
@@ -50,20 +51,29 @@ class ComplainsController extends GetxController {
   int fromTextToIntComplain() {
     int complainNumber = 0;
     switch (selectedComplain.value) {
-      case 'دخان المصانع':
+      case 'صرف صحي':
         complainNumber = 1;
         break;
-      case 'نقص في حاويات القمامة':
+      case 'ضوضاء و ضجيج':
         complainNumber = 2;
         break;
-      case 'كلاب ضالة':
+      case 'تراكم نفايات':
         complainNumber = 3;
         break;
-      case 'قطع أشجار الغابات':
+      case 'نقص في حاويات القمامة':
+        complainNumber = 4;
+        break;
+      case 'تلوث هواء':
+        complainNumber = 4;
+        break;
+      case 'معامل طوب / حجر':
+        complainNumber = 4;
+        break;
+        case 'حيوانات ضالة ورعي جائر':
         complainNumber = 4;
         break;
     }
-    return complainNumber;
+    return 1;
   }
 
   switchSelectedComplain(newValue) => selectedComplain.value = newValue;
@@ -118,12 +128,12 @@ class ComplainsController extends GetxController {
 
     try {
       response = await postRequestWithFile(addComplainsLink, complainImage, {
-        "complainer_id": "5", //get it from Uid
+        "complainer_id": CacheHelper.getData(key: "user_id"), //get it from Uid
         "complain_type": fromTextToIntComplain().toString(), //always numbers
         "complain_date": getDateAsString,
         "complain_location": location,
         "complain_status": selectedComplainStatus.value.toString(),
-        "complain_description": description,
+        "complain_description": description.toString(),
       });
       if (response['status'] == 'success') {
         defaultToast(
