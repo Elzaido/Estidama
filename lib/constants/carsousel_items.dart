@@ -18,55 +18,61 @@ Widget carsoulItem({
 }) =>
     ClipRRect(
       borderRadius: BorderRadius.circular(10),
-      child: Stack(
-        alignment: Alignment.centerLeft,
-        children: [
-          Image.asset(
-            image,
-            fit: BoxFit.cover,
-          ),
-          Container(
-              width: 180,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: mainColor.withOpacity(0.8),
-                    spreadRadius: 6,
-                    blurRadius: 6,
-                  ),
-                ],
-              ),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          fontSize: 35,
-                          fontFamily: 'Cairo',
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.right,
-                        textDirection: TextDirection.ltr,
-                      ),
-                      Text(
-                        text,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Cairo',
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.right,
-                        textDirection: TextDirection.ltr,
-                      ),
-                    ],
-                  ),
+      child: SizedBox(
+        height: 200,
+        width: double.infinity,
+        child: Stack(
+          alignment: Alignment.centerLeft,
+          children: [
+            Image.asset(
+              image,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+            Container(
+                width: 200,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: mainColor.withOpacity(0.9),
+                      spreadRadius: 6,
+                      blurRadius: 6,
+                    ),
+                  ],
                 ),
-              )),
-        ],
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          title,
+                          style: const TextStyle(
+                            fontSize: 35,
+                            fontFamily: 'Cairo',
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.right,
+                          textDirection: TextDirection.ltr,
+                        ),
+                        Text(
+                          text,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Cairo',
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.right,
+                          textDirection: TextDirection.ltr,
+                        ),
+                      ],
+                    ),
+                  ),
+                )),
+          ],
+        ),
       ),
     );

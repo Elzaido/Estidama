@@ -24,76 +24,69 @@ class Complains extends StatelessWidget {
   Widget build(BuildContext context) {
     ComplainsController complainsController = Get.find();
     Size size = MediaQuery.of(context).size;
-    return WillPopScope(
-      onWillPop: () async {
-        Navigator.pop(context);
-        return true;
-      },
-      child: Scaffold(
-          appBar: defaultAppBar(context: context, title: 'تقديم شكوى'),
-          body: SizedBox(
-            width: double.infinity,
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  children: [
-                    title(text: 'ما هو نوع شكوى'),
-                    Obx(
-                      () => dropDown(
-                          selected: complainsController.selectedComplain.value
-                              .toString(),
-                          list: complainsController.complainsList,
-                          FLAG: 2),
-                    ),
-                    title(text: 'ما هي درجة خطورة الشكوى'),
-                    Obx(
-                      () => dropDown(
-                          selected: complainsController
-                              .selectedComplainStatus.value
-                              .toString(),
-                          list: complainsController.complainStatus,
-                          FLAG: 3),
-                    ),
-                    descFormField(
-                        hint: 'الرجاء ذكر تفاصيل أكثر عن الشكوى ...',
-                        textController:
-                            complainsController.descriptionController),
-                    addLocation(
-                        image: "assets/location.png",
-                        title: "إضافة موقع الشكوى",
-                        context: context,
-                        whichPage: 1,
-                        size: size),
-                    pickImageWidget(
-                      size,
-                      complainsController,
-                      context,
-                    ),
-                    Obx(() => complainsController.isShowImage.value != 1
-                        ? imagePlacerHolderWidget(complainsController)
-                        : const Text(" ")),
-                    button(
-                        onPressed: () {
-                          complainsController.checkComplainsData(
-                              complainsController.descriptionController.text,
-                              geographicLocationData);
-                        },
-                        child: const Text(
-                          "إرسال الشكوى",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontFamily: "Cairo"),
-                        )),
-                    const SizedBox(
-                      height: 10,
-                    )
-                  ],
-                ),
+    return Scaffold(
+        appBar: defaultAppBar(context: context, title: 'تقديم شكوى'),
+        body: SizedBox(
+          width: double.infinity,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                children: [
+                  title(text: 'ما هو نوع شكوى'),
+                  Obx(
+                    () => dropDown(
+                        selected: complainsController.selectedComplain.value
+                            .toString(),
+                        list: complainsController.complainsList,
+                        FLAG: 2),
+                  ),
+                  title(text: 'ما هي درجة خطورة الشكوى'),
+                  Obx(
+                    () => dropDown(
+                        selected: complainsController
+                            .selectedComplainStatus.value
+                            .toString(),
+                        list: complainsController.complainStatus,
+                        FLAG: 3),
+                  ),
+                  descFormField(
+                      hint: 'الرجاء ذكر تفاصيل أكثر عن الشكوى ...',
+                      textController:
+                          complainsController.descriptionController),
+                  locationWidget(
+                      title: "إضافة موقع الشكوى",
+                      context: context,
+                      whichPage: 1,
+                      size: size),
+                  pickImageWidget(
+                    size,
+                    complainsController,
+                    context,
+                  ),
+                  Obx(() => complainsController.isShowImage.value != 1
+                      ? imagePlacerHolderWidget(complainsController)
+                      : const Text(" ")),
+                  button(
+                      onPressed: () {
+                        complainsController.checkComplainsData(
+                            complainsController.descriptionController.text,
+                            geographicLocationData);
+                      },
+                      child: const Text(
+                        "إرسال الشكوى",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontFamily: "Cairo"),
+                      )),
+                  const SizedBox(
+                    height: 10,
+                  )
+                ],
               ),
             ),
-          )),
-    );
+          ),
+        ));
   }
 
   Widget pickImageWidget(

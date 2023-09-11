@@ -7,7 +7,6 @@ import 'package:madenati/ui/widgets/button_widget.dart';
 import 'package:madenati/ui/widgets/complain_form_titles.dart';
 import 'package:madenati/ui/widgets/dropdown_widget.dart';
 import 'package:madenati/ui/widgets/formfield_widget.dart';
-import 'package:madenati/ui/widgets/toast_widget.dart';
 import '../../widgets/gradiant_image_widget.dart';
 
 class Volunteering extends StatefulWidget {
@@ -17,104 +16,82 @@ class Volunteering extends StatefulWidget {
 }
 
 class VolunteeringState extends State<Volunteering> {
-  double imageOpacity = 0.0;
-  double textOpacity = 0.0;
-  double buttonOpacity = 0.0;
   TextEditingController skills_controller = TextEditingController();
-  VolunteeringController volunteering_controller = Get.find();
+  VolunteeringController volunteeringController = Get.find();
+
   @override
   void initState() {
     super.initState();
-    //NO SET STATE IN THE APP !  USE GETX
-    // Animate opacity for the image after a short delay.
-    Future.delayed(const Duration(milliseconds: 700), () {
-      setState(() {
-        imageOpacity = 1.0; // Set opacity to fully opaque (1.0) for fade-in.
-      });
-    });
-    // Animate opacity for the text after a slightly longer delay.
-    Future.delayed(const Duration(milliseconds: 1100), () {
-      setState(() {
-        textOpacity = 1.0; // Set opacity to fully opaque (1.0) for fade-in.
-      });
-    });
-    // Animate opacity for the button after a longer delay.
-    Future.delayed(const Duration(milliseconds: 1500), () {
-      setState(() {
-        buttonOpacity = 1.0; // Set opacity to fully opaque (1.0) for fade-in.
-      });
-    });
+    volunteeringController.loading();
   }
 
   @override
   Widget build(BuildContext context) {
-    VolunteeringController volunteeringController = Get.find();
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: defaultAppBar(context: context, title: 'التقديم للعمل التطوعي'),
         body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              AnimatedOpacity(
-                opacity: imageOpacity,
-                duration: const Duration(milliseconds: 500),
-                child: gradientImage(
-                  image: 'assets/volunteering.png',
-                ),
-              ),
-              AnimatedOpacity(
-                opacity: textOpacity,
-                duration: const Duration(milliseconds: 500),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text(
-                    volunteeringText,
-                    style: const TextStyle(fontSize: 16, fontFamily: 'Cairo'),
-                    textAlign: TextAlign.justify,
-                    textDirection: TextDirection.rtl,
+          child: Obx(
+            () => Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                AnimatedOpacity(
+                  opacity: volunteeringController.imageOpacity.value,
+                  duration: const Duration(milliseconds: 500),
+                  child: gradientImage(
+                    image: 'assets/volunteering.png',
                   ),
                 ),
-              ),
-              AnimatedOpacity(
-                  opacity: buttonOpacity,
+                AnimatedOpacity(
+                  opacity: volunteeringController.textOpacity.value,
                   duration: const Duration(milliseconds: 500),
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
-                    child: button(
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (
-                                context1,
-                              ) =>
-                                  showVolunteeringDialog(
+                    child: Text(
+                      volunteeringText,
+                      style: const TextStyle(fontSize: 16, fontFamily: 'Cairo'),
+                      textAlign: TextAlign.justify,
+                      textDirection: TextDirection.rtl,
+                    ),
+                  ),
+                ),
+                AnimatedOpacity(
+                    opacity: volunteeringController.buttonOpacity.value,
+                    duration: const Duration(milliseconds: 500),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: button(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (
+                                  context1,
+                                ) =>
+                                    showVolunteeringDialog(
                                       volunteeringController,
                                       context1,
                                       skills_controller,
-                                      volunteering_controller));
-                        },
-                        child: const Text(
-                          'تقديم طلب التطوع',
-                          style: TextStyle(fontFamily: 'Cairo'),
-                        )),
-                  )),
-              const SizedBox(
-                height: 10,
-              ),
-            ],
+                                    ));
+                          },
+                          child: const Text(
+                            'تقديم طلب التطوع',
+                            style: TextStyle(fontFamily: 'Cairo'),
+                          )),
+                    )),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 
   Widget showVolunteeringDialog(
-      VolunteeringController volunteeringController,
-      context1,
-      TextEditingController skills_controller,
-    VolunteeringController  volunteering_controller) {
+    VolunteeringController volunteeringController,
+    context1,
+    TextEditingController skills_controller,
+  ) {
     Size size = MediaQuery.of(context1).size;
     return AlertDialog(
       title: const Text(
@@ -124,7 +101,7 @@ class VolunteeringState extends State<Volunteering> {
         ),
         textAlign: TextAlign.end,
       ),
-      content: Container(
+      content: SizedBox(
         width: size.width * 0.9,
         child: SingleChildScrollView(
           child: Column(
@@ -156,12 +133,13 @@ class VolunteeringState extends State<Volunteering> {
                   control: skills_controller,
                   isScure: false,
                   label: "مهارات المتطوع",
-                  prefIcon: Icon(Icons.volunteer_activism),
+                  prefIcon: const Icon(Icons.volunteer_activism),
                   validator: (val) {
                     return "";
                   }).paddingAll(10),
               button(
-                  onPressed: () =>volunteering_controller.checkVolunteerData(skills_controller  ),
+                  onPressed: () => volunteeringController
+                      .checkVolunteerData(skills_controller),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -190,9 +168,6 @@ class VolunteeringState extends State<Volunteering> {
           ),
         ),
       ),
-      // actions: <Widget>[
-
-      // ]
     );
   }
 }

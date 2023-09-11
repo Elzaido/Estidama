@@ -10,6 +10,31 @@ import 'package:madenati/db/remote/sql.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
 
 class RecyclingController extends GetxController {
+  RxDouble imageOpacity = 0.0.obs;
+  RxDouble textOpacity = 0.0.obs;
+  RxDouble buttonOpacity = 0.0.obs;
+
+  ///
+  ///
+
+  void loading() {
+    //NO SET STATE IN THE APP !  USE GETX
+    // Animate opacity for the image after a short delay.
+    Future.delayed(const Duration(milliseconds: 700), () {
+      imageOpacity.value =
+          1.0; // Set opacity to fully opaque (1.0) for fade-in.
+    });
+    // Animate opacity for the text after a slightly longer delay.
+    Future.delayed(const Duration(milliseconds: 1100), () {
+      textOpacity.value = 1.0; // Set opacity to fully opaque (1.0) for fade-in.
+    });
+    // Animate opacity for the button after a longer delay.
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      buttonOpacity.value =
+          1.0; // Set opacity to fully opaque (1.0) for fade-in.
+    });
+  }
+
   bool isDropdownOpen = false;
   RxInt isShowImage = 1.obs;
   List<String> recyclingItemList = [

@@ -28,7 +28,5 @@ void openCamerWithFocus(my_file, file_path) async {
   XFile? xFileCamera =
       await ImagePicker().pickImage(source: ImageSource.camera);
   my_file = File(xFileCamera!.path);
-  // setState((() {
   file_path = my_file!.path;
-  // }));
 }

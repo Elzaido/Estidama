@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:madenati/controllers/map_screen_controller.dart';
 import 'package:madenati/controllers/register_controller.dart';
+import '../controllers/about_app_controller.dart';
 import '../controllers/complains_controller.dart';
 import '../controllers/home_controller.dart';
 import '../controllers/launcher_controller.dart';
@@ -91,5 +92,12 @@ class RecyclingBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut((() => RecyclingController()), fenix: true);
+  }
+}
+
+class AboutAppBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => AboutAppController(), fenix: true);
   }
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, unused_local_variable
 
 import 'dart:io';
 import 'dart:math';
@@ -69,7 +69,7 @@ class ComplainsController extends GetxController {
       case 'معامل طوب / حجر':
         complainNumber = 4;
         break;
-        case 'حيوانات ضالة ورعي جائر':
+      case 'حيوانات ضالة ورعي جائر':
         complainNumber = 4;
         break;
     }
@@ -106,8 +106,6 @@ class ComplainsController extends GetxController {
         isShowImage.value = a;
 
         update();
-      } else {
-        print('No image selected');
       }
     } catch (ex) {
       return;
