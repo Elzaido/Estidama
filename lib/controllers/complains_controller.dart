@@ -73,7 +73,7 @@ class ComplainsController extends GetxController {
         complainNumber = 4;
         break;
     }
-    return 1;
+    return complainNumber;
   }
 
   switchSelectedComplain(newValue) => selectedComplain.value = newValue;
