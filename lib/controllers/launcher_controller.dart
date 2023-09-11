@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/ui/pages/main_pages/home.dart';
@@ -10,21 +9,11 @@ class LauncherController extends GetxController {
   var currentIndex = 1.obs;
   //makes it observable
   final pages = <String>['/profile', '/home', '/myComplains'];
-  RxBool isBottomNavigationBarVisible = true.obs;
 
   void changePage(int index) {
     currentIndex.value = index;
     final currentPage = pages[index];
     Get.offNamed(currentPage, id: 1);
-    log('${currentIndex.value}');
-
-    // Check if the current page's name is not in the specified list.
-    if (pages.contains(currentPage)) {
-      isBottomNavigationBarVisible.value = true;
-    } else {
-      isBottomNavigationBarVisible.value = false;
-    }
-    log('$isBottomNavigationBarVisible');
   }
 
   Route? onGenerateRoute(RouteSettings settings) {

@@ -35,7 +35,7 @@ Widget carsoulItem({
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: mainColor.withOpacity(0.8),
+                      color: mainColor.withOpacity(0.9),
                       spreadRadius: 6,
                       blurRadius: 6,
                     ),

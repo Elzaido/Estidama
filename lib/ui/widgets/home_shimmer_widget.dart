@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:madenati/ui/widgets/separator_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
-Widget shimmerWidget({required Size size}) => Shimmer.fromColors(
+Widget homeShimmerWidget({required Size size}) => Shimmer.fromColors(
       baseColor: Colors.grey.shade300,
       highlightColor: Colors.grey.shade100,
       child: Padding(
@@ -28,7 +28,7 @@ Widget shimmerWidget({required Size size}) => Shimmer.fromColors(
               children: [
                 Expanded(
                   child: Container(
-                    height: 200,
+                    height: 190,
                     decoration: BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(15),
@@ -40,7 +40,7 @@ Widget shimmerWidget({required Size size}) => Shimmer.fromColors(
                 ),
                 Expanded(
                   child: Container(
-                    height: 200,
+                    height: 190,
                     decoration: BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(15),
@@ -56,7 +56,7 @@ Widget shimmerWidget({required Size size}) => Shimmer.fromColors(
               children: [
                 Expanded(
                   child: Container(
-                    height: 200,
+                    height: 190,
                     decoration: BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(15),
@@ -68,7 +68,7 @@ Widget shimmerWidget({required Size size}) => Shimmer.fromColors(
                 ),
                 Expanded(
                   child: Container(
-                    height: 200,
+                    height: 190,
                     decoration: BoxDecoration(
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(15),

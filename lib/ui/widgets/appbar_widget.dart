@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:madenati/controllers/launcher_controller.dart';
 import '../../constants/colors.dart';
-
-LauncherController controller = Get.find();
 
 PreferredSizeWidget defaultAppBar({
   required BuildContext context,
@@ -37,7 +33,6 @@ PreferredSizeWidget defaultAppBar({
             ),
             onPressed: () {
               Navigator.pop(context);
-              controller.isBottomNavigationBarVisible.value = true;
             },
           )
         : null,

@@ -1,22 +1,15 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:madenati/controllers/launcher_controller.dart';
-
-LauncherController controller = Get.find();
 
 Widget gridItem({
   required context,
-  required Widget nav,
+  required String nav,
   required String image,
   required String title,
 }) {
   return InkWell(
       onTap: () {
-        controller.isBottomNavigationBarVisible.value = false;
-        log('${controller.isBottomNavigationBarVisible.value}');
-        Navigator.push(context, MaterialPageRoute(builder: (context) => nav));
+        Get.toNamed(nav);
       },
       child: Container(
         decoration: BoxDecoration(

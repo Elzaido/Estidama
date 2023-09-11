@@ -1,15 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/mycomplains_model.dart';
-import 'package:madenati/ui/widgets/grid_widget.dart';
 import 'separator_widget.dart';
 
-Widget myComplainItem(
-    context, ComplainsModel complainModel,     MyComplainsController _myComplainsController,index) {
-  // print(complainModel.complainDate);
-  MyComplainsController controller=Get.find();
+Widget myComplainItem(context, ComplainsModel complainModel,
+    MyComplainsController myComplainsController, index) {
   return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Container(
@@ -62,44 +60,31 @@ Widget myComplainItem(
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: complainModel.complainImagePath==""? Image(
-                    image: NetworkImage(
-                      "$complainImages/${complainModel.complainImagePath.toString()}",
-                    ),
-                    height: 100,
-                    width: 100,
-                    fit: BoxFit.cover,
-                  ): const Icon(Icons.photo,size: 50,color: Colors.green,),
+                  child: complainModel.complainImagePath == ""
+                      ? Image(
+                          image: NetworkImage(
+                            "$complainImages/${complainModel.complainImagePath.toString()}",
+                          ),
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
+                        )
+                      : const Icon(
+                          Icons.photo,
+                          size: 50,
+                          color: Colors.green,
+                        ),
                 ),
               ]),
               separator(),
               Row(
                 children: [
-                  // Expanded(
-                  //     child: InkWell(
-                  //   onTap: () {},
-                  //   child: const Column(
-                  //     children: [
-                  //       Icon(
-                  //         Icons.edit,
-                  //         color: Colors.orange,
-                  //       ),
-                  //       Text(
-                  //         'تعديل',
-                  //         style: TextStyle(
-                  //           fontFamily: 'Cairo',
-                  //         ),
-                  //       )
-                  //     ],
-                  //   ),
-                  // )),
                   Expanded(
                       child: InkWell(
                     onTap: () {
-                    
-                      print(complainModel.complainId.toString());
-                      _myComplainsController
-                          .deleteComplain(complainModel.complainId.toString(),index);
+                      log(complainModel.complainId.toString());
+                      myComplainsController.deleteComplain(
+                          complainModel.complainId.toString(), index);
                     },
                     child: const Column(
                       children: [
