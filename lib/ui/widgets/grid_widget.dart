@@ -1,22 +1,15 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:madenati/controllers/launcher_controller.dart';
-
-LauncherController controller = Get.find();
 
 Widget gridItem({
   required context,
-  required Widget nav,
+  required String nav,
   required String image,
   required String title,
 }) {
   return InkWell(
       onTap: () {
-        controller.isBottomNavigationBarVisible.value = false;
-        log('${controller.isBottomNavigationBarVisible.value}');
-        Navigator.push(context, MaterialPageRoute(builder: (context) => nav));
+        Get.toNamed(nav);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -35,56 +28,41 @@ Widget gridItem({
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16.0),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.circular(16.0), // Adjust the radius as needed
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.4), // Shadow color
-                  spreadRadius: 2,
-                  blurRadius: 4,
-                  offset: const Offset(
-                      0, 2), // Shadow position [horizontal, vertical]
+          child: Stack(
+            children: [
+              Center(
+                child: Image(
+                  image: AssetImage(image),
+                  fit: BoxFit.cover,
+                  width: double.infinity, // Match the width of the Container
+                  height: double.infinity, // Match the height of the Container
                 ),
-              ],
-            ),
-            child: Stack(
-              children: [
-                Center(
-                  child: Image(
-                    image: AssetImage(image),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Container(
-                    height: 300,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.4),
-                          spreadRadius: 6,
-                          blurRadius: 6,
-                        ),
-                      ],
-                    ),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        title,
-                        style: const TextStyle(
-                            fontFamily: 'Cairo',
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
+              ),
+              Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.4),
+                        spreadRadius: 6,
+                        blurRadius: 6,
                       ),
-                    )),
-              ],
-            ),
+                    ],
+                  ),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                          fontFamily: 'Cairo',
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                    ),
+                  )),
+            ],
           ),
         ),
       ));

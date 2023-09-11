@@ -7,11 +7,10 @@ import '../../widgets/grid_widget.dart';
 import '../../widgets/separator_widget.dart';
 
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar:
             defaultAppBar(context: context, title: 'الرئيسية', isHome: true),
@@ -21,7 +20,7 @@ class Home extends StatelessWidget {
             padding: const EdgeInsets.all(15.0),
             child: Column(
               children: [
-                carousel(items: images, size: size),
+                carousel(items: images),
                 const SizedBox(
                   height: 10,
                 ),
@@ -43,7 +42,7 @@ class Home extends StatelessWidget {
       crossAxisCount: 2,
       mainAxisSpacing: 20,
       crossAxisSpacing: 20,
-      childAspectRatio: 1 / 1.30,
+      childAspectRatio: 1 / 1.10,
       children: gridList.map((item) {
         return gridItem(
             context: context,

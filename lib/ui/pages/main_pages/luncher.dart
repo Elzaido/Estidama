@@ -11,34 +11,27 @@ class Luncher extends StatelessWidget {
   Widget build(BuildContext context) {
     LauncherController controller = Get.find();
     return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Navigator(
-          key: Get.nestedKey(1),
-          initialRoute: "/home",
-          onGenerateRoute: controller.onGenerateRoute,
+        body: SizedBox(
+          width: double.infinity,
+          height: double.infinity,
+          child: Navigator(
+            key: Get.nestedKey(1),
+            initialRoute: "/home",
+            onGenerateRoute: controller.onGenerateRoute,
+          ),
         ),
-      ),
-      bottomNavigationBar: Obx(() {
-        return controller.isBottomNavigationBarVisible.value
-            ? CurvedNavigationBar(
-                height: 65,
-                index: 1,
-                color: mainColor,
-                animationDuration: const Duration(milliseconds: 600),
-                backgroundColor: Colors.transparent,
-                onTap: controller.changePage,
-                items: const [
-                  Icon(Icons.person, color: Colors.white),
-                  Icon(Icons.home, color: Colors.white),
-                  Icon(Icons.warning, color: Colors.white)
-                ],
-              )
-            : Container(
-                height: 1,
-              );
-      }),
-    );
+        bottomNavigationBar: CurvedNavigationBar(
+          height: 65,
+          index: 1,
+          color: mainColor,
+          animationDuration: const Duration(milliseconds: 600),
+          backgroundColor: Colors.transparent,
+          onTap: controller.changePage,
+          items: const [
+            Icon(Icons.person, color: Colors.white),
+            Icon(Icons.home, color: Colors.white),
+            Icon(Icons.warning, color: Colors.white)
+          ],
+        ));
   }
 }

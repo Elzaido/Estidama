@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-Widget addLocation(
-        {required String image,
-        required String title,
+Widget locationWidget(
+        {required String title,
         required context,
         required int whichPage,
         required Size size}) =>
@@ -11,8 +10,19 @@ Widget addLocation(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: InkWell(
         onTap: () {
-          //updated from navigator to getnamed
-          Get.toNamed("/map_screen", arguments: whichPage);
+          switch (whichPage) {
+            case 1:
+              Get.toNamed("/map_screen", arguments: whichPage);
+
+              break;
+            case 2:
+              Get.toNamed("/map_screen", arguments: whichPage);
+
+              break;
+            case 3:
+              Get.toNamed("/recyclingmap");
+              break;
+          }
         },
         child: Container(
           decoration: BoxDecoration(
@@ -49,8 +59,8 @@ Widget addLocation(
               ),
               child: Stack(
                 children: [
-                  Image(
-                    image: AssetImage(image),
+                  const Image(
+                    image: AssetImage('assets/location.png'),
                     fit: BoxFit.cover,
                   ),
                   Container(

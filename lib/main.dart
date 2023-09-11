@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/volunteering_controller.dart';
 import 'package:madenati/ui/pages/authentication/register.dart';
+import 'package:madenati/ui/pages/main_pages/about_app.dart';
 import 'package:madenati/ui/pages/main_pages/googlemaps.dart';
 import 'package:madenati/ui/pages/main_pages/home.dart';
 import 'package:madenati/ui/pages/main_pages/luncher.dart';
 import 'package:madenati/ui/pages/main_pages/my_complains.dart';
-import 'package:madenati/ui/pages/main_pages/recycling.dart';
+import 'package:madenati/ui/pages/main_pages/recycling_form.dart';
+import 'package:madenati/ui/pages/main_pages/recycling_map.dart';
 import 'package:madenati/ui/pages/main_pages/volunteering.dart';
 import 'package:madenati/ui/pages/on_boarding.dart';
 import 'controllers/complains_controller.dart';
@@ -17,6 +19,7 @@ import 'db/local/shared_preference.dart';
 import 'ui/pages/authentication/login.dart';
 import 'ui/pages/main_pages/complains.dart';
 import 'ui/pages/main_pages/profile.dart';
+import 'ui/pages/main_pages/recycling.dart';
 import 'utilities/binding.dart';
 
 void main() async {
@@ -60,7 +63,7 @@ class myApp extends StatelessWidget {
             binding: LauncherBindings()),
         GetPage(
           name: '/home',
-          page: (() => const Home()),
+          page: (() => Home()),
           binding: HomeBinding(),
         ),
         GetPage(
@@ -86,8 +89,20 @@ class myApp extends StatelessWidget {
             binding: MapScreenBinding()),
         GetPage(
             name: '/recycling',
-            page: (() => Recycling()),
-            binding: MapScreenBinding()),
+            page: (() => const Recycling()),
+            binding: RecyclingBinding()),
+        GetPage(
+            name: '/recyclingform',
+            page: (() => RecyclingForm()),
+            binding: RecyclingBinding()),
+        GetPage(
+            name: '/recyclingmap',
+            page: (() => const RecyclingLocationsMap()),
+            binding: RecyclingBinding()),
+        GetPage(
+            name: '/aboutapp',
+            page: (() => const AboutApp()),
+            binding: AboutAppBinding()),
       ],
     );
   }
