@@ -10,7 +10,7 @@ import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/local/shared_preference.dart';
 import 'package:madenati/db/remote/sql.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
-
+import 'reusable_functions.dart';
 class ComplainsController extends GetxController {
   bool isDropdownOpen = false;
   RxInt isShowImage = 1.obs;
@@ -73,7 +73,7 @@ class ComplainsController extends GetxController {
         complainNumber = 4;
         break;
     }
-    return 1;
+    return complainNumber;
   }
 
   switchSelectedComplain(newValue) => selectedComplain.value = newValue;
@@ -120,15 +120,12 @@ class ComplainsController extends GetxController {
   }
 
   uploadComplain(String location, String description) async {
-    DateTime _currentDate = DateTime.now();
-    DateFormat _dateFormatter = DateFormat.yMd();
-    String getDateAsString = _dateFormatter.format(_currentDate);
-
+ 
     try {
       response = await postRequestWithFile(addComplainsLink, complainImage, {
         "complainer_id": CacheHelper.getData(key: "user_id"), //get it from Uid
         "complain_type": fromTextToIntComplain().toString(), //always numbers
-        "complain_date": getDateAsString,
+        "complain_date":  getCurrentDate().toString(),
         "complain_location": location,
         "complain_status": selectedComplainStatus.value.toString(),
         "complain_description": description.toString(),
