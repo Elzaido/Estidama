@@ -5,12 +5,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/local/shared_preference.dart';
 import 'package:madenati/db/remote/sql.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
 import 'reusable_functions.dart';
+
 class ComplainsController extends GetxController {
   bool isDropdownOpen = false;
   RxInt isShowImage = 1.obs;
@@ -22,7 +23,6 @@ class ComplainsController extends GetxController {
     'تلوث هواء',
     'معامل طوب / حجر'
   ];
-
   RxString selectedComplain = 'صرف صحي'.obs;
   List<String> complainStatus = [
     'قليلة الخطورة',
@@ -32,7 +32,6 @@ class ComplainsController extends GetxController {
   RxString selectedComplainStatus = 'قليلة الخطورة'.obs;
   Random randy = Random();
   TextEditingController descriptionController = TextEditingController();
-
   File? complainImage;
   var picker = ImagePicker();
   var response;
@@ -120,16 +119,21 @@ class ComplainsController extends GetxController {
   }
 
   uploadComplain(String location, String description) async {
- 
     try {
-      response = await postRequestWithFile(addComplainsLink, complainImage, {
-        "complainer_id": CacheHelper.getData(key: "user_id"), //get it from Uid
-        "complain_type": fromTextToIntComplain().toString(), //always numbers
-        "complain_date":  getCurrentDate().toString(),
-        "complain_location": location,
-        "complain_status": selectedComplainStatus.value.toString(),
-        "complain_description": description.toString(),
-      });
+      response = await postRequestWithFile(
+          addComplainsLink,
+          complainImage,
+          {
+            "complainer_id":
+                CacheHelper.getData(key: "user_id"), //get it from Uid
+            "complain_type":
+                fromTextToIntComplain().toString(), //always numbers
+            "complain_date": getCurrentDate().toString(),
+            "complain_location": location,
+            "complain_status": selectedComplainStatus.value.toString(),
+            "complain_description": description.toString(),
+          },
+          "complain_image_path");
       if (response['status'] == 'success') {
         defaultToast(
             massage: "تم ارسال البلاغ بنجاح", state: ToastStates.SUCCESS);

@@ -45,12 +45,13 @@ getRequest(String url) async {
 }
 
 //this function is only used for files uploading
-postRequestWithFile(String url, File? file, Map data) async {
+postRequestWithFile(
+    String url, File? file, Map data, String image_namedb) async {
   //make sure its dart io not html
   var request = http.MultipartRequest("POST", Uri.parse(url));
   var length = await file!.length();
   var stream = http.ByteStream(file.openRead());
-  var multipartFile = http.MultipartFile("complain_image_path", stream, length,
+  var multipartFile = http.MultipartFile("$image_namedb", stream, length,
       filename: basename(file.path) //to use basename  u shall import path lib
       ); //request from php make sure the request name file is same as in php
   request.headers.addAll(myheaders);
