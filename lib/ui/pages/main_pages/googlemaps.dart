@@ -93,14 +93,23 @@ class MapScreenState extends State<MapScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 65, vertical: 20),
               child: button(
                   onPressed: () {
-                    whichPage == 1
-                        ? Get.offNamed("/complains",
-                            arguments: selectedLocation.toString())
-                        : Get.offNamed("/recycling",
-                            arguments: selectedLocation.toString());
+                    if (selectedLocation != null) {
+                      // Location is not null, navigate to the next page and print.
+                      whichPage == 1
+                          ? Get.offNamed("/complains",
+                              arguments: selectedLocation.toString())
+                          : Get.offNamed("/recycling",
+                              arguments: selectedLocation.toString());
+
+                      print(
+                          'SELECTED LOCATION IS: ${selectedLocation.toString()}');
+                    } else {
+                      // Location is null, handle accordingly (show a message or alert).
+                      print('Location not selected!');
+                    }
                   },
                   child: const Text(
-                    ' حدد المكان',
+                    'تأكيد',
                     style: TextStyle(fontFamily: 'Cairo'),
                   )),
             ))

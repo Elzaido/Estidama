@@ -63,7 +63,7 @@ class myApp extends StatelessWidget {
             binding: LauncherBindings()),
         GetPage(
           name: '/home',
-          page: (() => Home()),
+          page: (() => const Home()),
           binding: HomeBinding(),
         ),
         GetPage(

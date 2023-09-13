@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/mycomplains_model.dart';
-import 'package:madenati/ui/widgets/home_shimmer_widget.dart';
+import 'package:madenati/ui/widgets/shimmer_widget1.dart';
 import 'package:madenati/ui/widgets/separator_widget.dart';
 import '../../widgets/appbar_widget.dart';
 import '../../widgets/mycomplain_widget.dart';
@@ -29,12 +29,10 @@ class MyComplains extends StatelessWidget {
 
                 try {
                   if (!snapshot.hasData) {
-                    return const Center(child: Text("لايوجد بلاغات حتى الآن"));
+                    return noComplainsCenterdTitle();
                   }
                   if (snapshot.data['data'].length == null) {
-                    return const Center(
-                      child: Text("لايوجد بلاغات"),
-                    );
+                    return noComplainsCenterdTitle();
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
@@ -48,12 +46,7 @@ class MyComplains extends StatelessWidget {
                       ),
                     );
                   } else if (!snapshot.hasData) {
-                    return const Center(
-                      child: Text(
-                        "لايوجد بلاغات حتى الآن.",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    );
+                    return noComplainsCenterdTitle();
                   } else {
                     if (snapshot.hasData) {
                       controller.complain_length.value =
@@ -90,7 +83,6 @@ class MyComplains extends StatelessWidget {
                 return noComplainsCenterdTitle();
               }),
         ));
-    // : noComplainsCenterdTitle());
   }
 
   Widget noComplainsCenterdTitle() {
