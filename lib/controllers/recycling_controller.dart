@@ -7,12 +7,37 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/remote/sql.dart';
+import 'package:madenati/ui/widgets/access_photo.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
+import 'package:madenati/db/local/shared_preference.dart';
+import 'reusable_functions.dart';
 
 class RecyclingController extends GetxController {
   RxDouble imageOpacity = 0.0.obs;
   RxDouble textOpacity = 0.0.obs;
   RxDouble buttonOpacity = 0.0.obs;
+  bool isDropdownOpen = false;
+  RxInt isShowImage = 1.obs;
+  List<String> recyclingItemList = [
+    'زجاج',
+    'بلاستيك',
+    'إلكترونيات',
+    'حديد',
+  ];
+  RxString selectedRecyclingItem = 'زجاج'.obs;
+  Random randy = Random();
+  TextEditingController descriptionController = TextEditingController();
+  File? recyclingItemImage;
+  var picker = ImagePicker();
+  var response;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    descriptionController.dispose();
+  }
+  //
 
   ///
   ///
@@ -35,30 +60,14 @@ class RecyclingController extends GetxController {
     });
   }
 
-  bool isDropdownOpen = false;
-  RxInt isShowImage = 1.obs;
-  List<String> recyclingItemList = [
-    'زجاج',
-    'بلاستيك',
-    'إلكترونيات',
-    'حديد',
-  ];
-
-  RxString selectedRecyclingItem = 'زجاج'.obs;
-
-  Random randy = Random();
-  TextEditingController descriptionController = TextEditingController();
-
-  File? recyclingItemImage;
-  var picker = ImagePicker();
-  var response;
-
   clearFieldsAndGoHome(description, location) {
+    removeRecyclingItemImage();
     descriptionController.text = "";
-    recyclingItemImage = null;
+
     selectedRecyclingItem.value = recyclingItemList[0];
     isShowImage.value = 1;
     location = "";
+    Get.offNamed("/home");
     update();
   }
 
@@ -78,7 +87,7 @@ class RecyclingController extends GetxController {
         recyclingItemNumber = 4;
         break;
     }
-    return recyclingItemNumber;
+    return recyclingItemNumber == 0 ? 1 : recyclingItemNumber;
   }
 
   switchSelectedRecyclingItem(newValue) =>
@@ -127,32 +136,42 @@ class RecyclingController extends GetxController {
   }
 
   uploadRecyclingItem(String location, String weight) async {
-    try {
-      response =
-          await postRequestWithFile(addComplainsLink, recyclingItemImage, {
-        "item_id": "5", //get it from Uid
-        "item_type": fromTextToIntRecyclingItem().toString(), //always numbers
-        "item_location": location,
-        "item_weight": weight,
-      });
-      if (response['status'] == 'success') {
-        defaultToast(
-            massage: "تم ارسال البلاغ بنجاح", state: ToastStates.SUCCESS);
-        clearFieldsAndGoHome(weight, location);
-      }
-
-      if (response['status'] == 'faild') {
-        defaultToast(massage: "faild", state: ToastStates.SUCCESS);
-      }
-    } catch (exe) {
-      defaultToast(
-          massage: "حدث خطب ما يرجى الاعادة لاحقا", state: ToastStates.SUCCESS);
+    // try {
+    //   print(recyclingItemImage);
+    response = await postRequestWithFile(
+        recyclingOrderLink,
+        recyclingItemImage,
+        {
+          "material_type": fromTextToIntRecyclingItem()
+              .toString(), // fromTextToIntRecyclingItem(),
+          "material_weight":
+              "${int.parse(weight)}", //int.parse(weight) , //always numbers
+          "material_img": recyclingItemImage.toString(),
+          "material_location": location,
+          "recycler_id": CacheHelper.getData(key: "user_id"),
+          "order_date": getCurrentDate().toString()
+        },
+        "material_img");
+    if (response['status'] == 'success') {
+      defaultToast(massage: "تم ارسال الطلب بنجاح", state: ToastStates.SUCCESS);
+      clearFieldsAndGoHome(weight, location);
     }
 
-    return response;
+    if (response['status'] == 'faild') {
+      defaultToast(massage: "faild", state: ToastStates.ERROR);
+    }
+    if (response['status'] == 'no_user') {
+      defaultToast(massage: "no  user", state: ToastStates.ERROR);
+    }
+    // } catch (exe) {
+    //   defaultToast(
+    //       massage: "حدث خطب ما يرجى الاعادة لاحقا", state: ToastStates.ERROR);
+
+    //   return response;
+    // }
   }
 
-  void checkRecyclingItemsData(
+  checkRecyclingItemsData(
     String weight,
     geographic_location,
   ) {
