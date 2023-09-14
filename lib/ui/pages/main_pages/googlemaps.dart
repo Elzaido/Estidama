@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:madenati/controllers/complains_controller.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
+import 'package:madenati/ui/widgets/toast_widget.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -104,12 +105,11 @@ class MapScreenState extends State<MapScreen> {
                               arguments: selectedLocation.toString());
 
                       complainsController.locationSelected = true.obs;
-
-                      print(
-                          'SELECTED LOCATION IS: ${selectedLocation.toString()}');
                     } else {
                       // Location is null, handle accordingly (show a message or alert).
-                      print('Location not selected!');
+                      defaultToast(
+                          massage: 'الرجاء تحديد الموقع على الخريطة',
+                          state: ToastStates.ERROR);
                     }
                   },
                   child: const Text(

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Dialogs {
-  Color green_c = const Color.fromARGB(255, 141, 203, 141);
+  Color greenC = const Color.fromARGB(255, 141, 203, 141);
 //this will bes used on success events
   late Size size;
-  void success_dialog(String success_msg, BuildContext context,
-      String description, String img_link) {
+  void successDialog(String successMsg, BuildContext context,
+      String description, String imgLink) {
     // final HomeController _controller = Get.find();
     size = MediaQuery.of(context).size;
 
@@ -31,7 +31,7 @@ class Dialogs {
                 height: size.height * 0.04,
               ),
               Image.asset(
-                img_link,
+                imgLink,
                 width: size.width * 0.35,
                 height: size.height * 0.22,
               ),
@@ -40,7 +40,7 @@ class Dialogs {
                 alignment: Alignment.center,
                 width: size.width * 0.5,
                 child: Text(
-                  success_msg,
+                  successMsg,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       color: Colors.white,
@@ -55,7 +55,7 @@ class Dialogs {
                   description,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: green_c,
+                    color: greenC,
                     fontSize: 18,
                   ),
                 ),

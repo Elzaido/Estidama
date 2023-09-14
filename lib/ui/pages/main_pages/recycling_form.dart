@@ -38,7 +38,7 @@ class RecyclingForm extends StatelessWidget {
                             .selectedRecyclingItem.value
                             .toString(),
                         list: recyclingController.recyclingItemList,
-                        FLAG: 4),
+                        flag: 4),
                   ),
                   formField(
                     control: itemWeightcontroller,

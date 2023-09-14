@@ -10,7 +10,7 @@ import 'package:madenati/controllers/volunteering_controller.dart';
 Widget dropDown(
         {required String selected,
         required List<String> list,
-        required int FLAG}) =>
+        required int flag}) =>
     Padding(
         padding: const EdgeInsets.only(top: 3, bottom: 15),
         child: Container(
@@ -44,7 +44,7 @@ Widget dropDown(
               }).toList(),
               onChanged: (newValue) {
                 try {
-                  switch (FLAG) {
+                  switch (flag) {
                     case 1:
                       RegisterController registerController = Get.find();
 

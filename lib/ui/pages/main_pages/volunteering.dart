@@ -16,7 +16,7 @@ class Volunteering extends StatefulWidget {
 }
 
 class VolunteeringState extends State<Volunteering> {
-  TextEditingController skills_controller = TextEditingController();
+  TextEditingController skillsController = TextEditingController();
   VolunteeringController volunteeringController = Get.find();
 
   @override
@@ -70,7 +70,7 @@ class VolunteeringState extends State<Volunteering> {
                                     showVolunteeringDialog(
                                       volunteeringController,
                                       context1,
-                                      skills_controller,
+                                      skillsController,
                                     ));
                           },
                           child: const Text(
@@ -90,7 +90,7 @@ class VolunteeringState extends State<Volunteering> {
   Widget showVolunteeringDialog(
     VolunteeringController volunteeringController,
     context1,
-    TextEditingController skills_controller,
+    TextEditingController skillsController,
   ) {
     Size size = MediaQuery.of(context1).size;
     return AlertDialog(
@@ -113,7 +113,7 @@ class VolunteeringState extends State<Volunteering> {
                             .selectedVolunteringType.value
                             .toString(),
                         list: volunteeringController.volunteringTypeList,
-                        FLAG: 5)
+                        flag: 5)
                     .paddingSymmetric(horizontal: 10),
               ),
               title(text: 'جهة التطوع').paddingOnly(left: 10, right: 10),
@@ -123,14 +123,14 @@ class VolunteeringState extends State<Volunteering> {
                             .selectedVolunteringGroup.value
                             .toString(),
                         list: volunteeringController.volunteringGroupList,
-                        FLAG: 6)
+                        flag: 6)
                     .paddingSymmetric(
                   horizontal: 10,
                 ),
               ),
               title(text: ' ماهي مهاراتك'),
               formField(
-                  control: skills_controller,
+                  control: skillsController,
                   isScure: false,
                   label: "مهارات المتطوع",
                   prefIcon: const Icon(Icons.volunteer_activism),
@@ -139,7 +139,7 @@ class VolunteeringState extends State<Volunteering> {
                   }).paddingAll(10),
               button(
                   onPressed: () => volunteeringController
-                      .checkVolunteerData(skills_controller),
+                      .checkVolunteerData(skillsController),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

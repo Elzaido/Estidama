@@ -18,7 +18,7 @@ Future<void> getImageFromGallery() async {
 }
 
 File? getFile() => image;
-void openCamerWithFocus(my_file, file_path) async {
+void openCamerWithFocus(myFile, filePath) async {
   PermissionStatus photos = await Permission.camera.request();
   if (photos != PermissionStatus.granted) {
     openAppSettings();
@@ -26,6 +26,6 @@ void openCamerWithFocus(my_file, file_path) async {
   //HERE WE OPEN GALLERY OR CAMERA TO ADD IMAGE
   XFile? xFileCamera =
       await ImagePicker().pickImage(source: ImageSource.camera);
-  my_file = File(xFileCamera!.path);
-  file_path = my_file!.path;
+  myFile = File(xFileCamera!.path);
+  filePath = myFile!.path;
 }
