@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/local/shared_preference.dart';
@@ -7,12 +9,6 @@ import 'package:madenati/ui/widgets/toast_widget.dart';
 // import '../constants/hotlinks.dart';
 
 class MyComplainsController extends GetxController {
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-  }
-
   RxBool isComplain = true.obs;
 
   void changeIsComplain() {
@@ -20,7 +16,7 @@ class MyComplainsController extends GetxController {
   }
 
   RxList<ComplainsModel> complainList = [ComplainsModel()].obs;
-  RxInt complain_length = 0.obs;
+  RxInt complainLength = 0.obs;
   // List<Map> myComplainsList = [];
   // RxList myComplains = [].obs;
   retriveCurrentUserComplains() async {
@@ -28,10 +24,10 @@ class MyComplainsController extends GetxController {
         {"complainer_id": CacheHelper.getData(key: "user_id").toString()});
 
     if (response['status'] == 'success') {
-      print("ggggggggggg");
+      print("success");
     }
     if (response['status'] == 'faild') {
-      print("eeeeeeeeeee");
+      print("faild");
     }
     return response;
   }
@@ -41,13 +37,10 @@ class MyComplainsController extends GetxController {
         await postRequest(deleteComplainLink, {"complain_id": "$complainId"});
 
     if (response['status'] == 'success') print("yess");
-    // complainList.value.(index);
     complainList.removeAt(index);
-    complain_length.value--;
+    complainLength.value--;
     defaultToast(massage: "تم حذف البلاغ بنجاح", state: ToastStates.SUCCESS);
-    // complainList.length--;
     update();
-    // Get.off("/mycomplains");
     return response;
   }
 }

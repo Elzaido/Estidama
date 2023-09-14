@@ -45,13 +45,13 @@ class MyComplains extends StatelessWidget {
                 return noComplainsCenterdTitle();
               } else {
                 if (snapshot.hasData) {
-                  controller.complain_length.value =
+                  controller.complainLength.value =
                       snapshot.data['data'].length;
                   return snapshot.data.length != 0
                       ? Obx(() => Padding(
                             padding: const EdgeInsets.only(top: 10),
                             child: ListView.separated(
-                                itemCount: controller.complain_length.value,
+                                itemCount: controller.complainLength.value,
                                 separatorBuilder: (context, index) => Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),

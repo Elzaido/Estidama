@@ -52,7 +52,7 @@ class myApp extends StatelessWidget {
           getPages: [
             GetPage(
                 name: '/on_boarding',
-                page: () => const OnBoarding(),
+                page: () => OnBoarding(),
                 binding: OnBoardingBinding()),
             GetPage(
                 name: "/login",

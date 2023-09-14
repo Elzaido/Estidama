@@ -144,12 +144,11 @@ class ComplainsController extends GetxController {
       }
 
       if (response['status'] == 'faild') {
-        defaultToast(massage: "faild", state: ToastStates.SUCCESS);
+        defaultToast(massage: "faild", state: ToastStates.ERROR);
       }
     } catch (exe) {
       defaultToast(
-          massage: "حدث خطب ما يرجى الاعادة لاحقا", state: ToastStates.SUCCESS);
-      print('the ERROR is: $exe');
+          massage: "حدث خطب ما يرجى الاعادة لاحقا", state: ToastStates.ERROR);
     }
 
     return response;
@@ -157,7 +156,7 @@ class ComplainsController extends GetxController {
 
   void checkComplainsData(
     String description,
-    geographic_location,
+    geographicLocation,
   ) {
     isLoading.value = true;
     if (description.length < 20) {
@@ -167,7 +166,7 @@ class ComplainsController extends GetxController {
       return;
     }
 
-    if (geographic_location == null) {
+    if (geographicLocation == null) {
       defaultToast(massage: "يجب اختيار موقع البلاغ", state: ToastStates.ERROR);
       return;
     }
@@ -178,10 +177,6 @@ class ComplainsController extends GetxController {
       return;
     }
 
-    uploadComplain(geographic_location, description);
-
-    //COMPLAINS DATA:
-    // 1 IMAGE FILE, LOCATION STRING , COMPLAIN STRING,
-    //STATUS STRING, UID STRING , DATE STRING
+    uploadComplain(geographicLocation, description);
   }
 }

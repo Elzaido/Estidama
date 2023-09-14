@@ -10,9 +10,22 @@ import 'package:madenati/ui/widgets/toast_widget.dart';
 
 class RegisterController extends GetxController {
   RxBool isScure = true.obs;
-
+  RxBool isLoading = false.obs;
   void changeIsScure() {
     isScure.value = !isScure.value;
+  }
+
+  RxBool isMaleSelected = false.obs;
+  RxBool isFemaleSelected = false.obs;
+
+  void selectMale() {
+    isMaleSelected.value = true;
+    isFemaleSelected.value = false;
+  }
+
+  void selectFemale() {
+    isMaleSelected.value = false;
+    isFemaleSelected.value = true;
   }
 
   List<String> provinces = [
@@ -111,11 +124,13 @@ class RegisterController extends GetxController {
           massage: "! الحساب موجود مسبقا الرجاء استخدام رقمك الشخصي",
           state: ToastStates.ERROR);
     }
+    isLoading.value = false;
     return response;
   }
 
   void signUpProcess(String user_name, String user_phone, String user_province,
       String gender, String user_password) {
+    isLoading.value = true;
     log('$selectedProvince');
     if (user_name.isEmpty ||
         user_phone.isEmpty ||

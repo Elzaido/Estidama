@@ -9,14 +9,14 @@ import 'package:madenati/ui/widgets/button_widget.dart';
 import 'package:madenati/ui/widgets/complain_form_titles.dart';
 import 'package:madenati/ui/widgets/dropdown_widget.dart';
 import 'package:madenati/ui/widgets/loading_widget.dart';
+import 'package:madenati/ui/widgets/toast_widget.dart';
 import '../../widgets/add_location_widget.dart';
 import '../../widgets/desc_formfield_widget.dart';
 
 class Complains extends StatelessWidget {
   Complains({super.key});
-//
-  final dateControl = TextEditingController();
 
+  final dateControl = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
   var geographicLocationData = Get.arguments;
@@ -44,7 +44,7 @@ class Complains extends StatelessWidget {
                                     .selectedComplain.value
                                     .toString(),
                                 list: complainsController.complainsList,
-                                FLAG: 2),
+                                flag: 2),
                           ),
                           title(text: 'ما هي درجة خطورة الشكوى'),
                           Obx(
@@ -53,7 +53,7 @@ class Complains extends StatelessWidget {
                                     .selectedComplainStatus.value
                                     .toString(),
                                 list: complainsController.complainStatus,
-                                FLAG: 3),
+                                flag: 3),
                           ),
                           descFormField(
                               hint: 'الرجاء ذكر تفاصيل أكثر عن الشكوى ...',
@@ -86,7 +86,9 @@ class Complains extends StatelessWidget {
                                   );
                                 } else {
                                   // Handle the case where geographicLocationData is null.
-                                  print('geographicLocationData is null');
+                                  defaultToast(
+                                      massage: 'الرجاء تحديد الموقع مرة أخرى',
+                                      state: ToastStates.WARNING);
                                 }
                               },
                               child: const Text(

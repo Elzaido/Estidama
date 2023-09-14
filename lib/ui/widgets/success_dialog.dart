@@ -2,19 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Dialogs {
-  Color green_c = const Color.fromARGB(255, 141, 203, 141);
-//this will bes used on success events
+  Color greenC = const Color.fromARGB(255, 141, 203, 141);
   late Size size;
-  void success_dialog(String success_msg, BuildContext context,
-      String description, String img_link) {
-    // final HomeController _controller = Get.find();
+  void successDialog(String successMsg, BuildContext context,
+      String description, String imgLink) {
     size = MediaQuery.of(context).size;
 
     Get.defaultDialog(
         titlePadding: const EdgeInsets.all(30),
-        // textCustom: "",custom: Icon(Icons.alarm),
-        // title: "helllllllllllllll",
-        // textCancel: "",
         backgroundColor: Colors.transparent,
         content: Container(
           decoration: BoxDecoration(
@@ -31,7 +26,7 @@ class Dialogs {
                 height: size.height * 0.04,
               ),
               Image.asset(
-                img_link,
+                imgLink,
                 width: size.width * 0.35,
                 height: size.height * 0.22,
               ),
@@ -40,7 +35,7 @@ class Dialogs {
                 alignment: Alignment.center,
                 width: size.width * 0.5,
                 child: Text(
-                  success_msg,
+                  successMsg,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       color: Colors.white,
@@ -55,7 +50,7 @@ class Dialogs {
                   description,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: green_c,
+                    color: greenC,
                     fontSize: 18,
                   ),
                 ),
@@ -63,8 +58,6 @@ class Dialogs {
               const SizedBox(
                 height: 40,
               )
-
-              ///
             ],
           )),
         )).then((value) => 2);
