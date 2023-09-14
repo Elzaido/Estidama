@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/onboarding_controller.dart';
@@ -5,17 +7,10 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../models/boardingmodel.dart';
 import '../../db/local/shared_preference.dart';
 import '../widgets/onboarding_widget.dart';
-// import 'authentication/login.dart';
 
-// ignore: must_be_immutable
-class OnBoarding extends StatefulWidget {
-  const OnBoarding({Key? key}) : super(key: key);
+class OnBoarding extends StatelessWidget {
+  OnBoarding({super.key});
 
-  @override
-  State<OnBoarding> createState() => _OnBoardingState();
-}
-
-class _OnBoardingState extends State<OnBoarding> {
   OnBoardingController controller = Get.find();
   List<BoardingModel> boarding = [
     BoardingModel(
@@ -36,16 +31,14 @@ class _OnBoardingState extends State<OnBoarding> {
     CacheHelper.saveData(key: 'onBoarding', value: true).then((value) {
       if (value) {
         Get.offNamed("/login");
-        // controller.navigateAndFinish(
-        //     context: context, widget: const LoginPage());
       }
     });
   }
 
   var boardController = PageController();
-  bool isLast = false;
   @override
   Widget build(BuildContext context) {
+    OnBoardingController onBoardingController = Get.find();
     return Scaffold(
         body: Stack(
       children: [
@@ -57,13 +50,9 @@ class _OnBoardingState extends State<OnBoarding> {
             onPageChanged: (int index) {
               // if the index equal the index of the last page then :
               if (index == boarding.length - 1) {
-                setState(() {
-                  isLast = true;
-                });
+                onBoardingController.isLast.value = true;
               } else {
-                setState(() {
-                  isLast = false;
-                });
+                onBoardingController.isLast.value = false;
               }
             },
             itemBuilder: (context, index) =>
@@ -112,7 +101,7 @@ class _OnBoardingState extends State<OnBoarding> {
                 FloatingActionButton(
                     backgroundColor: Colors.green,
                     onPressed: () {
-                      if (isLast) {
+                      if (onBoardingController.isLast.value) {
                         submit();
                       } else {
                         boardController.nextPage(

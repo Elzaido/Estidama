@@ -3,18 +3,13 @@ import 'package:get/get.dart';
 
 class Dialogs {
   Color greenC = const Color.fromARGB(255, 141, 203, 141);
-//this will bes used on success events
   late Size size;
   void successDialog(String successMsg, BuildContext context,
       String description, String imgLink) {
-    // final HomeController _controller = Get.find();
     size = MediaQuery.of(context).size;
 
     Get.defaultDialog(
         titlePadding: const EdgeInsets.all(30),
-        // textCustom: "",custom: Icon(Icons.alarm),
-        // title: "helllllllllllllll",
-        // textCancel: "",
         backgroundColor: Colors.transparent,
         content: Container(
           decoration: BoxDecoration(
@@ -63,8 +58,6 @@ class Dialogs {
               const SizedBox(
                 height: 40,
               )
-
-              ///
             ],
           )),
         )).then((value) => 2);

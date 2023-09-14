@@ -1,9 +1,11 @@
-// ignore_for_file: sized_box_for_whitespace, prefer_const_literals_to_create_immutables
+// ignore_for_file: sized_box_for_whitespace, prefer_const_literals_to_create_immutables, unused_import
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../widgets/appbar_widget.dart';
 import '../../widgets/profile_button_widget.dart';
 import '../../widgets/separator_widget.dart';
+import 'package:madenati/db/local/shared_preference.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -88,7 +90,8 @@ class Profile extends StatelessWidget {
                   separator(),
                   profileButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/login');
+                        Get.offNamed('/login');
+                        CacheHelper.removeData(key: 'user_id');
                       },
                       text: 'تسجيل الخروج',
                       icon: const Icon(Icons.logout)),
