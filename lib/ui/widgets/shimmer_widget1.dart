@@ -11,7 +11,7 @@ Widget homeShimmerWidget({required Size size}) => Shimmer.fromColors(
               itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     child: Container(
-                      height: 100,
+                      height: 150,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Colors.grey,
