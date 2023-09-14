@@ -70,9 +70,17 @@ class Complains extends StatelessWidget {
                       : const Text(" ")),
                   button(
                       onPressed: () {
-                        complainsController.checkComplainsData(
+                        if (geographicLocationData != null) {
+                          print(geographicLocationData);
+                          complainsController.checkComplainsData(
                             complainsController.descriptionController.text,
-                            geographicLocationData);
+                            geographicLocationData
+                                .toString(), // Ensure it's a string
+                          );
+                        } else {
+                          // Handle the case where geographicLocationData is null.
+                          print('geographicLocationData is null');
+                        }
                       },
                       child: const Text(
                         "إرسال الشكوى",

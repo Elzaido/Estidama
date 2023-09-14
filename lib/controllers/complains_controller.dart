@@ -146,6 +146,7 @@ class ComplainsController extends GetxController {
     } catch (exe) {
       defaultToast(
           massage: "حدث خطب ما يرجى الاعادة لاحقا", state: ToastStates.SUCCESS);
+      print('the ERROR is: $exe');
     }
 
     return response;

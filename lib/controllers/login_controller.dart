@@ -8,6 +8,12 @@ import '../ui/widgets/toast_widget.dart';
 ///RIGHT THEN IT GOES TO LOGIN REQUEST FUNCTION WHICH  MAKES A REQUEST TO ZAMELSTUDIOS .COM
 /// ITS A POST REQUEST AND HAS 2 PARAMETERS : COUNTR.PHONE AND PASSWORD OF USER
 class LoginController extends GetxController {
+  RxBool isScure = true.obs;
+
+  void changeIsScure() {
+    isScure.value = !isScure.value;
+  }
+
   loginRequest(phone, country, password) async {
     var response = await postRequest(
         loginPageLink, {"number": phone, "password": "$password"});

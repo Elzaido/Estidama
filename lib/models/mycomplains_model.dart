@@ -1,6 +1,4 @@
 class ComplainsModel {
-  // int? complainType;
-  // int? complainerId;
   String? complainDate;
   String? complainLocation;
   String? complainStatus;
@@ -9,16 +7,12 @@ class ComplainsModel {
   String? complainId;
 
   ComplainsModel(
-      {
-        // this.complainType,
-      // this.complainerId,
-      this.complainDate,
+      {this.complainDate,
       this.complainLocation,
       this.complainStatus,
       this.complainDescription,
       this.complainImagePath,
-      this.complainId
-      });
+      this.complainId});
 
   ComplainsModel.fromJson(Map<String, dynamic> json) {
     // complainType = json['complain_type'];

@@ -112,17 +112,24 @@ class _LoginPageState extends State<LoginPage> {
                           const SizedBox(
                             height: 20,
                           ),
-                          formField(
+                          Obx(() => formField(
                               control: passControl,
-                              isScure: true,
+                              isScure: loginController.isScure.value,
                               label: 'كلمة السر',
                               prefIcon: const Icon(Icons.lock),
+                              suffButton: IconButton(
+                                  onPressed: () {
+                                    loginController.changeIsScure();
+                                  },
+                                  icon: loginController.isScure.value
+                                      ? const Icon(Icons.remove_red_eye)
+                                      : const Icon(Icons.visibility_off)),
                               validator: (String? value) {
                                 if (value!.isEmpty) {
                                   return 'يجب إدخال كلمة السر';
                                 }
                                 return null;
-                              }),
+                              })),
                           const SizedBox(
                             height: 20,
                           ),
@@ -165,3 +172,4 @@ class _LoginPageState extends State<LoginPage> {
                     )))));
   }
 }
+// visibility off --- remove red eye

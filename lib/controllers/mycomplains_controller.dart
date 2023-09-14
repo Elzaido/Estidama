@@ -13,8 +13,14 @@ class MyComplainsController extends GetxController {
     super.onInit();
   }
 
+  RxBool isComplain = true.obs;
+
+  void changeIsComplain() {
+    isComplain.value = !isComplain.value;
+  }
+
   RxList<ComplainsModel> complainList = [ComplainsModel()].obs;
-  RxInt complain_length=0.obs;
+  RxInt complain_length = 0.obs;
   // List<Map> myComplainsList = [];
   // RxList myComplains = [].obs;
   retriveCurrentUserComplains() async {

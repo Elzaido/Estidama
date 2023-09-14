@@ -68,7 +68,7 @@ class _RegisterState extends State<Register> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            Get.toNamed('/login');
           },
           icon: const Icon(
             Icons.arrow_back,
@@ -201,10 +201,9 @@ class _RegisterState extends State<Register> {
                               hintStyle: const TextStyle(fontFamily: 'Cairo'),
                             ),
                             validator: (value) {
-                              if (value!.length < 10) {
-                                return "يجب ان يتكون رقم الهاتف من 10 خانات على الاقل";
-                              }
-                              if (value.isEmpty) {
+                              if (value!.length != 9) {
+                                return "يجب ان يتكون رقم الهاتف من 9 خانات ";
+                              } else if (value.isEmpty) {
                                 return 'يجب إدخال رقم الهاتف';
                               } else {
                                 return null;
@@ -226,17 +225,27 @@ class _RegisterState extends State<Register> {
                   const SizedBox(
                     height: 5,
                   ),
-                  formField(
+                  Obx(() => formField(
                       control: passwordControl,
-                      isScure: true,
-                      label: "ادخل كلمة المرور",
+                      isScure: registerController.isScure.value,
+                      label: 'كلمة السر',
                       prefIcon: const Icon(Icons.lock),
-                      validator: (value) {
-                        if (value.toString().length < 8) {
+                      suffButton: IconButton(
+                          onPressed: () {
+                            registerController.changeIsScure();
+                          },
+                          icon: registerController.isScure.value
+                              ? const Icon(Icons.remove_red_eye)
+                              : const Icon(Icons.visibility_off)),
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'يجب إدخال كلمة السر';
+                        } else if (value.toString().length < 8) {
                           return "يجب ان تكون كلمة المرور 8 خانات او اكثر";
                         }
                         return null;
-                      }),
+                      })),
+
                   const SizedBox(
                     height: 20,
                   ),
@@ -266,7 +275,7 @@ class _RegisterState extends State<Register> {
                     children: [
                       TextButton(
                           onPressed: () {
-                            Get.back();
+                            Get.toNamed('/login');
                             // Navigator.pop(context);
                           },
                           child: const Text(

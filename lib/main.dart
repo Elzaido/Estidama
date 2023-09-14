@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:madenati/controllers/volunteering_controller.dart';
 import 'package:madenati/ui/pages/authentication/register.dart';
 import 'package:madenati/ui/pages/main_pages/about_app.dart';
+import 'package:madenati/ui/pages/main_pages/activities.dart';
 import 'package:madenati/ui/pages/main_pages/googlemaps.dart';
 import 'package:madenati/ui/pages/main_pages/home.dart';
 import 'package:madenati/ui/pages/main_pages/luncher.dart';
-import 'package:madenati/ui/pages/main_pages/my_complains.dart';
 import 'package:madenati/ui/pages/main_pages/recycling_form.dart';
 import 'package:madenati/ui/pages/main_pages/recycling_map.dart';
 import 'package:madenati/ui/pages/main_pages/volunteering.dart';
@@ -63,7 +63,7 @@ class myApp extends StatelessWidget {
             binding: LauncherBindings()),
         GetPage(
           name: '/home',
-          page: (() => Home()),
+          page: (() => const Home()),
           binding: HomeBinding(),
         ),
         GetPage(
@@ -73,7 +73,7 @@ class myApp extends StatelessWidget {
         ),
         GetPage(
             name: '/myComplains',
-            page: (() => const MyComplains()),
+            page: (() => Activities()),
             binding: MyComplainsBinding()),
         GetPage(
             name: '/complains',

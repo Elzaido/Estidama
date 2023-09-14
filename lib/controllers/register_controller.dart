@@ -9,6 +9,12 @@ import 'package:madenati/ui/pages/authentication/auth_success.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
 
 class RegisterController extends GetxController {
+  RxBool isScure = true.obs;
+
+  void changeIsScure() {
+    isScure.value = !isScure.value;
+  }
+
   List<String> provinces = [
     "اربد",
     "الزرقاء",

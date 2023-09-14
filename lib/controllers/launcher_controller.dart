@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:madenati/ui/pages/main_pages/activities.dart';
 import 'package:madenati/ui/pages/main_pages/home.dart';
-import 'package:madenati/ui/pages/main_pages/my_complains.dart';
 import 'package:madenati/ui/pages/main_pages/profile.dart';
 import 'package:madenati/utilities/binding.dart';
 
@@ -32,7 +32,7 @@ class LauncherController extends GetxController {
     } else if (settings.name == '/myComplains') {
       return GetPageRoute(
         settings: settings,
-        page: () => const MyComplains(),
+        page: () => Activities(),
         binding: MyComplainsBinding(),
       );
     }
