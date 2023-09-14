@@ -36,74 +36,79 @@ class myApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final heroController =
+        HeroController(); // Create an instance of HeroController
+
     //onBoarding =true means it finished the page
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: CacheHelper.getData(key: 'onBoarding') == true
-          ? CacheHelper.getData(key: "isLogin") == true
-              ? "/launcher"
-              : "/login"
-          : "/on_boarding",
-      getPages: [
-        GetPage(
-            name: '/on_boarding',
-            page: () => const OnBoarding(),
-            binding: OnBoardingBinding()),
-        GetPage(
-            name: "/login",
-            page: (() => const LoginPage()),
-            binding: LoginBinding()),
-        GetPage(
-            name: "/register",
-            page: (() => const Register()),
-            binding: RegisterBinding()),
-        GetPage(
-            name: '/launcher',
-            page: (() => const Luncher()),
-            binding: LauncherBindings()),
-        GetPage(
-          name: '/home',
-          page: (() => const Home()),
-          binding: HomeBinding(),
-        ),
-        GetPage(
-          name: '/profile',
-          page: (() => const Profile()),
-          binding: ProfileBinding(),
-        ),
-        GetPage(
-            name: '/myComplains',
-            page: (() => Activities()),
-            binding: MyComplainsBinding()),
-        GetPage(
-            name: '/complains',
-            page: (() => Complains()),
-            binding: ComplainsBinding()),
-        GetPage(
-            name: '/volunteering',
-            page: (() => const Volunteering()),
-            binding: VolunteeringBinding()),
-        GetPage(
-            name: '/map_screen',
-            page: (() => const MapScreen()),
-            binding: MapScreenBinding()),
-        GetPage(
-            name: '/recycling',
-            page: (() => const Recycling()),
-            binding: RecyclingBinding()),
-        GetPage(
-            name: '/recyclingform',
-            page: (() => RecyclingForm()),
-            binding: RecyclingBinding()),
-        GetPage(
-            name: '/recyclingmap',
-            page: (() => const RecyclingLocationsMap()),
-            binding: RecyclingBinding()),
-        GetPage(
-            name: '/aboutapp',
-            page: (() => const AboutApp()),
-            binding: AboutAppBinding()),
-      ],
-    );
+    return HeroControllerScope(
+        controller: heroController,
+        child: GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          initialRoute: CacheHelper.getData(key: 'onBoarding') == true
+              ? CacheHelper.getData(key: "isLogin") == true
+                  ? "/launcher"
+                  : "/login"
+              : "/on_boarding",
+          getPages: [
+            GetPage(
+                name: '/on_boarding',
+                page: () => const OnBoarding(),
+                binding: OnBoardingBinding()),
+            GetPage(
+                name: "/login",
+                page: (() => const LoginPage()),
+                binding: LoginBinding()),
+            GetPage(
+                name: "/register",
+                page: (() => const Register()),
+                binding: RegisterBinding()),
+            GetPage(
+                name: '/launcher',
+                page: (() => const Luncher()),
+                binding: LauncherBindings()),
+            GetPage(
+              name: '/home',
+              page: (() => const Home()),
+              binding: HomeBinding(),
+            ),
+            GetPage(
+              name: '/profile',
+              page: (() => const Profile()),
+              binding: ProfileBinding(),
+            ),
+            GetPage(
+                name: '/myComplains',
+                page: (() => Activities()),
+                binding: MyComplainsBinding()),
+            GetPage(
+                name: '/complains',
+                page: (() => Complains()),
+                binding: ComplainsBinding()),
+            GetPage(
+                name: '/volunteering',
+                page: (() => const Volunteering()),
+                binding: VolunteeringBinding()),
+            GetPage(
+                name: '/map_screen',
+                page: (() => const MapScreen()),
+                binding: MapScreenBinding()),
+            GetPage(
+                name: '/recycling',
+                page: (() => const Recycling()),
+                binding: RecyclingBinding()),
+            GetPage(
+                name: '/recyclingform',
+                page: (() => RecyclingForm()),
+                binding: RecyclingBinding()),
+            GetPage(
+                name: '/recyclingmap',
+                page: (() => const RecyclingLocationsMap()),
+                binding: RecyclingBinding()),
+            GetPage(
+                name: '/aboutapp',
+                page: (() => const AboutApp()),
+                binding: AboutAppBinding()),
+          ],
+        ));
   }
 }

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:madenati/controllers/complains_controller.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
 
 class MapScreen extends StatefulWidget {
@@ -54,6 +55,7 @@ class MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ComplainsController complainsController = Get.find();
     return Scaffold(
       // appBar: defaultAppBar(context: context, title: 'حدد مكان البلاغ'),
       body: Stack(children: [
@@ -100,6 +102,8 @@ class MapScreenState extends State<MapScreen> {
                               arguments: selectedLocation.toString())
                           : Get.offNamed("/recycling",
                               arguments: selectedLocation.toString());
+
+                      complainsController.locationSelected = true.obs;
 
                       print(
                           'SELECTED LOCATION IS: ${selectedLocation.toString()}');
