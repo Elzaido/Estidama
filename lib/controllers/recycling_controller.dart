@@ -193,4 +193,4 @@ class RecyclingController extends GetxController {
 
     uploadRecyclingItem(geographic_location, weight);
   }
-}
+}   //F
