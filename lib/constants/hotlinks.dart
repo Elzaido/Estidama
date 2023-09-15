@@ -8,3 +8,4 @@ const String complainImages = "$gateway/uploads";
 const String deleteComplainLink = "$gateway/core/delete_complain.php";
 const String volunteeringApplicationLink = "$gateway/core/add_volunteer.php";
 const String recyclingOrderLink ="$gateway/core/recycling_orders.php";
+const String getCurrentUserData = "$gateway/core/users.php";
