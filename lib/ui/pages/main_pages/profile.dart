@@ -2,11 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-<<<<<<< HEAD
+ 
 import 'package:madenati/controllers/profile_controller.dart';
 import 'package:madenati/db/local/shared_preference.dart';
-=======
->>>>>>> 50f0d252b1bbe120b2e382076d23387cc9c8c19f
+
 import '../../widgets/appbar_widget.dart';
 import '../../widgets/profile_button_widget.dart';
 import '../../widgets/separator_widget.dart';
@@ -96,15 +95,9 @@ class Profile extends StatelessWidget {
                       icon: const Icon(Icons.favorite_border)),
                   separator(),
                   profileButton(
-<<<<<<< HEAD
                       onPressed: () async {
                         CacheHelper.clearData();
                         Get.offAllNamed("/login");
-=======
-                      onPressed: () {
-                        Get.offNamed('/login');
-                        CacheHelper.removeData(key: 'user_id');
->>>>>>> 50f0d252b1bbe120b2e382076d23387cc9c8c19f
                       },
                       text: 'تسجيل الخروج',
                       icon: const Icon(Icons.logout)),
