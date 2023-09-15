@@ -9,8 +9,7 @@ import 'package:madenati/db/local/shared_preference.dart';
 import '../../widgets/appbar_widget.dart';
 import '../../widgets/profile_button_widget.dart';
 import '../../widgets/separator_widget.dart';
-import 'package:madenati/db/local/shared_preference.dart';
-
+ 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
 

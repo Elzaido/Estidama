@@ -12,6 +12,7 @@ class Activities extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size=MediaQuery.of(context).size;
     MyComplainsController myComplainsController = Get.find();
     return Scaffold(
         appBar: defaultAppBar(context: context, title: 'نشاطاتي', isHome: true),
@@ -19,7 +20,7 @@ class Activities extends StatelessWidget {
           () => Column(
             children: [
               Container(
-                height: 100,
+                height: size.height*0.11,
                 decoration: BoxDecoration(color: Colors.grey[100], boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.3),
