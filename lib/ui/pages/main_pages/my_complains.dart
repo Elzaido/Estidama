@@ -58,15 +58,13 @@ class MyComplains extends StatelessWidget {
                                       child: separator(),
                                     ),
                                 itemBuilder: (context, index) {
-                                  if (snapshot.data['data'][index].length !=
-                                      0) {
+                                  if (snapshot.data['data'][index].length != 0) {
                                     controller.complainList.value = snapshot
                                         .data['data']
                                         .map<ComplainsModel>((complainData) =>
                                             ComplainsModel.fromJson(
                                                 complainData))
-                                        .toList();
-
+                                        .toList(); 
                                     return Obx(() =>
                                         controller.complainList.isNotEmpty
                                             ? myComplainItem(
