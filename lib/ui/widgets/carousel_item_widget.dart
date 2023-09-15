@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-<<<<<<<< HEAD:lib/ui/widgets/carousel_item_widget.dart
-
+import 'package:flutter/material.dart'; 
 import '../../constants/colors.dart';
 
 Widget carsoulItem({
@@ -68,9 +66,7 @@ Widget carsoulItem({
         ),
       ),
     );
-========
-import '../ui/widgets/carousel_item_widget.dart';
-
+ 
 // If you want to add a carsoul item add it here and it will appear in the UI.
 
 List<Widget> images = [
@@ -79,5 +75,4 @@ List<Widget> images = [
       title: 'تطوع',
       text:
           'قام أحد فرق التطوع في مدينة إربد بزراعة 20 شجرة على طريق الواصل بين منطقة أيدون و الحصن'),
-];
->>>>>>>> 50f0d252b1bbe120b2e382076d23387cc9c8c19f:lib/constants/carsousel_items.dart
+]; 
