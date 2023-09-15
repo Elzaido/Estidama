@@ -38,7 +38,7 @@ class RecyclingForm extends StatelessWidget {
                             .selectedRecyclingItem.value
                             .toString(),
                         list: recyclingController.recyclingItemList,
-                        FLAG: 4),
+                        flag: 4),
                   ),
                   formField(
                     control: itemWeightcontroller,
@@ -69,8 +69,7 @@ class RecyclingForm extends StatelessWidget {
                   button(
                       onPressed: () {
                         recyclingController.checkRecyclingItemsData(
-                          itemWeightcontroller.text,
-                            geographicLocationData);
+                            itemWeightcontroller.text, geographicLocationData);
                       },
                       child: const Text(
                         "إرسال",

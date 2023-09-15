@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
 
 import 'dart:io';
 import 'dart:math';
@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/remote/sql.dart';
- import 'package:madenati/ui/widgets/toast_widget.dart';
+import 'package:madenati/ui/widgets/toast_widget.dart';
 import 'package:madenati/db/local/shared_preference.dart';
 import 'reusable_functions.dart';
 
@@ -32,17 +32,11 @@ class RecyclingController extends GetxController {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     descriptionController.dispose();
   }
-  //
-
-  ///
-  ///
 
   void loading() {
-    //NO SET STATE IN THE APP !  USE GETX
     // Animate opacity for the image after a short delay.
     Future.delayed(const Duration(milliseconds: 700), () {
       imageOpacity.value =
@@ -135,8 +129,6 @@ class RecyclingController extends GetxController {
   }
 
   uploadRecyclingItem(String location, String weight) async {
-    // try {
-    //   print(recyclingItemImage);
     response = await postRequestWithFile(
         recyclingOrderLink,
         recyclingItemImage,
@@ -172,7 +164,7 @@ class RecyclingController extends GetxController {
 
   checkRecyclingItemsData(
     String weight,
-    geographic_location,
+    geographicLocation,
   ) {
     if (weight.isEmpty) {
       defaultToast(
@@ -180,7 +172,7 @@ class RecyclingController extends GetxController {
       return;
     }
 
-    if (geographic_location == null) {
+    if (geographicLocation == null) {
       defaultToast(massage: "الرجاء تحديد موقعك", state: ToastStates.ERROR);
       return;
     }
@@ -190,6 +182,6 @@ class RecyclingController extends GetxController {
       return;
     }
 
-    uploadRecyclingItem(geographic_location, weight);
+    uploadRecyclingItem(geographicLocation, weight);
   }
-}   //F
+}

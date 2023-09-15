@@ -5,7 +5,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:intl/intl.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/local/shared_preference.dart';
 import 'package:madenati/db/remote/sql.dart';
@@ -13,8 +12,11 @@ import 'package:madenati/ui/widgets/toast_widget.dart';
 import 'reusable_functions.dart';
 
 class ComplainsController extends GetxController {
+  RxBool isLoading = false.obs;
   bool isDropdownOpen = false;
   RxInt isShowImage = 1.obs;
+  RxBool locationSelected = false.obs;
+
   List<String> complainsList = [
     'صرف صحي',
     'ضوضاء و ضجيج',
@@ -43,8 +45,9 @@ class ComplainsController extends GetxController {
     selectedComplainStatus.value = complainStatus[0];
     isShowImage.value = 1;
     location = "";
-    // Get.offNamed("/launcher");
+    locationSelected.value = false;
     update();
+    isLoading.value = false;
   }
 
   int fromTextToIntComplain() {
@@ -141,11 +144,11 @@ class ComplainsController extends GetxController {
       }
 
       if (response['status'] == 'faild') {
-        defaultToast(massage: "faild", state: ToastStates.SUCCESS);
+        defaultToast(massage: "faild", state: ToastStates.ERROR);
       }
     } catch (exe) {
       defaultToast(
-          massage: "حدث خطب ما يرجى الاعادة لاحقا", state: ToastStates.SUCCESS);
+          massage: "حدث خطب ما يرجى الاعادة لاحقا", state: ToastStates.ERROR);
     }
 
     return response;
@@ -153,8 +156,9 @@ class ComplainsController extends GetxController {
 
   void checkComplainsData(
     String description,
-    geographic_location,
+    geographicLocation,
   ) {
+    isLoading.value = true;
     if (description.length < 20) {
       defaultToast(
           massage: "يجب كتابة وصف للبلاغ لايقل عن 20 حرف",
@@ -162,7 +166,7 @@ class ComplainsController extends GetxController {
       return;
     }
 
-    if (geographic_location == null) {
+    if (geographicLocation == null) {
       defaultToast(massage: "يجب اختيار موقع البلاغ", state: ToastStates.ERROR);
       return;
     }
@@ -173,10 +177,6 @@ class ComplainsController extends GetxController {
       return;
     }
 
-    uploadComplain(geographic_location, description);
-
-    //COMPLAINS DATA:
-    // 1 IMAGE FILE, LOCATION STRING , COMPLAIN STRING,
-    //STATUS STRING, UID STRING , DATE STRING
+    uploadComplain(geographicLocation, description);
   }
 }

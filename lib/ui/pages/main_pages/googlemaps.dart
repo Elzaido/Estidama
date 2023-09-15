@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:madenati/controllers/complains_controller.dart';
 import 'package:madenati/ui/widgets/button_widget.dart';
+import 'package:madenati/ui/widgets/toast_widget.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -54,6 +56,7 @@ class MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ComplainsController complainsController = Get.find();
     return Scaffold(
       // appBar: defaultAppBar(context: context, title: 'حدد مكان البلاغ'),
       body: Stack(children: [
@@ -93,14 +96,24 @@ class MapScreenState extends State<MapScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 65, vertical: 20),
               child: button(
                   onPressed: () {
-                    whichPage == 1
-                        ? Get.offNamed("/complains",
-                            arguments: selectedLocation.toString())
-                        : Get.offNamed("/recyclingform",
-                            arguments: selectedLocation.toString());
+                    if (selectedLocation != null) {
+                      // Location is not null, navigate to the next page and print.
+                      whichPage == 1
+                          ? Get.offNamed("/complains",
+                              arguments: selectedLocation.toString())
+                          : Get.offNamed("/recycling",
+                              arguments: selectedLocation.toString());
+
+                      complainsController.locationSelected = true.obs;
+                    } else {
+                      // Location is null, handle accordingly (show a message or alert).
+                      defaultToast(
+                          massage: 'الرجاء تحديد الموقع على الخريطة',
+                          state: ToastStates.ERROR);
+                    }
                   },
                   child: const Text(
-                    ' حدد المكان',
+                    'تأكيد',
                     style: TextStyle(fontFamily: 'Cairo'),
                   )),
             ))

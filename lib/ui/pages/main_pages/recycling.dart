@@ -20,8 +20,7 @@ class RecyclingState extends State<Recycling> {
   void initState() {
     super.initState();
     recyclingController.loading();
-  }  
-    
+  }
 
   @override
   Widget build(BuildContext context) {

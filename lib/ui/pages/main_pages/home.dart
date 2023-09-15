@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:madenati/ui/widgets/carsousel_items.dart';
+=======
+>>>>>>> 50f0d252b1bbe120b2e382076d23387cc9c8c19f
 import 'package:madenati/ui/widgets/carousel_slider_widget.dart';
+import '../../../constants/carsousel_items.dart';
 import '../../../models/gridmodel.dart';
 import '../../widgets/appbar_widget.dart';
 import '../../widgets/grid_widget.dart';
