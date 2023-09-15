@@ -1,6 +1,9 @@
 // ignore_for_file: sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:madenati/controllers/profile_controller.dart';
+import 'package:madenati/db/local/shared_preference.dart';
 import '../../widgets/appbar_widget.dart';
 import '../../widgets/profile_button_widget.dart';
 import '../../widgets/separator_widget.dart';
@@ -10,6 +13,7 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProfileController profileController = Get.find();
     return Scaffold(
       appBar:
           defaultAppBar(context: context, title: 'الملف الشخصي', isHome: true),
@@ -26,20 +30,20 @@ class Profile extends StatelessWidget {
               ),
             ),
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Zaid Raed',
-                style: TextStyle(
+                CacheHelper.getData(key: "user_name").toString(),
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
-              Icon(
+              const Icon(
                 Icons.verified,
                 color: Colors.blue,
                 size: 20,
@@ -68,27 +72,29 @@ class Profile extends StatelessWidget {
                 children: [
                   profileButton(
                       onPressed: () {},
-                      icon: const Icon(Icons.edit),
-                      text: 'تعديل الملف الشخصي'),
+                      icon: const Icon(Icons.numbers),
+                      text: CacheHelper.getData(key: "user_number")),
                   separator(),
                   profileButton(
                       onPressed: () {},
-                      text: 'تقديم بلاغ',
+                      text: profileController.iterateUserProvince(
+                       3 ).toString(),
                       icon: const Icon(Icons.add)),
                   separator(),
                   profileButton(
                       onPressed: () {},
-                      text: 'بلاغاتي',
+                      text: CacheHelper.getData(key: "user_join_date"),
                       icon: const Icon(Icons.ad_units)),
                   separator(),
                   profileButton(
                       onPressed: () {},
-                      text: 'التقديم للعمل التطوعي',
+                      text: CacheHelper.getData(key: "user_gender")=='male'?"ذكر" :'انثى' ,
                       icon: const Icon(Icons.favorite_border)),
                   separator(),
                   profileButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/login');
+                      onPressed: () async {
+                        CacheHelper.clearData();
+                        Get.offAllNamed("/login");
                       },
                       text: 'تسجيل الخروج',
                       icon: const Icon(Icons.logout)),

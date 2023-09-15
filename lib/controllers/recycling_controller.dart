@@ -7,8 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/remote/sql.dart';
-import 'package:madenati/ui/widgets/access_photo.dart';
-import 'package:madenati/ui/widgets/toast_widget.dart';
+ import 'package:madenati/ui/widgets/toast_widget.dart';
 import 'package:madenati/db/local/shared_preference.dart';
 import 'reusable_functions.dart';
 
