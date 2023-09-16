@@ -26,4 +26,8 @@ class CacheHelper {
   }) async {
     return await sharedPreferences.remove(key);
   }
+
+  static void clearData() {
+    sharedPreferences.clear();
+  }
 }

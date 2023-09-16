@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+ 
+import 'package:madenati/constants/carsousel_items.dart';
+ 
 import 'package:madenati/ui/widgets/carousel_slider_widget.dart';
 import '../../../constants/carsousel_items.dart';
 import '../../../models/gridmodel.dart';

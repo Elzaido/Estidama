@@ -43,4 +43,19 @@ class MyComplainsController extends GetxController {
     update();
     return response;
   }
+
+  retriveCurrentUserVolunteeringOrders() async {
+    var response = await postRequest(getCurrentUserVolunteeringOrders,
+        {"user_id": CacheHelper.getData(key: "user_id").toString()});
+
+    if (response['status'] == 'success') {
+      print("success");
+    }
+    if (response['status'] == 'faild') {
+      print("faild");
+    }
+    return response;
+  }
+
+  
 }

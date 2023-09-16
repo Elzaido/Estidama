@@ -90,6 +90,7 @@ class MapScreenState extends State<MapScreen> {
             });
           },
         ),
+        ///
         Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -101,7 +102,7 @@ class MapScreenState extends State<MapScreen> {
                       whichPage == 1
                           ? Get.offNamed("/complains",
                               arguments: selectedLocation.toString())
-                          : Get.offNamed("/recycling",
+                          : Get.offNamed("/recyclingform",
                               arguments: selectedLocation.toString());
 
                       complainsController.locationSelected = true.obs;
