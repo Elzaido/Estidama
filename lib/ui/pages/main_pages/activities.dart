@@ -6,54 +6,60 @@ import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/ui/pages/main_pages/my_volunteering_req.dart';
 import 'package:madenati/ui/widgets/appbar_widget.dart';
 import 'my_complains.dart';
+import 'my_recycling_req.dart';
 
 class Activities extends StatelessWidget {
   Activities({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size size=MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     MyComplainsController myComplainsController = Get.find();
+
     return Scaffold(
-        appBar: defaultAppBar(context: context, title: 'نشاطاتي', isHome: true),
-        body: Obx(
-          () => Column(
-            children: [
-              Container(
-                height: size.height*0.11,
-                decoration: BoxDecoration(color: Colors.grey[100], boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 5,
-                    blurRadius: 10,
-                    offset: Offset(0, 5), // changes position of shadow
-                  ),
-                ]),
-                child: Row(
+      appBar: defaultAppBar(context: context, title: 'نشاطاتي', isHome: true),
+      body: Column(
+        children: [
+          Container(
+            height: size.height * 0.11,
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 5,
+                  blurRadius: 10,
+                  offset: Offset(0, 5), // changes position of shadow
+                ),
+              ],
+            ),
+            child: Obx(() => Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            top: 15, left: 15, right: 7.5, bottom: 15),
+                            top: 10, left: 7, right: 3.5, bottom: 10),
                         child: GestureDetector(
                           onTap: () {
-                            myComplainsController.changeIsComplain();
+                            myComplainsController.changeSelectedPage(0);
                           },
                           child: Container(
                             height: 80,
                             decoration: BoxDecoration(
-                                color: myComplainsController.isComplain.value
-                                    ? Colors.green[400]
-                                    : Colors.grey,
-                                borderRadius: BorderRadius.circular(20)),
+                              color:
+                                  myComplainsController.selectedPage.value == 0
+                                      ? Colors.green[400]
+                                      : Colors.grey,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                             child: Center(
                               child: Text(
                                 'الشكاوي',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Cairo',
-                                  fontSize: 18,
+                                  fontSize: 15,
                                 ),
                               ),
                             ),
@@ -64,25 +70,58 @@ class Activities extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            top: 15, left: 7.5, right: 15, bottom: 15),
+                            top: 10, left: 3.5, right: 3.5, bottom: 10),
                         child: GestureDetector(
                           onTap: () {
-                            myComplainsController.changeIsComplain();
+                            myComplainsController.changeSelectedPage(1);
                           },
                           child: Container(
                             height: 80,
                             decoration: BoxDecoration(
-                                color: myComplainsController.isComplain.value
-                                    ? Colors.grey
-                                    : Colors.green[400],
-                                borderRadius: BorderRadius.circular(20)),
+                              color:
+                                  myComplainsController.selectedPage.value == 1
+                                      ? Colors.green[400]
+                                      : Colors.grey,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                             child: Center(
                               child: Text(
                                 'طلبات التطوع',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Cairo',
-                                  fontSize: 18,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 10, left: 3.5, right: 7, bottom: 10),
+                        child: GestureDetector(
+                          onTap: () {
+                            myComplainsController.changeSelectedPage(2);
+                          },
+                          child: Container(
+                            height: 80,
+                            decoration: BoxDecoration(
+                              color:
+                                  myComplainsController.selectedPage.value == 2
+                                      ? Colors.green[400]
+                                      : Colors.grey,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'صفحة جديدة',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Cairo',
+                                  fontSize: 15,
                                 ),
                               ),
                             ),
@@ -91,13 +130,20 @@ class Activities extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
-              ),
-              myComplainsController.isComplain.value
-                  ? Expanded(child: MyComplains())
-                  : Expanded(child: MyVolunteeringReq())
-            ],
+                )),
           ),
-        ));
+          Expanded(
+            child: Obx(() => IndexedStack(
+                  index: myComplainsController.selectedPage.value,
+                  children: [
+                    MyComplains(),
+                    MyVolunteeringReq(),
+                    MyRecyclingReq(),
+                  ],
+                )),
+          ),
+        ],
+      ),
+    );
   }
 }
