@@ -10,3 +10,4 @@ const String volunteeringApplicationLink = "$gateway/core/add_volunteer.php";
 const String recyclingOrderLink ="$gateway/core/recycling_orders.php";
 const String getCurrentUserData = "$gateway/core/users.php";
 const String getCurrentUserVolunteeringOrders = "$gateway/core/retrive_volunteer_orders.php";
+const String delteVolunteerRequestLink ="$gateway/core/delete_volunteer_request.php";
