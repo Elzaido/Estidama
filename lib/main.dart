@@ -1,8 +1,10 @@
 // ignore_for_file: camel_case_types
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/volunteering_controller.dart';
+import 'package:madenati/firebase_options.dart';
 import 'package:madenati/ui/pages/authentication/register.dart';
 import 'package:madenati/ui/pages/main_pages/about_app.dart';
 import 'package:madenati/ui/pages/main_pages/activities.dart';
@@ -28,6 +30,9 @@ void main() async {
   Get.put(ComplainsController());
   Get.put(RecyclingController());
   Get.put(VolunteeringController());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const myApp());
 }
 
