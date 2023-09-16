@@ -18,6 +18,7 @@ import 'package:madenati/ui/pages/on_boarding.dart';
 import 'controllers/complains_controller.dart';
 import 'controllers/recycling_controller.dart';
 import 'db/local/shared_preference.dart';
+import 'firebase_messeging.dart';
 import 'ui/pages/authentication/login.dart';
 import 'ui/pages/main_pages/complains.dart';
 import 'ui/pages/main_pages/profile.dart';
@@ -33,6 +34,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  initFirebaseMessaging();
   runApp(const myApp());
 }
 

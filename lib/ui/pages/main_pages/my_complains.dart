@@ -58,13 +58,14 @@ class MyComplains extends StatelessWidget {
                                       child: separator(),
                                     ),
                                 itemBuilder: (context, index) {
-                                  if (snapshot.data['data'][index].length != 0) {
+                                  if (snapshot.data['data'][index].length !=
+                                      0) {
                                     controller.complainList.value = snapshot
                                         .data['data']
                                         .map<ComplainsModel>((complainData) =>
                                             ComplainsModel.fromJson(
                                                 complainData))
-                                        .toList(); 
+                                        .toList();
                                     return Obx(() =>
                                         controller.complainList.isNotEmpty
                                             ? myComplainItem(
@@ -97,7 +98,7 @@ class MyComplains extends StatelessWidget {
             'لم تقم بتقديم أي شكوى حتى الآن',
             style: TextStyle(
               fontFamily: 'Cairo',
-              fontSize: 15,
+              fontSize: 13,
             ),
           ),
           SizedBox(
@@ -106,7 +107,7 @@ class MyComplains extends StatelessWidget {
           Icon(
             Icons.warning,
             color: Colors.red,
-            size: 30,
+            size: 27,
           )
         ],
       ),
