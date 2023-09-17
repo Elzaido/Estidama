@@ -5,7 +5,7 @@ import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/mycomplains_model.dart';
 import 'package:madenati/models/volunteer_model.dart';
-import 'separator_widget.dart';
+import 'interface_components.dart';
 
 Widget myComplainItem(context, ComplainsModel complainModel,
     MyComplainsController myComplainsController, index) {

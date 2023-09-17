@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:madenati/ui/widgets/appbar_widget.dart';
+import '../../widgets/interface_components.dart';
 
 class RecyclingLocationsMap extends StatelessWidget {
   const RecyclingLocationsMap({super.key});

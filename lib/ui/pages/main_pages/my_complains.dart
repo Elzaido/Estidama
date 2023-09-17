@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/mycomplains_model.dart';
-import 'package:madenati/ui/widgets/shimmer_widget1.dart';
-import 'package:madenati/ui/widgets/separator_widget.dart';
+import 'package:madenati/ui/widgets/interface_components.dart';
 import '../../widgets/mycomplain_widgets.dart';
 
 class MyComplains extends StatelessWidget {

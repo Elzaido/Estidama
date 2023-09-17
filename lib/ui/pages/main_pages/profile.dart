@@ -2,17 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
- 
+
 import 'package:madenati/controllers/profile_controller.dart';
 import 'package:madenati/db/local/shared_preference.dart';
 
-import '../../widgets/appbar_widget.dart';
-import '../../widgets/profile_button_widget.dart';
-import '../../widgets/separator_widget.dart';
- 
-class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
+import '../../widgets/interface_components.dart';
+// import '../../widgets/separator_widget.dart';
 
+class Profile extends StatelessWidget {
+    Profile({Key? key}) : super(key: key);
+
+ProfileController controller=Get.find();
   @override
   Widget build(BuildContext context) {
     ProfileController profileController = Get.find();
@@ -74,30 +74,29 @@ class Profile extends StatelessWidget {
                 children: [
                   profileButton(
                       onPressed: () {},
-                      icon: const Icon(Icons.numbers),
+                      icon: const Icon(Icons.numbers_outlined),
                       text: CacheHelper.getData(key: "user_number")),
                   separator(),
                   profileButton(
                       onPressed: () {},
-                      text: profileController.iterateUserProvince(
-                       3 ).toString(),
-                      icon: const Icon(Icons.add)),
+                      text: profileController.iterateUserProvince(3).toString(),
+                      icon: const Icon(Icons.location_city)),
                   separator(),
                   profileButton(
                       onPressed: () {},
                       text: CacheHelper.getData(key: "user_join_date"),
-                      icon: const Icon(Icons.ad_units)),
+                      icon: const Icon(Icons.date_range)),
                   separator(),
                   profileButton(
                       onPressed: () {},
-                      text: CacheHelper.getData(key: "user_gender")=='male'?"ذكر" :'انثى' ,
-                      icon: const Icon(Icons.favorite_border)),
+                      text: CacheHelper.getData(key: "user_gender") == 'male'
+                          ? "ذكر"
+                          : 'انثى',
+                      icon:   CacheHelper.getData(key: "user_gender") == 'male'
+                          ?const  Icon( Icons.male):const Icon(Icons.female)),
                   separator(),
                   profileButton(
-                      onPressed: () async {
-                        CacheHelper.clearData();
-                        Get.offAllNamed("/login");
-                      },
+                      onPressed: () =>controller.signOutActions(),
                       text: 'تسجيل الخروج',
                       icon: const Icon(Icons.logout)),
                 ],
@@ -105,6 +104,39 @@ class Profile extends StatelessWidget {
             ),
           )
         ]),
+      ),
+    );
+  }
+
+  Widget profileButton(
+      {required void Function()? onPressed,
+      required String text,
+      required Icon icon}) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Expanded(
+            child: TextButton(
+                onPressed: onPressed,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      text,
+                      style: const TextStyle(
+                        fontFamily: 'Cairo',
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    icon,
+                  ],
+                )),
+          ),
+        ],
       ),
     );
   }

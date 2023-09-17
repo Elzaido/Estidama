@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import 'package:madenati/constants/colors.dart';
 import 'package:madenati/controllers/recycling_controller.dart';
 import 'package:madenati/ui/widgets/add_location_widget.dart';
-import 'package:madenati/ui/widgets/appbar_widget.dart';
-import 'package:madenati/ui/widgets/button_widget.dart';
+import '../../widgets/interface_components.dart';
+import 'package:madenati/ui/widgets/interface_components.dart';
 import 'package:madenati/ui/widgets/complain_form_titles.dart';
-import 'package:madenati/ui/widgets/dropdown_widget.dart';
-import 'package:madenati/ui/widgets/formfield_widget.dart';
+import 'package:madenati/ui/widgets/interface_components.dart';
+import 'package:madenati/ui/widgets/interface_components.dart';
 
 class RecyclingForm extends StatelessWidget {
   RecyclingForm({super.key});
