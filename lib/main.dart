@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/volunteering_controller.dart';
-import 'package:madenati/firebase_options.dart';
 import 'package:madenati/ui/pages/authentication/register.dart';
 import 'package:madenati/ui/pages/main_pages/about_app.dart';
 import 'package:madenati/ui/pages/main_pages/activities.dart';
@@ -18,12 +17,13 @@ import 'package:madenati/ui/pages/on_boarding.dart';
 import 'controllers/complains_controller.dart';
 import 'controllers/recycling_controller.dart';
 import 'db/local/shared_preference.dart';
-import 'firebase_messeging.dart';
 import 'ui/pages/authentication/login.dart';
 import 'ui/pages/main_pages/complains.dart';
 import 'ui/pages/main_pages/profile.dart';
 import 'ui/pages/main_pages/recycling.dart';
 import 'utilities/binding.dart';
+import 'utilities/firebase_messeging.dart';
+import 'utilities/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
