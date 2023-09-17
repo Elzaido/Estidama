@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "315620808998",
+    "project_id": "estidama-cb513",
+    "storage_bucket": "estidama-cb513.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315620808998:android:835093f293a590e40989e7",
+        "android_client_info": {
+          "package_name": "com.example.madenati"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX5dChaJLqLMN5L20hJvL15HM9VKy2ATA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

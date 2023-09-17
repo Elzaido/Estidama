@@ -10,10 +10,10 @@ import 'package:madenati/ui/widgets/toast_widget.dart';
 // import '../constants/hotlinks.dart';
 
 class MyComplainsController extends GetxController {
-  RxBool isComplain = true.obs;
+  RxInt selectedPage = 0.obs;
 
-  void changeIsComplain() {
-    isComplain.value = !isComplain.value;
+  void changeSelectedPage(int index) {
+    selectedPage.value = index;
   }
 
   RxList<ComplainsModel> complainList = [ComplainsModel()].obs;
@@ -73,6 +73,4 @@ class MyComplainsController extends GetxController {
     }
     return response;
   }
-
-  
 }
