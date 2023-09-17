@@ -31,10 +31,14 @@ void main() async {
   Get.put(ComplainsController());
   Get.put(RecyclingController());
   Get.put(VolunteeringController());
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  initFirebaseMessaging();
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    initFirebaseMessaging();
+  } catch (e) {
+    print('Firebase initialization error: $e');
+  }
   runApp(const myApp());
 }
 
