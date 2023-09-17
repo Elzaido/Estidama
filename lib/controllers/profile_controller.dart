@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
+import 'package:madenati/db/local/shared_preference.dart';
 
 class ProfileController extends GetxController {
-
-  
   Map<int, String> provincesx = {
     1: "اربد",
     2: "الزرقاء",
@@ -24,12 +23,16 @@ class ProfileController extends GetxController {
     String value = '';
 
     provincesx.forEach((k, v) {
-      if (v == province_num) {
+      if (k == province_num) {
         value = v;
         return;
       }
     });
     return value.toString();
   }
- 
+
+  signOutActions() async {
+      CacheHelper.clearData();
+   await Get.offAllNamed("/login");
+  }
 }

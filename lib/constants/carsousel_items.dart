@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../ui/widgets/carousel_item_widget.dart';
+import '../ui/widgets/carousel.dart';
 
 // If you want to add a carsoul item add it here and it will appear in the UI.
 

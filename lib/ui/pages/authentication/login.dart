@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/login_controller.dart';
-import 'package:madenati/ui/widgets/loading_widget.dart';
-import '../../widgets/button_widget.dart';
-import '../../widgets/formfield_widget.dart';
-
+import 'package:madenati/ui/widgets/interface_components.dart';
+import 'package:madenati/ui/widgets/interface_components.dart';
+ 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 

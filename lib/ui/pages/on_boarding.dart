@@ -6,7 +6,7 @@ import 'package:madenati/controllers/onboarding_controller.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../models/boardingmodel.dart';
 import '../../db/local/shared_preference.dart';
-import '../widgets/onboarding_widget.dart';
+import '../widgets/interface_components.dart';
 
 class OnBoarding extends StatelessWidget {
   OnBoarding({super.key});

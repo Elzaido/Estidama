@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:madenati/ui/widgets/appbar_widget.dart';
+import '../../widgets/interface_components.dart';
 
 class TreePlanting extends StatelessWidget {
   const TreePlanting({super.key});

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/ui/pages/main_pages/my_volunteering_req.dart';
-import 'package:madenati/ui/widgets/appbar_widget.dart';
+import '../../widgets/interface_components.dart';
 import 'my_complains.dart';
 import 'my_recycling_req.dart';
 

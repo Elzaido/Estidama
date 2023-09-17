@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/colors.dart';
 import 'package:madenati/controllers/register_controller.dart';
-import 'package:madenati/ui/widgets/button_widget.dart';
-import 'package:madenati/ui/widgets/dropdown_widget.dart';
-import 'package:madenati/ui/widgets/loading_widget.dart';
-import '../../widgets/formfield_widget.dart';
-
+import 'package:madenati/ui/widgets/interface_components.dart';
+ import 'package:madenati/ui/widgets/interface_components.dart';
+ 
 class Register extends StatefulWidget {
   const Register({super.key});
 
