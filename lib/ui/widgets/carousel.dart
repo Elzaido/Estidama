@@ -1,3 +1,5 @@
+import 'package:carousel_slider/carousel_options.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart'; 
 import '../../constants/colors.dart';
 
@@ -69,10 +71,21 @@ Widget carsoulItem({
  
 // If you want to add a carsoul item add it here and it will appear in the UI.
 
-List<Widget> images = [
-  carsoulItem(
-      image: 'assets/volunteering.png',
-      title: 'تطوع',
-      text:
-          'قام أحد فرق التطوع في مدينة إربد بزراعة 20 شجرة على طريق الواصل بين منطقة أيدون و الحصن'),
-]; 
+
+
+
+Widget carousel({required List<Widget> items}) => CarouselSlider(
+    items: items,
+    options: CarouselOptions(
+      initialPage: 0,
+      viewportFraction: 1.0,
+      enableInfiniteScroll: true,
+      reverse: false,
+      autoPlay: true,
+      autoPlayInterval: const Duration(seconds: 5),
+      autoPlayAnimationDuration: const Duration(seconds: 1),
+      autoPlayCurve: Curves.fastOutSlowIn,
+      scrollDirection: Axis.horizontal,
+    ));
+
+

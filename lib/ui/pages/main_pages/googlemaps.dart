@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:madenati/controllers/complains_controller.dart';
-import 'package:madenati/ui/widgets/button_widget.dart';
+import 'package:madenati/ui/widgets/interface_components.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
 
 class MapScreen extends StatefulWidget {

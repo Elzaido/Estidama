@@ -20,7 +20,7 @@ class LauncherController extends GetxController {
     if (settings.name == '/profile') {
       return GetPageRoute(
         settings: settings,
-        page: () => const Profile(),
+        page: () =>   Profile(),
         binding: ProfileBinding(),
       );
     } else if (settings.name == '/home') {

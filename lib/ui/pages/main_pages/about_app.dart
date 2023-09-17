@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/texts.dart';
 import 'package:madenati/controllers/about_app_controller.dart';
-import 'package:madenati/ui/widgets/appbar_widget.dart';
+import '../../widgets/interface_components.dart';
 import '../../widgets/gradiant_image_widget.dart';
 
 class AboutApp extends StatefulWidget {
