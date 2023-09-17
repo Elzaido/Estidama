@@ -79,7 +79,7 @@ ProfileController controller=Get.find();
                   separator(),
                   profileButton(
                       onPressed: () {},
-                      text: profileController.iterateUserProvince(3).toString(),
+                      text: profileController.iterateUserProvince(int.parse(CacheHelper.getData(key: "user_province"))).toString(),
                       icon: const Icon(Icons.location_city)),
                   separator(),
                   profileButton(
