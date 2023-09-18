@@ -16,7 +16,7 @@ import 'package:madenati/ui/pages/main_pages/recycling_map.dart';
 import 'package:madenati/ui/pages/main_pages/volunteering.dart';
 import 'package:madenati/ui/pages/on_boarding.dart';
 import 'package:madenati/utilities/firebase_messeging.dart';
-import 'controllers/complains_controller.dart';
+ import 'controllers/complains_controller.dart';
 import 'controllers/recycling_controller.dart';
 import 'db/local/shared_preference.dart';
 import 'ui/pages/authentication/login.dart';
@@ -28,17 +28,13 @@ import 'utilities/binding.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
-  Get.put(ComplainsController());
-  Get.put(RecyclingController());
-  Get.put(VolunteeringController());
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    initFirebaseMessaging();
-  } catch (e) {
-    print('Firebase initialization error: $e');
-  }
+  // Get.put(ComplainsController());
+  // Get.put(RecyclingController());
+  // Get.put(VolunteeringController());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  initFirebaseMessaging();
   runApp(const myApp());
 }
 
@@ -84,7 +80,7 @@ class myApp extends StatelessWidget {
             ),
             GetPage(
               name: '/profile',
-              page: (() => Profile()),
+              page: (() =>   Profile()),
               binding: ProfileBinding(),
             ),
             GetPage(

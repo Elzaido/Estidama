@@ -16,7 +16,7 @@ class ProfileController extends GetxController {
     11: "الكرك",
     12: "الطفيلة"
   };
-  String iterateUserProvince(int province_num) {
+  String iterateUserProvince(  province_num) {
     //THIS FUNCTION IS USED TO LOOP ON THE PROVINCES
     // AND GET KEYS TO SAVE WITH THE CREDENTIALS
 
