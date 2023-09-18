@@ -5,7 +5,7 @@ import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/mycomplains_model.dart';
 import 'package:madenati/ui/widgets/interface_components.dart';
 import '../../widgets/mycomplain_widgets.dart';
-
+import '../../widgets/interface_components.dart';
 class MyComplains extends StatelessWidget {
   const MyComplains({super.key});
 
@@ -20,7 +20,7 @@ class MyComplains extends StatelessWidget {
           future: controller.retriveCurrentUserComplains(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return homeShimmerWidget(size: size);
+              return homeShimmerWidget(size: size)
             }
             try {
               if (!snapshot.hasData) {
