@@ -117,7 +117,7 @@ class RegisterController extends GetxController {
       "name": user_name,
       "province": iterateUserProvince(user_province),
       "status": "online",
-      "token": token
+      //  "token": token
     });
 
     //STATUS IS CHANGEABLE :ONCE THE USER SIGNS UP THIS MEANS HE IS ONLINE

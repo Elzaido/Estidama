@@ -61,7 +61,9 @@ Widget button({required void Function()? onPressed, required Widget? child}) =>
         child: child,
       ),
     );
-Widget buttonDismiss({required void Function()? onPressed, required Widget? child}) =>
+
+Widget buttonDismiss(
+        {required void Function()? onPressed, required Widget? child}) =>
     SizedBox(
       width: double.infinity,
       height: 50,
@@ -74,7 +76,7 @@ Widget buttonDismiss({required void Function()? onPressed, required Widget? chil
         child: child,
       ),
     );
-    
+
 Widget loading() => Center(
       child: Container(
         decoration: BoxDecoration(
@@ -173,7 +175,6 @@ Widget dropDown(
               }),
         ));
 
-
 Widget formField(
         {required TextEditingController control,
         required bool isScure,
@@ -208,7 +209,6 @@ Widget formField(
           )),
     );
 
-
 Widget descFormField(
         {required String hint,
         required TextEditingController textController}) =>
@@ -232,6 +232,7 @@ Widget descFormField(
             ),
       ),
     );
+
 Widget genderButton(
         {required String title, required void Function()? onPressed}) =>
     Expanded(
@@ -241,20 +242,19 @@ Widget genderButton(
                 style: const TextStyle(
                     color: Colors.white, fontFamily: 'Cairo'))));
 
-
-Widget boardingItemBuilder(BoardingModel model) => Stack(
+Widget boardingItemBuilder(BoardingModel model, Size size) => Stack(
       children: [
         SizedBox(
-            height: 2000,
+            height: size.height,
             child: Image(
-              image: AssetImage('${model.image}'),
+              image: AssetImage(model.image!),
               fit: BoxFit.cover,
             )),
         const SizedBox(
           height: 25,
         ),
         Container(
-            height: 2000,
+            height: size.height,
             width: double.infinity,
             decoration: BoxDecoration(
               boxShadow: [
@@ -286,14 +286,14 @@ Widget boardingItemBuilder(BoardingModel model) => Stack(
         ),
       ],
     );
-    Widget separator() => Padding(
+
+Widget separator() => Padding(
       padding: const EdgeInsets.all(8.0),
       child: (Container(
         height: 1,
         color: const Color.fromARGB(255, 226, 226, 226),
       )),
     );
-
 
 Widget homeShimmerWidget({required Size size}) => Shimmer.fromColors(
       baseColor: Colors.grey.shade300,

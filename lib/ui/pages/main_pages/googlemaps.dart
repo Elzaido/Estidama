@@ -58,7 +58,7 @@ class MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     ComplainsController complainsController = Get.find();
     return Scaffold(
-      // appBar: defaultAppBar(context: context, title: 'حدد مكان البلاغ'),
+      appBar: defaultAppBar(context: context, title: 'حدد الموقع على الخريطة'),
       body: Stack(children: [
         GoogleMap(
           onMapCreated: _onMapCreated,
@@ -90,6 +90,7 @@ class MapScreenState extends State<MapScreen> {
             });
           },
         ),
+
         ///
         Align(
             alignment: Alignment.bottomCenter,

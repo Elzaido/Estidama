@@ -94,7 +94,7 @@ class MyComplains extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'لم تقم بتقديم أي شكوى حتى الآن',
+            'لا يوجد شكاوي لعرضها',
             style: TextStyle(
               fontFamily: 'Cairo',
               fontSize: 13,

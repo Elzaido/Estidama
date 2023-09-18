@@ -12,6 +12,7 @@ class OnBoarding extends StatelessWidget {
   OnBoarding({super.key});
 
   OnBoardingController controller = Get.find();
+
   List<BoardingModel> boarding = [
     BoardingModel(
       image: 'assets/Grid3.png',
@@ -39,31 +40,29 @@ class OnBoarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     OnBoardingController onBoardingController = Get.find();
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Stack(
       children: [
-        Expanded(
-          // PageView means that i have many pages in one page :
-          child: PageView.builder(
-            physics: const BouncingScrollPhysics(),
-            controller: boardController,
-            onPageChanged: (int index) {
-              // if the index equal the index of the last page then :
-              if (index == boarding.length - 1) {
-                onBoardingController.isLast.value = true;
-              } else {
-                onBoardingController.isLast.value = false;
-              }
-            },
-            itemBuilder: (context, index) =>
-                boardingItemBuilder(boarding[index]),
-            itemCount: boarding.length,
-          ),
+        PageView.builder(
+          physics: const BouncingScrollPhysics(),
+          controller: boardController,
+          onPageChanged: (int index) {
+            // if the index equal the index of the last page then :
+            if (index == boarding.length - 1) {
+              onBoardingController.isLast.value = true;
+            } else {
+              onBoardingController.isLast.value = false;
+            }
+          },
+          itemBuilder: (context, index) =>
+              boardingItemBuilder(boarding[index], size),
+          itemCount: boarding.length,
         ),
         Align(
           alignment: Alignment.topRight,
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
             child: TextButton(
                 onPressed: () {
                   submit();
@@ -74,7 +73,7 @@ class OnBoarding extends StatelessWidget {
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Cairo',
-                    fontSize: 18,
+                    fontSize: 20,
                   ),
                 )),
           ),
