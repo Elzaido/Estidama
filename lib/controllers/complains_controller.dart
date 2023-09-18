@@ -139,7 +139,7 @@ class ComplainsController extends GetxController {
           "complain_image_path");
       if (response['status'] == 'success') {
         defaultToast(
-            massage: "تم ارسال البلاغ بنجاح", state: ToastStates.SUCCESS);
+            massage: "تم ارسال الشكوى بنجاح", state: ToastStates.SUCCESS);
         clearFieldsAndGoHome(description, location);
       }
 
@@ -161,19 +161,19 @@ class ComplainsController extends GetxController {
     isLoading.value = true;
     if (description.length < 20) {
       defaultToast(
-          massage: "يجب كتابة وصف للبلاغ لايقل عن 20 حرف",
+          massage: "يجب كتابة وصف للشكوى لايقل عن 20 حرف",
           state: ToastStates.ERROR);
       return;
     }
 
     if (geographicLocation == null) {
-      defaultToast(massage: "يجب اختيار موقع البلاغ", state: ToastStates.ERROR);
+      defaultToast(massage: "يجب اختيار موقع للشكوى", state: ToastStates.ERROR);
       return;
     }
 
     if (complainImage == null) {
       defaultToast(
-          massage: " يجب اختيار صورة لمكان البلاغ", state: ToastStates.ERROR);
+          massage: " يجب اختيار صورة لمكان الشكوى", state: ToastStates.ERROR);
       return;
     }
 

@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   shared_preferences: ^2.0.15
-  smooth_page_indicator: ^1.0.0+2
+  smooth_page_indicator: ^1.1.0
   fluttertoast: ^8.0.8
   flutter_native_splash: ^2.3.2
   image_picker: ^1.0.4
