@@ -242,45 +242,47 @@ Widget genderButton(
                     color: Colors.white, fontFamily: 'Cairo'))));
 
 
-Widget boardingItemBuilder(BoardingModel model) => Stack(
+Widget boardingItemBuilder(BoardingModel model,size) => Stack(
       children: [
-        SizedBox(
-            height: 2000,
+       Positioned(child:  SizedBox(
+            height: size.height,
             child: Image(
               image: AssetImage('${model.image}'),
               fit: BoxFit.cover,
-            )),
+            )),),
         const SizedBox(
           height: 25,
         ),
-        Container(
-            height: 2000,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.green.withOpacity(0.3),
-                  spreadRadius: 6,
-                  blurRadius: 6,
-                ),
-              ],
-            ),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 80, horizontal: 10),
-                child: Text(
-                  '${model.title}',
-                  style: const TextStyle(
-                    fontSize: 35,
-                    fontFamily: 'Cairo',
-                    color: Colors.white,
+        Positioned(
+          child: Container(
+              height: size.height,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.green.withOpacity(0.3),
+                    spreadRadius: 6,
+                    blurRadius: 6,
                   ),
-                  textAlign: TextAlign.center,
-                ),
+                ],
               ),
-            )),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 80, horizontal: 10),
+                  child: Text(
+                    '${model.title}',
+                    style: const TextStyle(
+                      fontSize: 35,
+                      fontFamily: 'Cairo',
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )),
+        ),
         const SizedBox(
           height: 20,
         ),

@@ -28,9 +28,9 @@ import 'utilities/binding.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
-  Get.put(ComplainsController());
-  Get.put(RecyclingController());
-  Get.put(VolunteeringController());
+  // Get.put(ComplainsController());
+  // Get.put(RecyclingController());
+  // Get.put(VolunteeringController());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
