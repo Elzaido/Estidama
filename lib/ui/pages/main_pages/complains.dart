@@ -5,11 +5,9 @@ import 'package:get/get.dart';
 import 'package:madenati/constants/colors.dart';
 import 'package:madenati/controllers/complains_controller.dart';
 import '../../widgets/interface_components.dart';
-import 'package:madenati/ui/widgets/interface_components.dart';
-import 'package:madenati/ui/widgets/complain_form_titles.dart'; 
+import 'package:madenati/ui/widgets/complain_form_titles.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
 import '../../widgets/add_location_widget.dart';
-import '../../widgets/interface_components.dart';
 
 class Complains extends StatelessWidget {
   Complains({super.key});

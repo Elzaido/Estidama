@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:madenati/constants/texts.dart';
 import 'package:madenati/controllers/recycling_controller.dart';
 import '../../widgets/interface_components.dart';
-import 'package:madenati/ui/widgets/interface_components.dart';
 import '../../widgets/add_location_widget.dart';
 import '../../widgets/gradiant_image_widget.dart';
 

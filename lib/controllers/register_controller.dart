@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:developer';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:madenati/constants/hotlinks.dart';
@@ -94,10 +95,20 @@ class RegisterController extends GetxController {
     // Save credentials logic here.
     DateTime get_current_date = DateTime.now();
     DateFormat dateFormat = DateFormat('yyyy-MM-dd');
-
     // Format the current date using the DateFormat object.
     String formattedDate = dateFormat.format(get_current_date);
     log(formattedDate.toString());
+
+    final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+    String? token;
+
+    try {
+      token = await firebaseMessaging.getToken();
+      print('FCM Token: $token');
+    } catch (error) {
+      print('Error getting FCM token: $error');
+    }
+
     var response = await postRequest(signUpLink, {
       "join_date": formattedDate,
       "password": user_password,
@@ -105,8 +116,10 @@ class RegisterController extends GetxController {
       "number": user_phone,
       "name": user_name,
       "province": iterateUserProvince(user_province),
-      "status": "online"
+      "status": "online",
+      //  "token": token
     });
+
     //STATUS IS CHANGEABLE :ONCE THE USER SIGNS UP THIS MEANS HE IS ONLINE
     //, ONCE HE SIGNS OUT OR EXIT APP IT MEANS HIS OFFILINE
 

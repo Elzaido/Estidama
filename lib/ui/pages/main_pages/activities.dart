@@ -39,7 +39,7 @@ class Activities extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            top: 10, left: 7, right: 3.5, bottom: 10),
+                            top: 10, left: 10, right: 5, bottom: 10),
                         child: GestureDetector(
                           onTap: () {
                             myComplainsController.changeSelectedPage(0);
@@ -70,7 +70,7 @@ class Activities extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            top: 10, left: 3.5, right: 3.5, bottom: 10),
+                            top: 10, left: 5, right: 5, bottom: 10),
                         child: GestureDetector(
                           onTap: () {
                             myComplainsController.changeSelectedPage(1);
@@ -101,7 +101,7 @@ class Activities extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            top: 10, left: 3.5, right: 7, bottom: 10),
+                            top: 10, left: 5, right: 10, bottom: 10),
                         child: GestureDetector(
                           onTap: () {
                             myComplainsController.changeSelectedPage(2);

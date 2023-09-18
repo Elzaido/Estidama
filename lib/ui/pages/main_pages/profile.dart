@@ -1,18 +1,15 @@
-// ignore_for_file: sized_box_for_whitespace, prefer_const_literals_to_create_immutables, unused_import
+// ignore_for_file: prefer_const_literals_to_create_immutables, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:madenati/controllers/profile_controller.dart';
 import 'package:madenati/db/local/shared_preference.dart';
-
 import '../../widgets/interface_components.dart';
-// import '../../widgets/separator_widget.dart';
 
 class Profile extends StatelessWidget {
-    Profile({Key? key}) : super(key: key);
+  Profile({Key? key}) : super(key: key);
 
-ProfileController controller=Get.find();
+  ProfileController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     ProfileController profileController = Get.find();
@@ -92,11 +89,12 @@ ProfileController controller=Get.find();
                       text: CacheHelper.getData(key: "user_gender") == 'male'
                           ? "ذكر"
                           : 'انثى',
-                      icon:   CacheHelper.getData(key: "user_gender") == 'male'
-                          ?const  Icon( Icons.male):const Icon(Icons.female)),
+                      icon: CacheHelper.getData(key: "user_gender") == 'male'
+                          ? const Icon(Icons.male)
+                          : const Icon(Icons.female)),
                   separator(),
                   profileButton(
-                      onPressed: () =>controller.signOutActions(),
+                      onPressed: () => controller.signOutActions(),
                       text: 'تسجيل الخروج',
                       icon: const Icon(Icons.logout)),
                 ],

@@ -17,10 +17,10 @@ class MyComplainsController extends GetxController {
   }
 
   RxList<ComplainsModel> complainList = [ComplainsModel()].obs;
-    RxList<VolunteerModel> volunteerList = [VolunteerModel()].obs;
+  RxList<VolunteerModel> volunteerList = [VolunteerModel()].obs;
 
   RxInt complainLength = 0.obs;
-   RxInt volunteerLength = 0.obs;
+  RxInt volunteerLength = 0.obs;
   // List<Map> myComplainsList = [];
   // RxList myComplains = [].obs;
   retriveCurrentUserComplains() async {
@@ -43,23 +43,24 @@ class MyComplainsController extends GetxController {
     if (response['status'] == 'success') print("yess");
     complainList.removeAt(index);
     complainLength.value--;
-    defaultToast(massage: "تم حذف البلاغ بنجاح", state: ToastStates.SUCCESS);
+    defaultToast(massage: "تم حذف الشكوى بنجاح", state: ToastStates.SUCCESS);
     update();
     return response;
   }
+
   //SOON
-   deleteVolunteer(volunteer_id, index) async {
-    var response =
-        await postRequest(delteVolunteerRequestLink, {"volunteer_id": "$volunteer_id"});
+  deleteVolunteer(volunteer_id, index) async {
+    var response = await postRequest(
+        delteVolunteerRequestLink, {"volunteer_id": "$volunteer_id"});
 
     if (response['status'] == 'success') print("yess");
     volunteerList.removeAt(index);
     volunteerLength.value--;
-    defaultToast(massage: "تم حذف البلاغ بنجاح", state: ToastStates.SUCCESS);
+    defaultToast(massage: "تم حذف الشكوى بنجاح", state: ToastStates.SUCCESS);
     update();
     return response;
   }
-  
+
   retriveCurrentUserVolunteeringOrders() async {
     var response = await postRequest(getCurrentUserVolunteeringOrders,
         {"user_id": CacheHelper.getData(key: "user_id").toString()});

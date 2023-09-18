@@ -1,11 +1,11 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/volunteer_model.dart';
 import 'package:madenati/ui/widgets/interface_components.dart';
-import 'package:madenati/ui/widgets/mycomplain_widgets.dart'; 
-import 'dart:math';
+import 'package:madenati/ui/widgets/mycomplain_widgets.dart';
 
 class MyVolunteeringReq extends StatelessWidget {
   MyVolunteeringReq({super.key});
@@ -14,8 +14,6 @@ class MyVolunteeringReq extends StatelessWidget {
   MyComplainsController controller = Get.find();
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Center(
         child: Expanded(
       child: FutureBuilder(
