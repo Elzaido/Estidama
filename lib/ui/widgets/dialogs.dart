@@ -48,8 +48,8 @@ void showComplainInfoDialog(
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      deleteComplainButton(complainModel, myComplainsController,
-                          index, true, context1),
+                      deleteItemButton(complainModel, myComplainsController,
+                          index, true, context1,1),
                       const SizedBox(
                         width: 10,
                       ),

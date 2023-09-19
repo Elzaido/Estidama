@@ -1,11 +1,10 @@
- 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/volunteer_model.dart';
 import 'package:madenati/ui/widgets/interface_components.dart';
 import 'package:madenati/ui/widgets/mycomplain_widgets.dart';
- 
+
 class MyVolunteeringReq extends StatelessWidget {
   const MyVolunteeringReq({super.key});
 // THIS PAGE IS CONNECTED TO THE MYT COMPLAINS CONTROLLER
@@ -25,8 +24,10 @@ class MyVolunteeringReq extends StatelessWidget {
                 return homeShimmerWidget(size: size);
               }
               if (snapshot.connectionState == ConnectionState.none) {
+ 
                loading();
               } 
+
               if (snapshot.hasData) {
                 controller.volunteerList.value = snapshot.data['data']
                     .map<VolunteerModel>(
@@ -36,14 +37,12 @@ class MyVolunteeringReq extends StatelessWidget {
                     itemCount: controller.volunteerList.length,
                     itemBuilder: (context, index) {
                       return Obx(() => controller.volunteerList.isNotEmpty
-                          ?  
-                          volunteerItem(
+                          ? volunteerItem(
                               context,
                               controller.volunteerList[index],
                               controller,
                               index,
                               size)
-
                           : noComplainsCenterdTitle());
                     }));
               }

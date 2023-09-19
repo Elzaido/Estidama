@@ -94,8 +94,8 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    deleteComplainButton(complainModel, myComplainsController,
-                        index, false, context),
+                    deleteItemButton(complainModel, myComplainsController,
+                        index, false, context, 2),
                     const SizedBox(
                       width: 30,
                     ),
@@ -105,8 +105,7 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                             ? complainState('الشكوى قيد الدراسة')
                             : complainState("تم قبول الشكوى")
                   ],
-
-           ),
+                ),
               ],
             ),
           )));
@@ -155,44 +154,52 @@ Widget complainState(String state) {
   );
 }
 
-Widget deleteComplainButton(
-        ComplainsModel complainModel,
-        MyComplainsController myComplainsController,
-        index,
-        bool indialog,
-        context1) =>
-    Container(
-        width: 140,
-        height: 50,
-        decoration: BoxDecoration(
-            color: Colors.red, borderRadius: BorderRadius.circular(5)),
-        child: InkWell(
-          onTap: () {
-            if (indialog) Navigator.pop(context1, true);
-            log(complainModel.complainId.toString());
+Widget deleteItemButton(model, MyComplainsController myComplainsController,
+        index, bool indialog, context1, int whichPage) =>
+    SizedBox(
+      height: 50,
+      width: 140,
+      child: ElevatedButton(
+        onPressed: () {
+          if (indialog) Navigator.pop(context1, true);
+          if (whichPage == 1) {
+            log(model.complainId.toString());
             myComplainsController.deleteComplain(
-                complainModel.complainId.toString(), index);
-          },
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.delete,
-                color: Colors.white,
-              ),
-              SizedBox(
-                width: 3,
-              ),
-              Text(
-                'إلغاء الشكوى',
-                style: TextStyle(
-                    fontFamily: 'Cairo', color: Colors.white, fontSize: 12),
-              )
-            ],
-          ),
-        ));
-
+                model.complainId.toString(), index);
+          } else if (whichPage == 2) {
+            myComplainsController.deleteVolunteer(
+                model.volunteerId.toString(), index);
+          } else {}
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.red, // Set the background color to red
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+            const SizedBox(
+              width: 3,
+            ),
+            whichPage == 1
+                ? const Text(
+                    'إلغاء الشكوى',
+                    style: TextStyle(
+                        fontFamily: 'Cairo', color: Colors.white, fontSize: 12),
+                  )
+                : const Text(
+                    'إلغاء الطلب ',
+                    style: TextStyle(
+                        fontFamily: 'Cairo', color: Colors.white, fontSize: 12),
+                  )
+          ],
+        ),
+      ),
+    );
 Widget volunteerItem(context, VolunteerModel volunteerModel,
     MyComplainsController myComplainsController, index, Size size) {
   return Padding(
@@ -463,12 +470,12 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
                   ]),
                 ),
                 separator(),
-               const  Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // deleteComplainButton(complainModel, myComplainsController,
                     //     index, false, context),
-                      SizedBox(
+                    SizedBox(
                       width: 30,
                     ),
                     // complainState.complain_accepetance_status == "rejected"
@@ -477,33 +484,76 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
                     //         ? complainState('الشكوى قيد الدراسة')
                     //         : complainState("تم قبول الشكوى")
                   ],
-
-           ),
+                ),
               ],
             ),
           )));
 }
-  Widget noComplainsCenterdTitle() {
-    return const Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'لا يوجد معلومات لعرضها',
-            style: TextStyle(
-              fontFamily: 'Cairo',
-              fontSize: 13,
-            ),
+
+Widget noComplainsCenterdTitle() {
+  return const Center(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'لا يوجد معلومات لعرضها',
+          style: TextStyle(
+            fontFamily: 'Cairo',
+            fontSize: 13,
           ),
-          SizedBox(
-            width: 7,
-          ),
-          Icon(
-            Icons.warning,
-            color: Colors.red,
-            size: 27,
-          )
-        ],
-      ),
-    );
+        ),
+        SizedBox(
+          width: 7,
+        ),
+        Icon(
+          Icons.warning,
+          color: Colors.red,
+          size: 27,
+        )
+      ],
+    ),
+  );
+}
+
+Widget activityState(String state) {
+  Color backgroundColor;
+  switch (state) {
+    case 'الشكوى قيد الدراسة':
+      backgroundColor = Colors.orange;
+      break;
+    case 'تم رفض الشكوى':
+      backgroundColor = Colors.red;
+      break;
+    case 'تم مراجعة الشكوى':
+      backgroundColor = Colors.green;
+    case 'الطلب قيد الدراسة':
+      backgroundColor = Colors.orange;
+      break;
+    case 'تم رفض الطلب':
+      backgroundColor = Colors.red;
+      break;
+    case 'تم قبول الطلب':
+      backgroundColor = Colors.green;
+
+      break;
+    default:
+      backgroundColor = Colors.transparent; // Default color for unknown states
+      break;
   }
+
+  return Container(
+    width: 140,
+    height: 50,
+    decoration: BoxDecoration(
+      color: backgroundColor,
+      borderRadius: BorderRadius.circular(5),
+    ),
+    child: Center(
+      child: Text(
+        state,
+        style: const TextStyle(
+            fontFamily: 'Cairo', color: Colors.white, fontSize: 12),
+      ),
+    ),
+  );
+}
