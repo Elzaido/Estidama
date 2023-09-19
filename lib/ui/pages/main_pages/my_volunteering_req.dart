@@ -1,12 +1,11 @@
-// ignore_for_file: must_be_immutable
-
+ 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/volunteer_model.dart';
 import 'package:madenati/ui/widgets/interface_components.dart';
 import 'package:madenati/ui/widgets/mycomplain_widgets.dart';
-
+ 
 class MyVolunteeringReq extends StatelessWidget {
   MyVolunteeringReq({super.key});
 // THIS PAGE IS CONNECTED TO THE MYT COMPLAINS CONTROLLER
@@ -14,6 +13,7 @@ class MyVolunteeringReq extends StatelessWidget {
   MyComplainsController controller = Get.find();
   @override
   Widget build(BuildContext context) {
+    Size size=MediaQuery.of(context).size;
     return Center(
         child: Expanded(
       child: FutureBuilder(
@@ -21,10 +21,10 @@ class MyVolunteeringReq extends StatelessWidget {
           builder: ((context, AsyncSnapshot snapshot) {
             try {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                loading();
+               loading();
               }
               if (snapshot.connectionState == ConnectionState.none) {
-                // loading();
+                loading();
                 return noComplainsCenterdTitle();
               }
 
@@ -37,11 +37,12 @@ class MyVolunteeringReq extends StatelessWidget {
                     itemCount: controller.volunteerList.length,
                     itemBuilder: (context, index) {
                       return Obx(() => controller.volunteerList.isNotEmpty
-                          ? volunteerItem(
+                          ?  
+                          volunteerItem(
                               context,
                               controller.volunteerList[index],
                               controller,
-                              index)
+                              index,size)
                           : noComplainsCenterdTitle());
                     }));
               }
