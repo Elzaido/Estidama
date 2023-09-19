@@ -29,9 +29,7 @@ import 'package:madenati/ui/widgets/mycomplain_widgets.dart';
                 return noComplainsCenterdTitle();
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(color: Colors.green),
-                );
+                return homeShimmerWidget(size: size);
               } else if (snapshot.hasError) {
                 return const Center(
                   child: Text(

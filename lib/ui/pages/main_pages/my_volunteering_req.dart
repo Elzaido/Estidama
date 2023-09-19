@@ -7,13 +7,14 @@ import 'package:madenati/ui/widgets/interface_components.dart';
 import 'package:madenati/ui/widgets/mycomplain_widgets.dart';
  
 class MyVolunteeringReq extends StatelessWidget {
-  MyVolunteeringReq({super.key});
+  const MyVolunteeringReq({super.key});
 // THIS PAGE IS CONNECTED TO THE MYT COMPLAINS CONTROLLER
 // MYVOLUNTEERING AND MYCOMPLAINS AND RECYCLING ORDERS BELONG TO THE MY COMPLAINS CONTROLLER
-  MyComplainsController controller = Get.find();
+
   @override
   Widget build(BuildContext context) {
-    Size size=MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
+    MyComplainsController controller = Get.find();
     return Center(
         child: Expanded(
       child: FutureBuilder(
@@ -21,12 +22,12 @@ class MyVolunteeringReq extends StatelessWidget {
           builder: ((context, AsyncSnapshot snapshot) {
             try {
               if (snapshot.connectionState == ConnectionState.waiting) {
-               loading();
+                return homeShimmerWidget(size: size);
               }
               if (snapshot.connectionState == ConnectionState.none) {
-                loading();
-                return noComplainsCenterdTitle();
+               loading();
               }
+
 
               if (snapshot.hasData) {
                 controller.volunteerList.value = snapshot.data['data']
@@ -42,7 +43,9 @@ class MyVolunteeringReq extends StatelessWidget {
                               context,
                               controller.volunteerList[index],
                               controller,
-                              index,size)
+                              index,
+                              size)
+
                           : noComplainsCenterdTitle());
                     }));
               }
@@ -60,20 +63,16 @@ class MyVolunteeringReq extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'لم تقم بتقديم أي طلب تطوع حتى الآن',
+            'لا يوجد طلبات تطوع لعرضها',
             style: TextStyle(
               fontFamily: 'Cairo',
-              fontSize: 15,
+              fontSize: 13,
             ),
           ),
           SizedBox(
             width: 7,
           ),
-          Icon(
-            Icons.warning,
-            color: Colors.red,
-            size: 30,
-          )
+          Icon(Icons.warning, color: Colors.red, size: 27)
         ],
       ),
     );

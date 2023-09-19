@@ -13,7 +13,7 @@ class Volunteering extends StatefulWidget {
 }
 
 class VolunteeringState extends State<Volunteering> {
-  TextEditingController skillsController = TextEditingController();
+  TextEditingController volunteenurNumberController = TextEditingController();
   VolunteeringController volunteeringController = Get.find();
 
   @override
@@ -67,7 +67,7 @@ class VolunteeringState extends State<Volunteering> {
                                     showVolunteeringDialog(
                                       volunteeringController,
                                       context1,
-                                      skillsController,
+                                      volunteenurNumberController,
                                     ));
                           },
                           child: const Text(
@@ -87,7 +87,7 @@ class VolunteeringState extends State<Volunteering> {
   Widget showVolunteeringDialog(
     VolunteeringController volunteeringController,
     context1,
-    TextEditingController skillsController,
+    TextEditingController volunteenurNumberController,
   ) {
     Size size = MediaQuery.of(context1).size;
     return AlertDialog(
@@ -125,18 +125,60 @@ class VolunteeringState extends State<Volunteering> {
                   horizontal: 10,
                 ),
               ),
-              title(text: ' ماهي مهاراتك'),
-              formField(
-                  control: skillsController,
-                  isScure: false,
-                  label: "مهارات المتطوع",
-                  prefIcon: const Icon(Icons.volunteer_activism),
-                  validator: (val) {
-                    return "";
-                  }).paddingAll(10),
+              title(text: 'عدد الأشخاص المشاركين في التطوع'),
+              TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    // Update the number of volunteers when the user enters a value.
+                    volunteeringController.volunteenerNumber.value =
+                        int.tryParse(value) ?? 0;
+                  });
+                },
+                decoration: InputDecoration(
+                  isDense: true,
+                  hintTextDirection: TextDirection.rtl,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  hintText: 'عدد المشاركين',
+                  hintStyle: const TextStyle(fontFamily: 'Cairo'),
+                ),
+                keyboardType: TextInputType.phone,
+                textDirection: TextDirection.rtl,
+                // ... Other TextFormField properties ...
+              ).paddingAll(10),
+              if (volunteeringController.volunteenerNumber.value > 0)
+                SingleChildScrollView(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: volunteeringController.volunteenerNumber.value,
+                    itemBuilder: (context, index) {
+                      final label = 'إسم المشترك ${index + 1} الرباعي';
+                      return TextFormField(
+                        decoration: InputDecoration(
+                          isDense: true,
+                          hintTextDirection: TextDirection.rtl,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          hintText: label,
+                          hintStyle: const TextStyle(fontFamily: 'Cairo'),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'يجب إدخال $label';
+                          } else {
+                            return null;
+                          }
+                        },
+                        textDirection: TextDirection.rtl,
+                      ).paddingAll(10);
+                    },
+                  ),
+                ),
               button(
                   onPressed: () => volunteeringController
-                      .checkVolunteerData(skillsController),
+                      .checkVolunteerData(volunteenurNumberController),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

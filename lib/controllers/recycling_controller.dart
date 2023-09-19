@@ -15,6 +15,7 @@ class RecyclingController extends GetxController {
   RxDouble imageOpacity = 0.0.obs;
   RxDouble textOpacity = 0.0.obs;
   RxDouble buttonOpacity = 0.0.obs;
+  RxBool locationSelected = false.obs;
   bool isDropdownOpen = false;
   RxInt isShowImage = 1.obs;
   List<String> recyclingItemList = [

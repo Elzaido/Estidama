@@ -11,9 +11,8 @@ import 'package:madenati/ui/widgets/toast_widget.dart';
 class VolunteeringController extends GetxController {
   bool isDropdownOpen = false;
   List<String> volunteringTypeList = [
-    'زراعة',
     'نظافة',
-    'انقاذ ورعاية الحيوانات',
+    'انقاذ و رعاية الحيوانات',
   ];
   List<String> volunteringGroupList = [
     'مدرسة',
@@ -22,11 +21,13 @@ class VolunteeringController extends GetxController {
   ];
 
   RxString selectedVolunteringGroup = 'مدرسة'.obs;
-  RxString selectedVolunteringType = 'زراعة'.obs;
+  RxString selectedVolunteringType = 'نظافة'.obs;
 
   RxDouble imageOpacity = 0.0.obs;
   RxDouble textOpacity = 0.0.obs;
   RxDouble buttonOpacity = 0.0.obs;
+
+  RxInt volunteenerNumber = 0.obs;
 
   ///
   ///
@@ -53,11 +54,9 @@ class VolunteeringController extends GetxController {
       selectedVolunteringType.value = newValue;
   switchSelectedVolunteringGroup(newValue) =>
       selectedVolunteringGroup.value = newValue;
-  fromVolunteerTypeToInteger() => selectedVolunteringType.value == 'زراعة'
+  fromVolunteerTypeToInteger() => selectedVolunteringType.value == 'نظافة'
       ? 1
-      : selectedVolunteringType.value == 'نظافة'
-          ? 2
-          : 3;
+      : selectedVolunteringType.value == 'انقاذ و رعاية الحيوانات';
   fromVolunteerGroupToInteger() => selectedVolunteringType.value == 'مدرسة'
       ? 1
       : selectedVolunteringType.value == 'أهل حي'

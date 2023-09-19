@@ -16,14 +16,15 @@ class ProfileController extends GetxController {
     11: "الكرك",
     12: "الطفيلة"
   };
-  String iterateUserProvince(  province_num) {
+  String iterateUserProvince(int provinceNum) {
+
     //THIS FUNCTION IS USED TO LOOP ON THE PROVINCES
     // AND GET KEYS TO SAVE WITH THE CREDENTIALS
 
     String value = '';
 
     provincesx.forEach((k, v) {
-      if (k == province_num) {
+      if (k == provinceNum) {
         value = v;
         return;
       }
@@ -32,7 +33,7 @@ class ProfileController extends GetxController {
   }
 
   signOutActions() async {
-      CacheHelper.clearData();
-   await Get.offAllNamed("/login");
+    CacheHelper.clearData();
+    await Get.offAllNamed("/login");
   }
 }

@@ -24,13 +24,13 @@ class VolunteerModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['is_accepted'] = this.isAccepted;
-    data['volunteering_type'] = this.volunteeringType;
-    data['volunteer_skills'] = this.volunteerSkills;
-    data['volunteer_id'] = this.volunteerId;
-    data['user_id'] = this.userId;
-    data['volunteer_group_type'] = this.volunteerGroupType;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['is_accepted'] = isAccepted;
+    data['volunteering_type'] = volunteeringType;
+    data['volunteer_skills'] = volunteerSkills;
+    data['volunteer_id'] = volunteerId;
+    data['user_id'] = userId;
+    data['volunteer_group_type'] = volunteerGroupType;
     return data;
   }
 }
