@@ -4,6 +4,7 @@ import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/mycomplains_model.dart';
 import 'package:madenati/models/volunteer_model.dart';
+import 'package:madenati/ui/widgets/dialogs.dart';
 import 'interface_components.dart';
 
 Widget myComplainItem(context, ComplainsModel complainModel,
@@ -32,80 +33,10 @@ Widget myComplainItem(context, ComplainsModel complainModel,
               children: [
                 InkWell(
                   onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context1) => AlertDialog(
-                              title: const Text(
-                                'تفاصيل الشكوى',
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  fontFamily: 'Cairo',
-                                ),
-                              ),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(
-                                      complainModel.complainDescription
-                                          .toString(),
-                                      style: const TextStyle(
-                                        fontFamily: 'Cairo',
-                                      ),
-                                      textDirection: TextDirection.rtl,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 7,
-                                  ),
-                                  SizedBox(
-                                      width: 300,
-                                      height: 300,
-                                      child: Image(
-                                        image: NetworkImage(
-                                          "$complainImages/${complainModel.complainImagePath.toString()}",
-                                        ),
-                                        fit: BoxFit.cover,
-                                      ))
-                                ],
-                              ),
-                              actions: <Widget>[
-                                Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        deleteComplainButton(
-                                            complainModel,
-                                            myComplainsController,
-                                            index,
-                                            true,
-                                            context1),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        complainState('الشكوى قيد الدراسة')
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context1, true);
-                                        },
-                                        child: const Text(
-                                          'إغلاق',
-                                          style: TextStyle(
-                                            fontFamily: 'Cairo',
-                                          ),
-                                        )),
-                                  ],
-                                ),
-                              ],
-                            ));
+ 
+                    print(complainModel.complain_accepetance_status);
+                    // showComplainInfoDialog(
+                    //     context, complainModel, myComplainsController, index);
                   },
                   child:
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -168,7 +99,11 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                     const SizedBox(
                       width: 30,
                     ),
-                    complainState('الشكوى قيد الدراسة')
+                    complainModel.complain_accepetance_status == 'pending'
+                        ? complainState('الشكوى قيد الدراسة')
+                        : complainModel.complainStatus == 'rejected'
+                            ? complainState('تم رفض الشكوى')
+                            : complainState('تم قبول الشكوى')
                   ],
                 ),
               ],
@@ -185,7 +120,7 @@ Widget complainState(String state) {
     case 'تم رفض الشكوى':
       backgroundColor = Colors.red;
       break;
-    case 'تم مراجعة الشكوى':
+    case 'تم قبول الشكوى':
       backgroundColor = Colors.green;
     case 'الطلب قيد الدراسة':
       backgroundColor = Colors.orange;
