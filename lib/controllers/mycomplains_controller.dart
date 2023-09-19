@@ -49,9 +49,9 @@ class MyComplainsController extends GetxController {
   }
 
   //SOON
-  deleteVolunteer(volunteer_id, index) async {
+  deleteVolunteer(volunteerId, index) async {
     var response = await postRequest(
-        delteVolunteerRequestLink, {"volunteer_id": "$volunteer_id"});
+        delteVolunteerRequestLink, {"volunteer_id": "$volunteerId"});
 
     if (response['status'] == 'success') print("yess");
     volunteerList.removeAt(index);

@@ -6,12 +6,12 @@ class UserDataModel {
 
   UserDataModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -48,14 +48,14 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user_name'] = this.userName;
-    data['user_number'] = this.userNumber;
-    data['user_province'] = this.userProvince;
-    data['user_join_date'] = this.userJoinDate;
-    data['user_gender'] = this.userGender;
-    data['user_password'] = this.userPassword;
-    data['user_id'] = this.userId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['user_name'] = userName;
+    data['user_number'] = userNumber;
+    data['user_province'] = userProvince;
+    data['user_join_date'] = userJoinDate;
+    data['user_gender'] = userGender;
+    data['user_password'] = userPassword;
+    data['user_id'] = userId;
     return data;
   }
 }

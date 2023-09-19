@@ -50,11 +50,14 @@ class RecyclingForm extends StatelessWidget {
                       }
                     },
                   ),
-                  locationWidget(
-                      title: "أضف موقعك",
-                      context: context,
-                      whichPage: 2,
-                      size: size),
+                  Obx(() => recyclingController.locationSelected.value
+                      ? locationSelectedWidget(
+                          context: context, whichPage: 1, size: size)
+                      : locationWidget(
+                          title: "أضف موقعك",
+                          context: context,
+                          whichPage: 2,
+                          size: size)),
                   pickImageWidget(
                     size,
                     recyclingController,

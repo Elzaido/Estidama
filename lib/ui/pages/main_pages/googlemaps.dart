@@ -1,9 +1,8 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:madenati/controllers/complains_controller.dart';
+import 'package:madenati/controllers/recycling_controller.dart';
 import 'package:madenati/ui/widgets/interface_components.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
 
@@ -23,6 +22,9 @@ class MapScreenState extends State<MapScreen> {
 
   // Define a Set to hold markers.
   Set<Marker> markers = {};
+
+  // Variable to track whether to show the user's location button.
+  bool showUserLocationButton = true;
 
   @override
   void initState() {
@@ -57,69 +59,78 @@ class MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     ComplainsController complainsController = Get.find();
+    RecyclingController recyclingController = Get.find();
     return Scaffold(
       appBar: defaultAppBar(context: context, title: 'حدد الموقع على الخريطة'),
-      body: Stack(children: [
-        GoogleMap(
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: const CameraPosition(
-            target: LatLng(40.7128, -74.0060), // Initial coordinates.
-            zoom: 14.0,
+      body: Stack(
+        children: [
+          GoogleMap(
+            onMapCreated: _onMapCreated,
+            initialCameraPosition: const CameraPosition(
+              target: LatLng(40.7128, -74.0060), // Initial coordinates.
+              zoom: 14.0,
+            ),
+            markers: markers,
+            onTap: (LatLng position) {
+              // Remove existing markers and add a new one at the tapped position.
+              setState(() {
+                markers.clear();
+                markers.add(
+                  Marker(
+                    markerId: MarkerId(position.toString()),
+                    position: position,
+                    icon: BitmapDescriptor.defaultMarkerWithHue(
+                      BitmapDescriptor.hueRed,
+                    ),
+                    infoWindow: const InfoWindow(
+                      title: 'Selected Location',
+                      snippet: 'This is your selected location.',
+                    ),
+                  ),
+                );
+
+                // Update the selectedLocation.
+                selectedLocation = position;
+              });
+            },
+            myLocationButtonEnabled:
+                showUserLocationButton, // Show the user's location button.
+            myLocationEnabled: true, // Enable the user's location on the map.
           ),
-          markers: markers,
-          onTap: (LatLng position) {
-            // Remove existing markers and add a new one at the tapped position.
-            setState(() {
-              markers.clear();
-              markers.add(
-                Marker(
-                  markerId: MarkerId(position.toString()),
-                  position: position,
-                  icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueRed,
-                  ),
-                  infoWindow: const InfoWindow(
-                    title: 'Selected Location',
-                    snippet: 'This is your selected location.',
-                  ),
-                ),
-              );
-
-              // Update the selectedLocation.
-              selectedLocation = position;
-            });
-          },
-        ),
-
-        ///
-        Align(
+          Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 65, vertical: 20),
               child: button(
-                  onPressed: () {
-                    if (selectedLocation != null) {
-                      // Location is not null, navigate to the next page and print.
-                      whichPage == 1
-                          ? Get.offNamed("/complains",
-                              arguments: selectedLocation.toString())
-                          : Get.offNamed("/recyclingform",
-                              arguments: selectedLocation.toString());
-
+                onPressed: () {
+                  if (selectedLocation != null) {
+                    if (whichPage == 1) {
+                      Get.offNamed("/complains",
+                          arguments: selectedLocation.toString());
                       complainsController.locationSelected = true.obs;
                     } else {
-                      // Location is null, handle accordingly (show a message or alert).
-                      defaultToast(
-                          massage: 'الرجاء تحديد الموقع على الخريطة',
-                          state: ToastStates.ERROR);
+                      Get.offNamed("/recyclingform",
+                          arguments: selectedLocation.toString());
+
+                      recyclingController.locationSelected = true.obs;
                     }
-                  },
-                  child: const Text(
-                    'تأكيد',
-                    style: TextStyle(fontFamily: 'Cairo'),
-                  )),
-            ))
-      ]),
+                  } else {
+                    // Location is null, handle accordingly (show a message or alert).
+                    defaultToast(
+                      massage: 'الرجاء تحديد الموقع على الخريطة',
+                      state: ToastStates.ERROR,
+                    );
+                  }
+                },
+                child: const Text(
+                  'تأكيد',
+                  style: TextStyle(fontFamily: 'Cairo'),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

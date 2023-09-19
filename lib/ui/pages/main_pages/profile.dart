@@ -18,9 +18,9 @@ class Profile extends StatelessWidget {
           defaultAppBar(context: context, title: 'الملف الشخصي', isHome: true),
       body: SingleChildScrollView(
         child: Column(children: [
-          Container(
+          const SizedBox(
             height: 140,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(10.0),
               child: CircleAvatar(
                 backgroundImage: NetworkImage(

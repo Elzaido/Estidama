@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/colors.dart';
+import 'package:madenati/ui/widgets/toast_widget.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 Widget locationWidget(
         {required String title,
@@ -11,19 +13,30 @@ Widget locationWidget(
       key: const Key('first'),
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: InkWell(
-        onTap: () {
-          switch (whichPage) {
-            case 1:
-              Get.toNamed("/map_screen", arguments: whichPage);
+        onTap: () async {
+          // Check if location permission is granted
+          final status = await Permission.location.request();
 
-              break;
-            case 2:
-              Get.toNamed("/map_screen", arguments: whichPage);
-
-              break;
-            case 3:
-              Get.toNamed("/recyclingmap");
-              break;
+          if (status.isGranted) {
+            // Permission granted, navigate to the desired screen
+            switch (whichPage) {
+              case 1:
+                Get.toNamed("/map_screen", arguments: whichPage);
+                break;
+              case 2:
+                Get.toNamed("/map_screen", arguments: whichPage);
+                break;
+              case 3:
+                Get.toNamed("/recyclingmap");
+                break;
+            }
+          } else if (status.isDenied) {
+            defaultToast(
+                massage: 'لن تستطيع التقديم بدون تحديد الموقع',
+                state: ToastStates.ERROR);
+          } else if (status.isPermanentlyDenied) {
+            // to allow the user to manually enable the location permission
+            openAppSettings();
           }
         },
         child: Container(

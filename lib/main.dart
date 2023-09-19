@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, avoid_print
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

@@ -117,12 +117,13 @@ class Activities extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                'صفحة جديدة',
+                                'طلبات إعادة التدوير',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Cairo',
                                   fontSize: 15,
                                 ),
+                                textAlign: TextAlign.center,
                               ),
                             ),
                           ),
