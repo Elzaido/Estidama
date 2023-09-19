@@ -12,7 +12,7 @@ class VolunteeringController extends GetxController {
   bool isDropdownOpen = false;
   List<String> volunteringTypeList = [
     'نظافة',
-    'انقاذ و رعاية الحيوانات',
+    'رعاية الحيوانات',
   ];
   List<String> volunteringGroupList = [
     'مدرسة',

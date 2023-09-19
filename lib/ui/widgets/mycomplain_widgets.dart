@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:madenati/constants/hotlinks.dart';
@@ -77,16 +79,17 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        deleteComplainButton(
+                                        deleteItemButton(
                                             complainModel,
                                             myComplainsController,
                                             index,
                                             true,
-                                            context1),
+                                            context1,
+                                            1),
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                        complainState('الشكوى قيد الدراسة')
+                                        activityState('الشكوى قيد الدراسة')
                                       ],
                                     ),
                                     const SizedBox(
@@ -140,35 +143,26 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                     ),
                     Padding(
                         padding: const EdgeInsets.all(5.0),
-                        child:
-                            // complainModel.complainImagePath == ""
-                            //     ?
-                            Image(
+                        child: Image(
                           image: NetworkImage(
                             "$complainImages/${complainModel.complainImagePath.toString()}",
                           ),
                           height: 100,
                           width: 100,
                           fit: BoxFit.cover,
-                        )
-                        // : const Icon(
-                        //     Icons.photo,
-                        //     size: 50,
-                        //     color: Colors.green,
-                        //   ),
-                        ),
+                        )),
                   ]),
                 ),
                 separator(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    deleteComplainButton(complainModel, myComplainsController,
-                        index, false, context),
+                    deleteItemButton(complainModel, myComplainsController,
+                        index, false, context, 1),
                     const SizedBox(
                       width: 30,
                     ),
-                    complainState('الشكوى قيد الدراسة')
+                    activityState('الشكوى قيد الدراسة')
                   ],
                 ),
               ],
@@ -176,7 +170,235 @@ Widget myComplainItem(context, ComplainsModel complainModel,
           )));
 }
 
-Widget complainState(String state) {
+Widget volunteerItem(context, VolunteerModel volunteerModel,
+    MyComplainsController myComplainsController, index, Size size) {
+  return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      child: Container(
+          decoration: BoxDecoration(
+            borderRadius:
+                BorderRadius.circular(16.0), // Adjust the radius as needed
+            color: const Color.fromARGB(255, 247, 247, 247),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.4), // Shadow color
+                spreadRadius: 2,
+                blurRadius: 4,
+                offset: const Offset(
+                    0, 2), // Shadow position [horizontal, vertical]
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context1) => AlertDialog(
+                              title: const Text(
+                                'تفاصيل طلب التطوع',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  fontFamily: 'Cairo',
+                                ),
+                              ),
+                              content: SizedBox(
+                                  width: size.width * 0.9,
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  volunteerModel
+                                                              .volunteeringType ==
+                                                          1
+                                                      ? 'عمليات تنظيف'
+                                                      : 'رعاية الحيوانات',
+                                                  style: const TextStyle(
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                                const Text(
+                                                  ' :',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                const Text('عمل التطوع',
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    )),
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  volunteerModel
+                                                              .volunteerGroupType ==
+                                                          1
+                                                      ? 'مدرسة'
+                                                      : volunteerModel
+                                                                  .volunteerGroupType ==
+                                                              2
+                                                          ? 'أهل الحي'
+                                                          : 'جمعية خيرية',
+                                                  style: const TextStyle(
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                                const Text(
+                                                  ' :',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                const Text('جهة التطوع',
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    )),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        separator(),
+                                        Container(
+                                          width: double.maxFinite,
+                                          constraints: const BoxConstraints(
+                                              maxHeight: 150),
+                                          child: ListView.builder(
+                                            itemCount:
+                                                5, // Replace with your actual item count.
+                                            itemBuilder: (context, index) {
+                                              // Build your list items here.
+                                              return Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    'إسم المتطوع ${index + 1}: زيد رائد ربحي',
+                                                    textDirection:
+                                                        TextDirection.rtl,
+                                                  ),
+                                                  separator()
+                                                ],
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                              actions: <Widget>[
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        deleteItemButton(
+                                            volunteerModel,
+                                            myComplainsController,
+                                            index,
+                                            true,
+                                            context1,
+                                            2),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        activityState('تم قبول الطلب')
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context1, true);
+                                        },
+                                        child: const Text(
+                                          'إغلاق',
+                                          style: TextStyle(
+                                            fontFamily: 'Cairo',
+                                          ),
+                                        )),
+                                  ],
+                                ),
+                              ],
+                            ));
+                  },
+                  child: Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            volunteerModel.volunteeringType == 1
+                                ? 'عمليات تنظيف'
+                                : 'رعاية الحيوانات',
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const Text('  /  '),
+                          Text(
+                            volunteerModel.volunteerGroupType == 1
+                                ? 'مدرسة'
+                                : volunteerModel.volunteerGroupType == 2
+                                    ? 'أهل الحي'
+                                    : 'جمعية خيرية',
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                separator(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    deleteItemButton(volunteerModel, myComplainsController,
+                        index, false, context, 2),
+                    const SizedBox(
+                      width: 30,
+                    ),
+                    activityState('تم قبول الطلب')
+                  ],
+                ),
+              ],
+            ),
+          )));
+}
+
+Widget activityState(String state) {
   Color backgroundColor;
   switch (state) {
     case 'الشكوى قيد الدراسة':
@@ -219,227 +441,49 @@ Widget complainState(String state) {
   );
 }
 
-Widget deleteComplainButton(
-        ComplainsModel complainModel,
-        MyComplainsController myComplainsController,
-        index,
-        bool indialog,
-        context1) =>
-    Container(
-        width: 140,
-        height: 50,
-        decoration: BoxDecoration(
-            color: Colors.red, borderRadius: BorderRadius.circular(5)),
-        child: InkWell(
-          onTap: () {
-            if (indialog) Navigator.pop(context1, true);
-            log(complainModel.complainId.toString());
+Widget deleteItemButton(model, MyComplainsController myComplainsController,
+        index, bool indialog, context1, int whichPage) =>
+    SizedBox(
+      height: 50,
+      width: 140,
+      child: ElevatedButton(
+        onPressed: () {
+          if (indialog) Navigator.pop(context1, true);
+          if (whichPage == 1) {
+            log(model.complainId.toString());
             myComplainsController.deleteComplain(
-                complainModel.complainId.toString(), index);
-          },
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.delete,
-                color: Colors.white,
-              ),
-              SizedBox(
-                width: 3,
-              ),
-              Text(
-                'إلغاء الشكوى',
-                style: TextStyle(
-                    fontFamily: 'Cairo', color: Colors.white, fontSize: 12),
-              )
-            ],
-          ),
-        ));
-
-Widget volunteerItem(context, VolunteerModel volunteerModel,
-    MyComplainsController myComplainsController, index, Size size) {
-  return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      child: Container(
-          decoration: BoxDecoration(
-            borderRadius:
-                BorderRadius.circular(16.0), // Adjust the radius as needed
-            color: const Color.fromARGB(255, 247, 247, 247),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.4), // Shadow color
-                spreadRadius: 2,
-                blurRadius: 4,
-                offset: const Offset(
-                    0, 2), // Shadow position [horizontal, vertical]
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context1) => AlertDialog(
-                            title: const Text(
-                              'تفاصيل طلب التطوع',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontFamily: 'Cairo',
-                              ),
-                            ),
-                            content: SizedBox(
-                                width: size.width * 0.9,
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(volunteerModel.volunteeringType
-                                          .toString()),
-                                      Text(volunteerModel.volunteerGroupType
-                                          .toString()),
-                                      Container(
-                                        width: double.maxFinite,
-                                        constraints: const BoxConstraints(
-                                            maxHeight: 150),
-                                        child: ListView.builder(
-                                          itemCount:
-                                              5, // Replace with your actual item count.
-                                          itemBuilder: (context, index) {
-                                            // Build your list items here.
-                                            return Column(
-                                              children: [
-                                                Text(
-                                                  'إسم المتطوع $index',
-                                                  textDirection:
-                                                      TextDirection.rtl,
-                                                ),
-                                                separator()
-                                              ],
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                            actions: <Widget>[
-                              Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.pop(context1, true);
-                                          myComplainsController.deleteVolunteer(
-                                              volunteerModel.volunteerId
-                                                  .toString(),
-                                              index);
-                                        },
-                                        child: const Column(
-                                          children: [
-                                            Icon(
-                                              Icons.delete,
-                                              color: Colors.red,
-                                            ),
-                                            Text(
-                                              'حذف',
-                                              style: TextStyle(
-                                                fontFamily: 'Cairo',
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      complainState('تم قبول الطلب')
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context1, true);
-                                      },
-                                      child: const Text(
-                                        'إغلاق',
-                                        style: TextStyle(
-                                          fontFamily: 'Cairo',
-                                        ),
-                                      )),
-                                ],
-                              ),
-                            ],
-                          ));
-                },
-                child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            volunteerModel.volunteerSkills.toString(),
-                            maxLines: 2,
-                            textAlign: TextAlign.end,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: Icon(
-                      Icons.photo,
-                      size: 50,
-                      color: Colors.green,
-                    ),
-                  ),
-                ]),
-              ),
-              separator(),
-              Row(
-                children: [
-                  Expanded(
-                      child: InkWell(
-                    onTap: () {
-                      // log(complainModel.complainId.toString());
-                      myComplainsController.deleteVolunteer(
-                          volunteerModel.volunteerId.toString(), index);
-                    },
-                    child: const Column(
-                      children: [
-                        Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        ),
-                        Text(
-                          'حذف',
-                          style: TextStyle(
-                            fontFamily: 'Cairo',
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-                ],
-              ),
-            ],
-          )));
-}
+                model.complainId.toString(), index);
+          } else if (whichPage == 2) {
+            myComplainsController.deleteVolunteer(
+                model.volunteerId.toString(), index);
+          } else {}
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.red, // Set the background color to red
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+            const SizedBox(
+              width: 3,
+            ),
+            whichPage == 1
+                ? const Text(
+                    'إلغاء الشكوى',
+                    style: TextStyle(
+                        fontFamily: 'Cairo', color: Colors.white, fontSize: 12),
+                  )
+                : const Text(
+                    'إلغاء الطلب ',
+                    style: TextStyle(
+                        fontFamily: 'Cairo', color: Colors.white, fontSize: 12),
+                  )
+          ],
+        ),
+      ),
+    );
