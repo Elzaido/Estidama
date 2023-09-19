@@ -61,9 +61,7 @@ Widget button({required void Function()? onPressed, required Widget? child}) =>
         child: child,
       ),
     );
-
-Widget buttonDismiss(
-        {required void Function()? onPressed, required Widget? child}) =>
+Widget buttonDismiss({required void Function()? onPressed, required Widget? child}) =>
     SizedBox(
       width: double.infinity,
       height: 50,
@@ -76,7 +74,7 @@ Widget buttonDismiss(
         child: child,
       ),
     );
-
+    
 Widget loading() => Center(
       child: Container(
         decoration: BoxDecoration(
@@ -175,6 +173,7 @@ Widget dropDown(
               }),
         ));
 
+
 Widget formField(
         {required TextEditingController control,
         required bool isScure,
@@ -209,6 +208,7 @@ Widget formField(
           )),
     );
 
+
 Widget descFormField(
         {required String hint,
         required TextEditingController textController}) =>
@@ -232,7 +232,6 @@ Widget descFormField(
             ),
       ),
     );
-
 Widget genderButton(
         {required String title, required void Function()? onPressed}) =>
     Expanded(
@@ -242,58 +241,61 @@ Widget genderButton(
                 style: const TextStyle(
                     color: Colors.white, fontFamily: 'Cairo'))));
 
-Widget boardingItemBuilder(BoardingModel model, Size size) => Stack(
+
+Widget boardingItemBuilder(BoardingModel model,size) => Stack(
       children: [
-        SizedBox(
+       Positioned(child:  SizedBox(
             height: size.height,
             child: Image(
-              image: AssetImage(model.image!),
+              image: AssetImage('${model.image}'),
               fit: BoxFit.cover,
-            )),
+            )),),
         const SizedBox(
           height: 25,
         ),
-        Container(
-            height: size.height,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.green.withOpacity(0.3),
-                  spreadRadius: 6,
-                  blurRadius: 6,
-                ),
-              ],
-            ),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 80, horizontal: 10),
-                child: Text(
-                  '${model.title}',
-                  style: const TextStyle(
-                    fontSize: 35,
-                    fontFamily: 'Cairo',
-                    color: Colors.white,
+        Positioned(
+          child: Container(
+              height: size.height,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.green.withOpacity(0.3),
+                    spreadRadius: 6,
+                    blurRadius: 6,
                   ),
-                  textAlign: TextAlign.center,
-                ),
+                ],
               ),
-            )),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 80, horizontal: 10),
+                  child: Text(
+                    '${model.title}',
+                    style: const TextStyle(
+                      fontSize: 35,
+                      fontFamily: 'Cairo',
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )),
+        ),
         const SizedBox(
           height: 20,
         ),
       ],
     );
-
-Widget separator() => Padding(
+    Widget separator() => Padding(
       padding: const EdgeInsets.all(8.0),
       child: (Container(
         height: 1,
         color: const Color.fromARGB(255, 226, 226, 226),
       )),
     );
+
 
 Widget homeShimmerWidget({required Size size}) => Shimmer.fromColors(
       baseColor: Colors.grey.shade300,
