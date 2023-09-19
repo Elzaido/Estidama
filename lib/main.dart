@@ -3,6 +3,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'controllers/complains_controller.dart';
+import 'controllers/recycling_controller.dart';
+import 'controllers/volunteering_controller.dart';
 import 'utilities/firebase_options.dart';
 import 'package:madenati/ui/pages/authentication/register.dart';
 import 'package:madenati/ui/pages/main_pages/about_app.dart';
@@ -25,9 +28,9 @@ import 'utilities/binding.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
-  // Get.put(ComplainsController());
-  // Get.put(RecyclingController());
-  // Get.put(VolunteeringController());
+  Get.put(ComplainsController());
+  Get.put(RecyclingController());
+  Get.put(VolunteeringController());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

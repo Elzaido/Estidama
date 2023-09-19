@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/mycomplains_model.dart';
+import 'package:madenati/models/recycling_model.dart';
 import 'package:madenati/models/volunteer_model.dart';
 import 'package:madenati/ui/widgets/dialogs.dart';
 import 'interface_components.dart';
@@ -33,10 +34,9 @@ Widget myComplainItem(context, ComplainsModel complainModel,
               children: [
                 InkWell(
                   onTap: () {
- 
                     print(complainModel.complain_accepetance_status);
-                    // showComplainInfoDialog(
-                    //     context, complainModel, myComplainsController, index);
+                    showComplainInfoDialog(
+                        context, complainModel, myComplainsController, index);
                   },
                   child:
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -99,13 +99,14 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                     const SizedBox(
                       width: 30,
                     ),
-                    complainModel.complain_accepetance_status == 'pending'
-                        ? complainState('الشكوى قيد الدراسة')
-                        : complainModel.complainStatus == 'rejected'
-                            ? complainState('تم رفض الشكوى')
-                            : complainState('تم قبول الشكوى')
+                    complainModel.complain_accepetance_status == "rejected"
+                        ? complainState('تم رفض الشكوى')
+                        : complainModel.complain_accepetance_status == "pending"
+                            ? complainState('الشكوى قيد الدراسة')
+                            : complainState("تم قبول الشكوى")
                   ],
-                ),
+
+           ),
               ],
             ),
           )));
@@ -378,3 +379,131 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
             ],
           )));
 }
+
+Widget myrecyclingItem(context, RecyclingModel recyclingModel,
+    MyComplainsController myComplainsController, index) {
+  return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      child: Container(
+          decoration: BoxDecoration(
+            borderRadius:
+                BorderRadius.circular(16.0), // Adjust the radius as needed
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.4), // Shadow color
+                spreadRadius: 2,
+                blurRadius: 4,
+                offset: const Offset(
+                    0, 2), // Shadow position [horizontal, vertical]
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                    // print(recyclingModel.rec);
+                    showComplainInfoDialog(
+                        context, recyclingModel, myComplainsController, index);
+                  },
+                  child:
+                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              recyclingModel.materialType.toString(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              textDirection: TextDirection.rtl,
+                            ),
+                            Text(
+                              recyclingModel.orderDate.toString(),
+                              textAlign: TextAlign.end,
+                              style: const TextStyle(
+                                  fontSize: 15, fontFamily: 'Cairo'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child:
+                            // complainModel.complainImagePath == ""
+                            //     ?
+                            Image(
+                          image: NetworkImage(
+                            "$complainImages/${recyclingModel.materialImg.toString()}",
+                          ),
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
+                        )
+                        // : const Icon(
+                        //     Icons.photo,
+                        //     size: 50,
+                        //     color: Colors.green,
+                        //   ),
+                        ),
+                  ]),
+                ),
+                separator(),
+               const  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // deleteComplainButton(complainModel, myComplainsController,
+                    //     index, false, context),
+                      SizedBox(
+                      width: 30,
+                    ),
+                    // complainState.complain_accepetance_status == "rejected"
+                    //     ? complainState('تم رفض الشكوى')
+                    //     : complainModel.complain_accepetance_status == "pending"
+                    //         ? complainState('الشكوى قيد الدراسة')
+                    //         : complainState("تم قبول الشكوى")
+                  ],
+
+           ),
+              ],
+            ),
+          )));
+}
+  Widget noComplainsCenterdTitle() {
+    return const Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'لا يوجد معلومات لعرضها',
+            style: TextStyle(
+              fontFamily: 'Cairo',
+              fontSize: 13,
+            ),
+          ),
+          SizedBox(
+            width: 7,
+          ),
+          Icon(
+            Icons.warning,
+            color: Colors.red,
+            size: 27,
+          )
+        ],
+      ),
+    );
+  }

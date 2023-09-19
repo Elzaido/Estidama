@@ -26,9 +26,7 @@ class MyVolunteeringReq extends StatelessWidget {
               }
               if (snapshot.connectionState == ConnectionState.none) {
                loading();
-              }
-
-
+              } 
               if (snapshot.hasData) {
                 controller.volunteerList.value = snapshot.data['data']
                     .map<VolunteerModel>(
