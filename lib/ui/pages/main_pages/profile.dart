@@ -13,71 +13,20 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProfileController profileController = Get.find();
-    return Scaffold(
-      appBar:
-          defaultAppBar(context: context, title: 'الملف الشخصي', isHome: true),
-      body: SingleChildScrollView(
-        child: Column(children: [
-          const SizedBox(
-            height: 140,
-            child: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://th.bing.com/th/id/OIP.2s7VxdmHEoDKji3gO_i-5QHaHa?pid=ImgDet&rs=1'),
-                radius: 50,
-              ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                CacheHelper.getData(key: "user_name").toString(),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              const Icon(
-                Icons.verified,
-                color: Colors.blue,
-                size: 20,
-              )
-            ],
-          ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(16.0), // Adjust the radius as needed
-                color: const Color.fromARGB(255, 247, 247, 247),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.4), // Shadow color
-                    spreadRadius: 2,
-                    blurRadius: 4,
-                    offset: const Offset(
-                        0, 2), // Shadow position [horizontal, vertical]
+    Size size = MediaQuery.of(context).size;
 
-    Size size=MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        appBar:
-            defaultAppBar(context: context, title: 'الملف الشخصي', isHome: true),
-        body: Container(
+        appBar: defaultAppBar(
+            context: context, title: 'الملف الشخصي', isHome: true),
+        body: SizedBox(
           width: size.width,
           height: size.height,
           child: SingleChildScrollView(
-            child: Column( children: [
+            child: Column(children: [
               Container(
                 margin: const EdgeInsets.all(5),
-                height: size.height*0.16,
+                height: size.height * 0.16,
                 child: const Padding(
                   padding: EdgeInsets.all(10.0),
                   child: CircleAvatar(
@@ -112,8 +61,8 @@ class Profile extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(16.0), // Adjust the radius as needed
+                    borderRadius: BorderRadius.circular(
+                        16.0), // Adjust the radius as needed
                     color: const Color.fromARGB(255, 247, 247, 247),
                     boxShadow: [
                       BoxShadow(
@@ -134,7 +83,10 @@ class Profile extends StatelessWidget {
                       separator(),
                       profileButton(
                           onPressed: () {},
-                          text: profileController.iterateUserProvince(int.parse(CacheHelper.getData(key: "user_province"))).toString(),
+                          text: profileController
+                              .iterateUserProvince(int.parse(
+                                  CacheHelper.getData(key: "user_province")))
+                              .toString(),
                           icon: const Icon(Icons.location_city)),
                       separator(),
                       profileButton(
@@ -144,12 +96,14 @@ class Profile extends StatelessWidget {
                       separator(),
                       profileButton(
                           onPressed: () {},
-                          text: CacheHelper.getData(key: "user_gender") == 'male'
-                              ? "ذكر"
-                              : 'انثى',
-                          icon: CacheHelper.getData(key: "user_gender") == 'male'
-                              ? const Icon(Icons.male)
-                              : const Icon(Icons.female)),
+                          text:
+                              CacheHelper.getData(key: "user_gender") == 'male'
+                                  ? "ذكر"
+                                  : 'انثى',
+                          icon:
+                              CacheHelper.getData(key: "user_gender") == 'male'
+                                  ? const Icon(Icons.male)
+                                  : const Icon(Icons.female)),
                       separator(),
                       profileButton(
                           onPressed: () => controller.signOutActions(),
