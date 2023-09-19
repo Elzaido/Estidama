@@ -148,7 +148,8 @@ class VolunteeringState extends State<Volunteering> {
                 // ... Other TextFormField properties ...
               ).paddingAll(10),
               if (volunteeringController.volunteenerNumber.value > 0)
-                SingleChildScrollView(
+                SizedBox(
+                  height: 300, // Specify a fixed height, adjust as needed
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: volunteeringController.volunteenerNumber.value,
