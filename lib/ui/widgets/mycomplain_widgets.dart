@@ -531,7 +531,7 @@ Widget noComplainsCenterdTitle() {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'لا يوجد معلومات لعرضها',
+          'لا يوجد شكاوي لعرضها',
           style: TextStyle(
             fontFamily: 'Cairo',
             fontSize: 13,
