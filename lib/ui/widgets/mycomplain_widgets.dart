@@ -95,7 +95,7 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     deleteItemButton(complainModel, myComplainsController,
-                        index, false, context, 2),
+                        index, false, context, 1),
                     const SizedBox(
                       width: 30,
                     ),
