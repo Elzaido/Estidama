@@ -66,6 +66,7 @@ class RecyclingController extends GetxController {
     update();
   }
 
+//REFACTOR : FROM SWITCH TO MAP
   int fromTextToIntRecyclingItem() {
     int recyclingItemNumber = 0;
     switch (selectedRecyclingItem.value) {
@@ -86,6 +87,25 @@ class RecyclingController extends GetxController {
         break;
     }
     return recyclingItemNumber == 0 ? 1 : recyclingItemNumber;
+  }
+
+  String fromIntToTextRecyclingItem(int item_number) {
+    String recyclingItemText = "";
+    switch (item_number) {
+      case 1:
+        recyclingItemText = 'زجاج';
+        break;
+      case 2:
+        recyclingItemText = 'بلاستيك';
+        break;
+      case 3:
+        recyclingItemText = 'إلكترونيات';
+        break;
+      case 4:
+        recyclingItemText = 'حديد';
+        break;
+    }
+    return  recyclingItemText;
   }
 
   switchSelectedRecyclingItem(newValue) =>

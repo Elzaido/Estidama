@@ -2,8 +2,10 @@
 
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
+import 'package:madenati/controllers/recycling_controller.dart';
 import 'package:madenati/models/mycomplains_model.dart';
 import 'package:madenati/models/recycling_model.dart';
 import 'package:madenati/models/volunteer_model.dart';
@@ -93,10 +95,10 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                       width: 30,
                     ),
                     complainModel.complainAccepetanceStatus == "rejected"
-                        ? complainState('تم رفض الشكوى')
+                        ? activityState('تم رفض الشكوى')
                         : complainModel.complainAccepetanceStatus == "pending"
-                            ? complainState('الشكوى قيد الدراسة')
-                            : complainState("تم قبول الشكوى"),
+                            ? activityState('الشكوى قيد الدراسة')
+                            : activityState("تم قبول الشكوى")
                   ],
                 ),
               ],
@@ -104,7 +106,7 @@ Widget myComplainItem(context, ComplainsModel complainModel,
           )));
 }
 
-Widget complainState(String state) {
+Widget activityState(String state) {
   Color backgroundColor;
   switch (state) {
     case 'الشكوى قيد الدراسة':
@@ -162,7 +164,10 @@ Widget deleteItemButton(model, MyComplainsController myComplainsController,
           } else if (whichPage == 2) {
             myComplainsController.deleteVolunteer(
                 model.volunteerId.toString(), index);
-          } else {}
+          } else {
+            myComplainsController.deleteRecyclingOrder(
+                model.volunteerId.toString(), index);
+          }
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red, // Set the background color to red
@@ -424,6 +429,7 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
 
 Widget myrecyclingItem(context, RecyclingModel recyclingModel,
     MyComplainsController myComplainsController, index) {
+  RecyclingController recyclingController = Get.find();
   return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Container(
@@ -463,11 +469,13 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Text(
-                              recyclingModel.materialType.toString(),
+                              recyclingController.fromIntToTextRecyclingItem(
+                                  int.parse("${recyclingModel.materialType}")),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                fontSize: 15,
+                                fontSize: 17,
+                                fontFamily: 'Cairo',
                                 fontWeight: FontWeight.bold,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -485,39 +493,34 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
                     ),
                     Padding(
                         padding: const EdgeInsets.all(5.0),
-                        child:
-                            // complainModel.complainImagePath == ""
-                            //     ?
-                            Image(
+                        child: Image(
                           image: NetworkImage(
                             "$complainImages/${recyclingModel.materialImg.toString()}",
                           ),
                           height: 100,
                           width: 100,
                           fit: BoxFit.cover,
-                        )
-                        // : const Icon(
-                        //     Icons.photo,
-                        //     size: 50,
-                        //     color: Colors.green,
-                        //   ),
-                        ),
+                        )),
                   ]),
                 ),
                 separator(),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // deleteComplainButton(complainModel, myComplainsController,
                     //     index, false, context),
-                    SizedBox(
+
+                    deleteItemButton(recyclingModel, myComplainsController,
+                        index, false, context, 3),
+                    const SizedBox(
                       width: 30,
                     ),
-                    // complainState.complain_accepetance_status == "rejected"
-                    //     ? complainState('تم رفض الشكوى')
-                    //     : complainModel.complain_accepetance_status == "pending"
-                    //         ? complainState('الشكوى قيد الدراسة')
-                    //         : complainState("تم قبول الشكوى")
+
+                    recyclingModel.recyclingAcepetanceStatus == "rejected"
+                        ? activityState('تم رفض الطلب')
+                        : recyclingModel.recyclingAcepetanceStatus == "pending"
+                            ? activityState('الطلب قيد الدراسة')
+                            : activityState('تم قبول الطلب'),
                   ],
                 ),
               ],
@@ -550,52 +553,9 @@ Widget noComplainsCenterdTitle() {
   );
 }
 
-Widget activityState(String state) {
-  Color backgroundColor;
-  switch (state) {
-    case 'الشكوى قيد الدراسة':
-      backgroundColor = Colors.orange;
-      break;
-    case 'تم رفض الشكوى':
-      backgroundColor = Colors.red;
-      break;
-    case 'تم مراجعة الشكوى':
-      backgroundColor = Colors.green;
-    case 'الطلب قيد الدراسة':
-      backgroundColor = Colors.orange;
-      break;
-    case 'تم رفض الطلب':
-      backgroundColor = Colors.red;
-      break;
-    case 'تم قبول الطلب':
-      backgroundColor = Colors.green;
-
-      break;
-    default:
-      backgroundColor = Colors.transparent; // Default color for unknown states
-      break;
-  }
-
-  return Container(
-    width: 140,
-    height: 50,
-    decoration: BoxDecoration(
-      color: backgroundColor,
-      borderRadius: BorderRadius.circular(5),
-    ),
-    child: Center(
-      child: Text(
-        state,
-        style: const TextStyle(
-            fontFamily: 'Cairo', color: Colors.white, fontSize: 12),
-      ),
-    ),
-  );
-}
-
-snapShotExceptionHandling(snapshot, size) {
+snapShotExceptionHandling(snapshot, size) async {
   if (snapshot.connectionState == ConnectionState.waiting) {
-    return homeShimmerWidget(size: size);
+    return await homeShimmerWidget(size: size);
   }
   if (snapshot.data['data'].length == null) {
     return noComplainsCenterdTitle();
