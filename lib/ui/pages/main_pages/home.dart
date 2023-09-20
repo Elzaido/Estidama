@@ -27,11 +27,11 @@ class Home extends StatelessWidget {
               children: [
                 carousel(items: images),
                 const SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 separator(),
                 const SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 useActionGridView(context)
               ],
