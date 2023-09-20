@@ -36,7 +36,7 @@ Widget myComplainItem(context, ComplainsModel complainModel,
               children: [
                 InkWell(
                   onTap: () {
-                    print(complainModel.complain_accepetance_status);
+                    log('${complainModel.complainAccepetanceStatus}');
                     showComplainInfoDialog(
                         context, complainModel, myComplainsController, index);
                   },
@@ -92,12 +92,11 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                     const SizedBox(
                       width: 30,
                     ),
-                    complainModel.complain_accepetance_status == "rejected"
+                    complainModel.complainAccepetanceStatus == "rejected"
                         ? complainState('تم رفض الشكوى')
-                        : complainModel.complain_accepetance_status == "pending"
+                        : complainModel.complainAccepetanceStatus == "pending"
                             ? complainState('الشكوى قيد الدراسة')
                             : complainState("تم قبول الشكوى"),
-                    activityState('الشكوى قيد الدراسة')
                   ],
                 ),
               ],

@@ -49,15 +49,15 @@ void showComplainInfoDialog(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       deleteItemButton(complainModel, myComplainsController,
-                          index, true, context1,1),
+                          index, true, context1, 1),
                       const SizedBox(
                         width: 10,
                       ),
-                         complainModel.complain_accepetance_status == "rejected"
-                        ? complainState('تم رفض الشكوى')
-                        : complainModel.complain_accepetance_status == "pending"
-                            ? complainState('الشكوى قيد الدراسة')
-                            : complainState("تم قبول الشكوى")
+                      complainModel.complainAccepetanceStatus == "rejected"
+                          ? complainState('تم رفض الشكوى')
+                          : complainModel.complainAccepetanceStatus == "pending"
+                              ? complainState('الشكوى قيد الدراسة')
+                              : complainState("تم قبول الشكوى")
                     ],
                   ),
                   const SizedBox(
