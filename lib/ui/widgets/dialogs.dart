@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
-import 'package:madenati/ui/widgets/mycomplain_widgets.dart';
+import 'package:madenati/ui/widgets/my_orders.dart';
 
 void showComplainInfoDialog(
     context, complainModel, myComplainsController, index) {
@@ -54,10 +54,10 @@ void showComplainInfoDialog(
                         width: 10,
                       ),
                          complainModel.complain_accepetance_status == "rejected"
-                        ? complainState('تم رفض الشكوى')
+                        ? activityState('تم رفض الشكوى')
                         : complainModel.complain_accepetance_status == "pending"
-                            ? complainState('الشكوى قيد الدراسة')
-                            : complainState("تم قبول الشكوى")
+                            ? activityState('الشكوى قيد الدراسة')
+                            : activityState("تم قبول الشكوى")
                     ],
                   ),
                   const SizedBox(
