@@ -18,13 +18,8 @@ class MyVolunteeringReq extends StatelessWidget {
           future: controller.retriveCurrentUserVolunteeringOrders(),
           builder: ((context, AsyncSnapshot snapshot) {
             try {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return homeShimmerWidget(size: size);
-              }
-              if (snapshot.connectionState == ConnectionState.none) {
-                loading();
-              }
-              // You had an extra 'loading();' here which is removed
+              snapShotExceptionHandling(snapshot, size);
+
               if (snapshot.hasData) {
                 controller.volunteerList.value = snapshot.data['data']
                     .map<VolunteerModel>(
@@ -55,25 +50,23 @@ class MyVolunteeringReq extends StatelessWidget {
   }
 }
 
-
-  Widget noComplainsCenterdTitle() {
-    return const Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'لا يوجد طلبات تطوع لعرضها',
-            style: TextStyle(
-              fontFamily: 'Cairo',
-              fontSize: 13,
-            ),
+Widget noComplainsCenterdTitle() {
+  return const Center(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'لا يوجد طلبات تطوع لعرضها',
+          style: TextStyle(
+            fontFamily: 'Cairo',
+            fontSize: 13,
           ),
-          SizedBox(
-            width: 7,
-          ),
-          Icon(Icons.warning, color: Colors.red, size: 27)
-        ],
-      ),
-    );
-  }
- 
+        ),
+        SizedBox(
+          width: 7,
+        ),
+        Icon(Icons.warning, color: Colors.red, size: 27)
+      ],
+    ),
+  );
+}

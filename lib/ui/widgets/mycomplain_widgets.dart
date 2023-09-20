@@ -36,12 +36,9 @@ Widget myComplainItem(context, ComplainsModel complainModel,
               children: [
                 InkWell(
                   onTap: () {
- 
                     print(complainModel.complain_accepetance_status);
                     showComplainInfoDialog(
                         context, complainModel, myComplainsController, index);
-    
- 
                   },
                   child:
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -95,15 +92,12 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                     const SizedBox(
                       width: 30,
                     ),
- 
                     complainModel.complain_accepetance_status == "rejected"
                         ? complainState('تم رفض الشكوى')
                         : complainModel.complain_accepetance_status == "pending"
                             ? complainState('الشكوى قيد الدراسة')
-                            : complainState("تم قبول الشكوى")
- 
-                ,    activityState('الشكوى قيد الدراسة')
- 
+                            : complainState("تم قبول الشكوى"),
+                    activityState('الشكوى قيد الدراسة')
                   ],
                 ),
               ],
@@ -111,7 +105,6 @@ Widget myComplainItem(context, ComplainsModel complainModel,
           )));
 }
 
- 
 Widget complainState(String state) {
   Color backgroundColor;
   switch (state) {
@@ -201,7 +194,7 @@ Widget deleteItemButton(model, MyComplainsController myComplainsController,
         ),
       ),
     );
- 
+
 Widget volunteerItem(context, VolunteerModel volunteerModel,
     MyComplainsController myComplainsController, index, Size size) {
   return Padding(
@@ -430,7 +423,6 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
           )));
 }
 
- 
 Widget myrecyclingItem(context, RecyclingModel recyclingModel,
     MyComplainsController myComplainsController, index) {
   return Padding(
@@ -558,7 +550,7 @@ Widget noComplainsCenterdTitle() {
     ),
   );
 }
- 
+
 Widget activityState(String state) {
   Color backgroundColor;
   switch (state) {
@@ -601,5 +593,29 @@ Widget activityState(String state) {
     ),
   );
 }
- 
- 
+
+snapShotExceptionHandling(snapshot, size) {
+  if (snapshot.connectionState == ConnectionState.waiting) {
+    return homeShimmerWidget(size: size);
+  }
+  if (snapshot.data['data'].length == null) {
+    return noComplainsCenterdTitle();
+  }
+  if (snapshot.hasError) {
+    return const Center(
+      child: Text(
+        "حدث خطأ ما.",
+        style: TextStyle(color: Colors.white, fontSize: 20),
+      ),
+    );
+  }
+
+  if (snapshot.hasError) {
+    return const Center(
+      child: Text(
+        "حدث خطأ ما.",
+        style: TextStyle(color: Colors.white, fontSize: 20),
+      ),
+    );
+  }
+}

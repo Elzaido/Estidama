@@ -19,64 +19,41 @@ class MyComplains extends StatelessWidget {
       child: FutureBuilder(
           future: controller.retriveCurrentUserComplains(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return homeShimmerWidget(size: size);
-            }
             try {
-              if (!snapshot.hasData) {
-                return noComplainsCenterdTitle();
-              }
-              if (snapshot.data['data'].length == null) {
-                return noComplainsCenterdTitle();
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return homeShimmerWidget(size: size);
-              } else if (snapshot.hasError) {
-                return const Center(
-                  child: Text(
-                    "حدث خطأ ما.",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                );
-              } else if (!snapshot.hasData) {
-                return noComplainsCenterdTitle();
-              } else {
-                if (snapshot.hasData) {
-                  controller.complainLength.value =
-                      snapshot.data['data'].length;
-                  return snapshot.data.length != 0
-                      ? Obx(() => Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: ListView.separated(
-                                itemCount: controller.complainLength.value,
-                                separatorBuilder: (context, index) => Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: separator(),
-                                    ),
-                                itemBuilder: (context, index) {
-                                  if (snapshot.data['data'][index].length !=
-                                      0) {
-                                    controller.complainList.value = snapshot
-                                        .data['data']
-                                        .map<ComplainsModel>((complainData) =>
-                                            ComplainsModel.fromJson(
-                                                complainData))
-                                        .toList();
-                                    return Obx(() =>
-                                        controller.complainList.isNotEmpty
-                                            ? myComplainItem(
-                                                context,
-                                                controller.complainList[index],
-                                                controller,
-                                                index)
-                                            : noComplainsCenterdTitle());
-                                  }
-                                  return noComplainsCenterdTitle();
-                                }),
-                          ))
-                      : noComplainsCenterdTitle();
-                }
+              snapShotExceptionHandling(snapshot, size);
+
+              if (snapshot.hasData) {
+                controller.complainLength.value = snapshot.data['data'].length;
+                return snapshot.data.length != 0
+                    ? Obx(() => Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: ListView.separated(
+                              itemCount: controller.complainLength.value,
+                              separatorBuilder: (context, index) => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: separator(),
+                                  ),
+                              itemBuilder: (context, index) {
+                                if (snapshot.data['data'][index].length != 0) {
+                                  controller.complainList.value = snapshot
+                                      .data['data']
+                                      .map<ComplainsModel>((complainData) =>
+                                          ComplainsModel.fromJson(complainData))
+                                      .toList();
+                                  return Obx(() =>
+                                      controller.complainList.isNotEmpty
+                                          ? myComplainItem(
+                                              context,
+                                              controller.complainList[index],
+                                              controller,
+                                              index)
+                                          : noComplainsCenterdTitle());
+                                }
+                                return noComplainsCenterdTitle();
+                              }),
+                        ))
+                    : noComplainsCenterdTitle();
               }
             } catch (e) {
               log(e.hashCode);
