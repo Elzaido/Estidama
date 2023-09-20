@@ -65,6 +65,18 @@ class MyComplainsController extends GetxController {
     return response;
   }
 
+  deleteRecyclingOrder(recyclerId, index) async {
+    var response = await postRequest(
+        delteRecyclingrRequestLink, {"recycler_id": "$recyclerId"});
+
+    if (response['status'] == 'success') print("yess");
+    recyclingList.removeAt(index);
+    recyclingLength.value--;
+    defaultToast(massage: "تم حذف الطلب بنجاح", state: ToastStates.SUCCESS);
+    update();
+    return response;
+  }
+
   retriveCurrentUserVolunteeringOrders() async {
     var response = await postRequest(getCurrentUserVolunteeringOrders,
         {"user_id": CacheHelper.getData(key: "user_id").toString()});
