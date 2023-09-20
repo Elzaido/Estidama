@@ -5,6 +5,7 @@ import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/local/shared_preference.dart';
 import 'package:madenati/db/remote/sql.dart';
 import 'package:madenati/models/mycomplains_model.dart';
+import 'package:madenati/models/recycling_model.dart';
 import 'package:madenati/models/volunteer_model.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
 // import '../constants/hotlinks.dart';
@@ -18,9 +19,12 @@ class MyComplainsController extends GetxController {
 
   RxList<ComplainsModel> complainList = [ComplainsModel()].obs;
   RxList<VolunteerModel> volunteerList = [VolunteerModel()].obs;
+  RxList<RecyclingModel> recyclingList = [RecyclingModel()].obs;
 
   RxInt complainLength = 0.obs;
   RxInt volunteerLength = 0.obs;
+  RxInt recyclingLength = 0.obs;
+
   // List<Map> myComplainsList = [];
   // RxList myComplains = [].obs;
   retriveCurrentUserComplains() async {
@@ -67,6 +71,20 @@ class MyComplainsController extends GetxController {
 
     if (response['status'] == 'success') {
       print("lg");
+      return response;
+    }
+    if (response['status'] == 'faild') {
+      print("faild");
+    }
+    return response;
+  }
+
+  retriveCurrentUserRecyclingOrders() async {
+    var response = await postRequest(getCurrentUserRecyclingOrders,
+        {"recycler_id": CacheHelper.getData(key: "user_id").toString()});
+
+    if (response['status'] == 'success') {
+      print("retrived recycling orders");
       return response;
     }
     if (response['status'] == 'faild') {
