@@ -24,8 +24,14 @@ class MyVolunteeringReq extends StatelessWidget {
                 return homeShimmerWidget(size: size);
               }
               if (snapshot.connectionState == ConnectionState.none) {
+ 
+ 
+               loading();
+              } 
+ 
                 loading();
               }
+ 
 
               if (snapshot.hasData) {
                 controller.volunteerList.value = snapshot.data['data']
