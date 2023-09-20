@@ -102,7 +102,7 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                             ? complainState('الشكوى قيد الدراسة')
                             : complainState("تم قبول الشكوى")
  
-                    activityState('الشكوى قيد الدراسة')
+                ,    activityState('الشكوى قيد الدراسة')
  
                   ],
                 ),
@@ -602,51 +602,4 @@ Widget activityState(String state) {
   );
 }
  
-
-Widget deleteItemButton(model, MyComplainsController myComplainsController,
-        index, bool indialog, context1, int whichPage) =>
-    SizedBox(
-      height: 50,
-      width: 140,
-      child: ElevatedButton(
-        onPressed: () {
-          if (indialog) Navigator.pop(context1, true);
-          if (whichPage == 1) {
-            log(model.complainId.toString());
-            myComplainsController.deleteComplain(
-                model.complainId.toString(), index);
-          } else if (whichPage == 2) {
-            myComplainsController.deleteVolunteer(
-                model.volunteerId.toString(), index);
-          } else {}
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.red, // Set the background color to red
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.delete,
-              color: Colors.white,
-            ),
-            const SizedBox(
-              width: 3,
-            ),
-            whichPage == 1
-                ? const Text(
-                    'إلغاء الشكوى',
-                    style: TextStyle(
-                        fontFamily: 'Cairo', color: Colors.white, fontSize: 12),
-                  )
-                : const Text(
-                    'إلغاء الطلب ',
-                    style: TextStyle(
-                        fontFamily: 'Cairo', color: Colors.white, fontSize: 12),
-                  )
-          ],
-        ),
-      ),
-    );
  
