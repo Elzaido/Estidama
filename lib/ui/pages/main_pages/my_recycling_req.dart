@@ -7,7 +7,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/recycling_model.dart';
-import 'package:madenati/ui/widgets/interface_components.dart';
 import 'package:madenati/ui/widgets/mycomplain_widgets.dart';
 
 class MyRecyclingReq extends StatelessWidget {
@@ -25,24 +24,11 @@ class MyRecyclingReq extends StatelessWidget {
         child: FutureBuilder(
             future: controller.retriveCurrentUserRecyclingOrders(),
             builder: ((BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return homeShimmerWidget(size: size);
-              }
-              if (snapshot.data['data'].length == null) {
-                return noComplainsCenterdTitle();
-              }
-              if (snapshot.hasError) {
-                return const Center(
-                  child: Text(
-                    "حدث خطأ ما.",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                );
-              }
               try {
+                snapShotExceptionHandling(snapshot, size);
                 if (snapshot.hasData) {
-                  controller.recyclingLength.value= snapshot.data['data'].length;
-
+                  controller.recyclingLength.value =
+                      snapshot.data['data'].length;
                   return snapshot.data.length != 0
                       ? Obx(() => Padding(
                             padding: const EdgeInsets.all(8.0),
