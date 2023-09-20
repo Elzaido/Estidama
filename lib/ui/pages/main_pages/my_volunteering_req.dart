@@ -17,6 +17,9 @@ class MyVolunteeringReq extends StatelessWidget {
         child: FutureBuilder(
           future: controller.retriveCurrentUserVolunteeringOrders(),
           builder: ((context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return homeShimmerWidget(size: size);
+            }
             try {
               snapShotExceptionHandling(snapshot, size);
 
@@ -26,6 +29,7 @@ class MyVolunteeringReq extends StatelessWidget {
                         (complainData) => VolunteerModel.fromJson(complainData))
                     .toList();
                 return Obx(() => ListView.builder(
+                      physics: const BouncingScrollPhysics(),
                       itemCount: controller.volunteerList.length,
                       itemBuilder: (context, index) {
                         return Obx(() => controller.volunteerList.isNotEmpty

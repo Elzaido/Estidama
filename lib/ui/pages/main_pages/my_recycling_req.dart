@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/recycling_model.dart';
+import 'package:madenati/ui/widgets/interface_components.dart';
 import 'package:madenati/ui/widgets/my_orders.dart';
 
 class MyRecyclingReq extends StatelessWidget {
@@ -24,6 +25,9 @@ class MyRecyclingReq extends StatelessWidget {
         child: FutureBuilder(
             future: controller.retriveCurrentUserRecyclingOrders(),
             builder: ((BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return homeShimmerWidget(size: size);
+              }
               try {
                 snapShotExceptionHandling(snapshot, size);
                 if (snapshot.hasData) {
@@ -33,6 +37,7 @@ class MyRecyclingReq extends StatelessWidget {
                       ? Obx(() => Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
                                 itemCount: controller.recyclingLength.value,
                                 itemBuilder: (context, index) {
                                   if (snapshot.data['data'][index].length !=

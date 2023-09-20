@@ -2,8 +2,10 @@
 
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
+import 'package:madenati/controllers/recycling_controller.dart';
 import 'package:madenati/models/mycomplains_model.dart';
 import 'package:madenati/models/recycling_model.dart';
 import 'package:madenati/models/volunteer_model.dart';
@@ -165,7 +167,8 @@ Widget deleteItemButton(model, MyComplainsController myComplainsController,
           } else if (whichPage == 2) {
             myComplainsController.deleteVolunteer(
                 model.volunteerId.toString(), index);
-          } else {}
+          } else { myComplainsController.deleteRecyclingOrder(
+                model.volunteerId.toString(), index);}
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red, // Set the background color to red
@@ -427,6 +430,7 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
 
 Widget myrecyclingItem(context, RecyclingModel recyclingModel,
     MyComplainsController myComplainsController, index) {
+        RecyclingController recyclingController=Get.find();
   return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Container(
@@ -466,11 +470,13 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Text(
-                              recyclingModel.materialType.toString(),
+                              
+                          recyclingController.fromIntToTextRecyclingItem( int.parse("${recyclingModel.materialType}") )   ,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                fontSize: 15,
+                                fontSize: 17,
+                                fontFamily: 'Cairo',
                                 fontWeight: FontWeight.bold,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -592,9 +598,9 @@ Widget noComplainsCenterdTitle() {
 //   );
 // }
 
-snapShotExceptionHandling(snapshot, size) {
+snapShotExceptionHandling(snapshot, size) async{
   if (snapshot.connectionState == ConnectionState.waiting) {
-    return homeShimmerWidget(size: size);
+    return await homeShimmerWidget(size: size);
   }
   if (snapshot.data['data'].length == null) {
     return noComplainsCenterdTitle();

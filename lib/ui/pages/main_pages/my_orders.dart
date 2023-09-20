@@ -28,6 +28,7 @@ class MyComplains extends StatelessWidget {
                     ? Obx(() => Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: ListView.separated(
+                              physics: const BouncingScrollPhysics(),
                               itemCount: controller.complainLength.value,
                               separatorBuilder: (context, index) => Padding(
                                     padding: const EdgeInsets.symmetric(
