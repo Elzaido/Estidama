@@ -40,8 +40,9 @@ class RecyclingForm extends StatelessWidget {
                   formField(
                     control: itemWeightcontroller,
                     isScure: false,
-                    label: 'وزن المادة المراد إعادة تدويرها',
+                    label: 'وزن المادة بالكيلو',
                     prefIcon: const Icon(Icons.numbers),
+                    isNumber: true,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'يجب إدخال وزن المادة';

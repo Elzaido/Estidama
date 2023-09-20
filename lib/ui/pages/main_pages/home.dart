@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
           image: 'assets/volunteering.png',
           title: 'تطوع',
           text:
-              'قام أحد فرق التطوع في مدينة إربد بزراعة 20 شجرة على طريق الواصل بين منطقة أيدون و الحصن'),
+              'قام أحد فرق التطوع في مدينة إربد بإزالة النفايات على طريق الواصل بين منطقة أيدون و الحصن'),
     ];
     return Scaffold(
         appBar:

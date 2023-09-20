@@ -23,6 +23,7 @@ class RecyclingController extends GetxController {
     'بلاستيك',
     'إلكترونيات',
     'حديد',
+    'أوراق',
   ];
   RxString selectedRecyclingItem = 'زجاج'.obs;
   Random randy = Random();
@@ -79,6 +80,9 @@ class RecyclingController extends GetxController {
         break;
       case 'حديد':
         recyclingItemNumber = 4;
+        break;
+      case 'أوراق':
+        recyclingItemNumber = 5;
         break;
     }
     return recyclingItemNumber == 0 ? 1 : recyclingItemNumber;
@@ -155,12 +159,6 @@ class RecyclingController extends GetxController {
     if (response['status'] == 'no_user') {
       defaultToast(massage: "no  user", state: ToastStates.ERROR);
     }
-    // } catch (exe) {
-    //   defaultToast(
-    //       massage: "حدث خطب ما يرجى الاعادة لاحقا", state: ToastStates.ERROR);
-
-    //   return response;
-    // }
   }
 
   checkRecyclingItemsData(

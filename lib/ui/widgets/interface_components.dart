@@ -61,7 +61,8 @@ Widget button({required void Function()? onPressed, required Widget? child}) =>
         child: child,
       ),
     );
-Widget buttonDismiss({required void Function()? onPressed, required Widget? child}) =>
+Widget buttonDismiss(
+        {required void Function()? onPressed, required Widget? child}) =>
     SizedBox(
       width: double.infinity,
       height: 50,
@@ -74,7 +75,7 @@ Widget buttonDismiss({required void Function()? onPressed, required Widget? chil
         child: child,
       ),
     );
-    
+
 Widget loading() => Center(
       child: Container(
         decoration: BoxDecoration(
@@ -173,7 +174,6 @@ Widget dropDown(
               }),
         ));
 
-
 Widget formField(
         {required TextEditingController control,
         required bool isScure,
@@ -183,13 +183,15 @@ Widget formField(
         required FormFieldValidator<String> validator,
         bool readOnly = false,
         Null Function()? ontap,
-        IconButton? suffButton}) =>
+        IconButton? suffButton,
+        bool isNumber = false}) =>
     TextFormField(
       readOnly: readOnly,
       textDirection: TextDirection.rtl,
       validator: validator,
       controller: control,
-      keyboardType: TextInputType.visiblePassword,
+      keyboardType:
+          isNumber ? TextInputType.number : TextInputType.visiblePassword,
       obscureText: isScure,
       obscuringCharacter: '*',
       onFieldSubmitted: onSubmit,
@@ -207,7 +209,6 @@ Widget formField(
             borderRadius: BorderRadius.circular(10),
           )),
     );
-
 
 Widget descFormField(
         {required String hint,
@@ -241,15 +242,16 @@ Widget genderButton(
                 style: const TextStyle(
                     color: Colors.white, fontFamily: 'Cairo'))));
 
-
-Widget boardingItemBuilder(BoardingModel model,size) => Stack(
+Widget boardingItemBuilder(BoardingModel model, size) => Stack(
       children: [
-       Positioned(child:  SizedBox(
-            height: size.height,
-            child: Image(
-              image: AssetImage('${model.image}'),
-              fit: BoxFit.cover,
-            )),),
+        Positioned(
+          child: SizedBox(
+              height: size.height,
+              child: Image(
+                image: AssetImage('${model.image}'),
+                fit: BoxFit.cover,
+              )),
+        ),
         const SizedBox(
           height: 25,
         ),
@@ -288,14 +290,13 @@ Widget boardingItemBuilder(BoardingModel model,size) => Stack(
         ),
       ],
     );
-    Widget separator() => Padding(
+Widget separator() => Padding(
       padding: const EdgeInsets.all(8.0),
       child: (Container(
         height: 1,
         color: const Color.fromARGB(255, 226, 226, 226),
       )),
     );
-
 
 Widget homeShimmerWidget({required Size size}) => Shimmer.fromColors(
       baseColor: Colors.grey.shade300,

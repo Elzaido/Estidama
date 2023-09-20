@@ -23,9 +23,6 @@ class MapScreenState extends State<MapScreen> {
   // Define a Set to hold markers.
   Set<Marker> markers = {};
 
-  // Variable to track whether to show the user's location button.
-  bool showUserLocationButton = true;
-
   @override
   void initState() {
     super.initState();
@@ -53,6 +50,34 @@ class MapScreenState extends State<MapScreen> {
       mapController.moveCamera(
         CameraUpdate.newLatLngZoom(const LatLng(31.9465296, 35.8841449), 14.0),
       );
+
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text(
+                'فعل خدمات تحديد الموقع',
+                textDirection: TextDirection.rtl,
+                style: TextStyle(fontFamily: 'Cairo'),
+              ),
+              content: const Text(
+                'يرجى تمكين خدمات الموقع على هاتفك',
+                textDirection: TextDirection.rtl,
+                style: TextStyle(fontFamily: 'Cairo'),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text(
+                    'حسناً',
+                    style: TextStyle(fontFamily: 'Cairo'),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          });
     });
   }
 
@@ -93,8 +118,7 @@ class MapScreenState extends State<MapScreen> {
                 selectedLocation = position;
               });
             },
-            myLocationButtonEnabled:
-                showUserLocationButton, // Show the user's location button.
+            myLocationButtonEnabled: true, // Show the user's location button.
             myLocationEnabled: true, // Enable the user's location on the map.
           ),
           Align(
