@@ -152,7 +152,7 @@ Widget activityState(String state) {
   );
 }
 
-Widget deleteItemButton(model, MyComplainsController myComplainsController,
+Widget deleteItemButton(dynamic model, MyComplainsController myComplainsController,
         index, bool indialog, context1, int whichPage) =>
     SizedBox(
       height: 50,
@@ -227,7 +227,9 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    
+                  },
                   child: Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -270,7 +272,12 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                     const SizedBox(
                       width: 30,
                     ),
-                    activityState('تم قبول الطلب')
+                     volunteerModel.is_voluteering_accepted == "rejected"
+                        ? activityState('تم رفض الطلب')
+                        : volunteerModel.is_voluteering_accepted ==
+                                "pending"
+                            ? activityState('الطلب قيد الدراسة')
+                            : activityState('تم قبول الطلب'),
                   ],
                 ),
               ],
@@ -404,49 +411,7 @@ Widget noComplainsCenterdTitle() {
     ),
   );
 }
-
-// // Widget activityState(String state) {
-// //   Color backgroundColor;
-// //   switch (state) {
-// //     case 'الشكوى قيد الدراسة':
-// //       backgroundColor = Colors.orange;
-// //       break;
-// //     case 'تم رفض الشكوى':
-// //       backgroundColor = Colors.red;
-// //       break;
-// //     case 'تم مراجعة الشكوى':
-// //       backgroundColor = Colors.green;
-// //     case 'الطلب قيد الدراسة':
-// //       backgroundColor = Colors.orange;
-// //       break;
-// //     case 'تم رفض الطلب':
-// //       backgroundColor = Colors.red;
-// //       break;
-// //     case 'تم قبول الطلب':
-// //       backgroundColor = Colors.green;
-
-// //       break;
-// //     default:
-// //       backgroundColor = Colors.transparent; // Default color for unknown states
-// //       break;
-// //   }
-
-//   return Container(
-//     width: 140,
-//     height: 50,
-//     decoration: BoxDecoration(
-//       color: backgroundColor,
-//       borderRadius: BorderRadius.circular(5),
-//     ),
-//     child: Center(
-//       child: Text(
-//         state,
-//         style: const TextStyle(
-//             fontFamily: 'Cairo', color: Colors.white, fontSize: 12),
-//       ),
-//     ),
-//   );
-// }
+ 
 
 snapShotExceptionHandling(snapshot, size) async {
   if (snapshot.connectionState == ConnectionState.waiting) {
