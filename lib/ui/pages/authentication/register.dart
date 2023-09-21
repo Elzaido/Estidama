@@ -250,19 +250,20 @@ class _RegisterState extends State<Register> {
                           ),
                           // dropDown(selected: registerController.selectedProvince, list: registerController.provinces,  ),
                           button(
-                              onPressed: () => formKey.currentState!.validate()
-                                  ? registerController.signUpProcess(
-                                      nameControl.text,
-                                      phoneControl.text,
-                                      registerController.selectedProvince
-                                          .value, //put the province data here  as number or id begin from 1: irbid
-                                      registerController.isMaleSelected.value ==
-                                              true
-                                          ? "male"
-                                          : "female",
-                                      passwordControl.text,
-                                    )
-                                  : null,
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  // Define the arguments to pass
+                                  final arguments = {
+                                    'name': nameControl.text,
+                                    'phone': phoneControl.text,
+                                    'password': passwordControl.text,
+                                  };
+
+                                  // Navigate to the "verification" page with arguments
+                                  Get.toNamed('/verification',
+                                      arguments: arguments);
+                                }
+                              },
                               child: const Text(
                                 "إنشاء حساب",
                                 style: TextStyle(

@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:madenati/controllers/register_controller.dart';
 import 'package:madenati/ui/widgets/interface_components.dart';
+import 'package:madenati/ui/widgets/toast_widget.dart';
 import 'package:pinput/pinput.dart';
 
 class Verification extends StatelessWidget {
@@ -9,7 +11,13 @@ class Verification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> arguments =
+        Get.arguments as Map<String, dynamic>;
+    final String name = arguments['name'];
+    final String phone = arguments['phone'];
+    final String password = arguments['password'];
     var code = "";
+    RegisterController registerController = Get.find();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -64,7 +72,20 @@ class Verification extends StatelessWidget {
               button(
                   onPressed: () {
                     if (code == '123456') {
-                      Get.toNamed('/launcher');
+                      // Perform the signup function here with the provided arguments
+                      registerController.signUpProcess(
+                        name,
+                        phone,
+                        registerController.selectedProvince.value,
+                        registerController.isMaleSelected.value == true
+                            ? "male"
+                            : "female",
+                        password,
+                      );
+                    } else {
+                      defaultToast(
+                          massage: 'هناك خطأ في رمز التحقق',
+                          state: ToastStates.ERROR);
                     }
                   },
                   child: const Text(
