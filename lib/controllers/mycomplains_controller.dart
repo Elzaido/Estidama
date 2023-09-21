@@ -66,9 +66,9 @@ class MyComplainsController extends GetxController {
   }
 
   // This Function not working properly ... check it bro
-  deleteRecyclingOrder(orderId, index) async {
-    var response =
-        await postRequest(delteRecyclingrRequestLink, {"order_id": "$orderId"});
+  deleteRecyclingOrder(recyclerId, index) async {
+    var response = await postRequest(
+        delteRecyclingrRequestLink, {"recycler_id": "$recyclerId"});
 
     if (response != null) {
       if (response['status'] == 'success') {
