@@ -66,16 +66,25 @@ class MyComplainsController extends GetxController {
   }
 
   // This Function not working properly ... check it bro
-  deleteRecyclingOrder(recyclerId, index) async {
-    var response = await postRequest(
-        delteRecyclingrRequestLink, {"recycler_id": "$recyclerId"});
+  deleteRecyclingOrder(orderId, index) async {
+    var response =
+        await postRequest(delteRecyclingrRequestLink, {"order_id": "$orderId"});
 
-    if (response['status'] == 'success') print("yess");
-    recyclingList.removeAt(index);
-    recyclingLength.value--;
-    defaultToast(massage: "تم حذف الطلب بنجاح", state: ToastStates.SUCCESS);
-    update();
-    return response;
+    if (response != null) {
+      if (response['status'] == 'success') {
+        print("yess");
+        recyclingList.removeAt(index);
+        recyclingLength.value--;
+        defaultToast(massage: "تم حذف الطلب بنجاح", state: ToastStates.SUCCESS);
+        update();
+      } else {
+        // Handle the case where 'status' is not 'success'
+        print("Failed to delete order");
+      }
+    } else {
+      // Handle the case where response is null
+      print("Failed to delete order: response is null");
+    }
   }
 
   retriveCurrentUserVolunteeringOrders() async {

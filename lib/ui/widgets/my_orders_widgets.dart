@@ -167,7 +167,7 @@ Widget deleteItemButton(model, MyComplainsController myComplainsController,
           } else {
             // This Function not working properly ... check it bro
             myComplainsController.deleteRecyclingOrder(
-                model.recyclerId.toString(), index);
+                model.orderId.toString(), index);
           }
         },
         style: ElevatedButton.styleFrom(
