@@ -7,7 +7,7 @@ import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/local/shared_preference.dart';
 import 'package:madenati/db/remote/sql.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
-import '../ui/widgets/interface_components.dart';
+
 class VolunteeringController extends GetxController {
   bool isDropdownOpen = false;
   List<String> volunteringTypeList = [
@@ -72,7 +72,7 @@ class VolunteeringController extends GetxController {
     var response;
 
     print(volunteersSeparateName.toString());
-loading();
+    loading();
 // Loading();
     // loading();
     try {
@@ -108,7 +108,7 @@ loading();
   }
 
   checkVolunteerData(TextEditingController volunteersNumber) {
-    if (volunteersNumber.text.length <= 0 ||
+    if (volunteersNumber.text.isEmpty ||
         CacheHelper.getData(key: "user_id") == null) {
       defaultToast(
           massage: "يرجى  اضافة عدد المتطوعين    ", state: ToastStates.ERROR);
