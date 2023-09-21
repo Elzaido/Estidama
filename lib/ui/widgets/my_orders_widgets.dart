@@ -149,8 +149,13 @@ Widget activityState(String state) {
   );
 }
 
-Widget deleteItemButton(model, MyComplainsController myComplainsController,
-        index, bool indialog, context1, int whichPage) =>
+Widget deleteItemButton(
+        dynamic model,
+        MyComplainsController myComplainsController,
+        index,
+        bool indialog,
+        context1,
+        int whichPage) =>
     SizedBox(
       height: 50,
       width: 140,
@@ -165,9 +170,8 @@ Widget deleteItemButton(model, MyComplainsController myComplainsController,
             myComplainsController.deleteVolunteer(
                 model.volunteerId.toString(), index);
           } else {
-            // This Function not working properly ... check it bro
             myComplainsController.deleteRecyclingOrder(
-                model.orderId.toString(), index);
+                model.volunteerId.toString(), index);
           }
         },
         style: ElevatedButton.styleFrom(
@@ -237,8 +241,8 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Text(
-                            volunteerModel.volunteeringType == 1
-                                ? 'عمليات تنظيف'
+                            volunteerModel.volunteeringType == "1"
+                                ? 'نظافة'
                                 : 'رعاية الحيوانات',
                             style: const TextStyle(
                               fontSize: 15,
@@ -247,9 +251,9 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                           ),
                           const Text('  /  '),
                           Text(
-                            volunteerModel.volunteerGroupType == 1
+                            volunteerModel.volunteerGroupType == "1"
                                 ? 'مدرسة'
-                                : volunteerModel.volunteerGroupType == 2
+                                : volunteerModel.volunteerGroupType == " 2"
                                     ? 'أهل الحي'
                                     : 'جمعية خيرية',
                             style: const TextStyle(
@@ -271,7 +275,11 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                     const SizedBox(
                       width: 30,
                     ),
-                    activityState('تم قبول الطلب')
+                    volunteerModel.is_voluteering_accepted == "rejected"
+                        ? activityState('تم رفض الطلب')
+                        : volunteerModel.is_voluteering_accepted == "pending"
+                            ? activityState('الطلب قيد الدراسة')
+                            : activityState('تم قبول الطلب'),
                   ],
                 ),
               ],

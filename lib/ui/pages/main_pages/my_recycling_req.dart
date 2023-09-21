@@ -45,6 +45,10 @@ class MyRecyclingReq extends StatelessWidget {
                                     ),
                                 itemCount: controller.recyclingLength.value,
                                 itemBuilder: (context, index) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return homeShimmerWidget(size: size);
+                                  }
                                   if (snapshot.data['data'][index].length !=
                                       0) {
                                     controller.recyclingList.value = snapshot
