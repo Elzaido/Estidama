@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/texts.dart';
@@ -15,6 +17,7 @@ class Volunteering extends StatefulWidget {
 class VolunteeringState extends State<Volunteering> {
   TextEditingController volunteenurNumberController = TextEditingController();
   VolunteeringController volunteeringController = Get.find();
+  TextEditingController volunteerNameController = TextEditingController();
 
   @override
   void initState() {
@@ -65,10 +68,10 @@ class VolunteeringState extends State<Volunteering> {
                                   context1,
                                 ) =>
                                     showVolunteeringDialog(
-                                      volunteeringController,
-                                      context1,
-                                      volunteenurNumberController,
-                                    ));
+                                        volunteeringController,
+                                        context1,
+                                        volunteenurNumberController,
+                                        volunteerNameController));
                           },
                           child: const Text(
                             'تقديم طلب التطوع',
@@ -85,10 +88,10 @@ class VolunteeringState extends State<Volunteering> {
   }
 
   Widget showVolunteeringDialog(
-    VolunteeringController volunteeringController,
-    context1,
-    TextEditingController volunteenurNumberController,
-  ) {
+      VolunteeringController volunteeringController,
+      context1,
+      TextEditingController volunteenurNumberController,
+      TextEditingController volunteerNameController) {
     Size size = MediaQuery.of(context1).size;
     return AlertDialog(
       title: const Text(
@@ -128,11 +131,11 @@ class VolunteeringState extends State<Volunteering> {
               title(text: 'عدد الأشخاص المشاركين في التطوع'),
               TextFormField(
                 onChanged: (value) {
-                  setState(() {
-                    // Update the number of volunteers when the user enters a value.
-                    volunteeringController.volunteenerNumber.value =
-                        int.tryParse(value) ?? 0;
-                  });
+                  // setState(() {
+                  // Update the number of volunteers when the user enters a value.
+                  volunteeringController.volunteenerNumber.value =
+                      int.tryParse(value) ?? 0;
+                  // });
                 },
                 decoration: InputDecoration(
                   isDense: true,
@@ -149,13 +152,15 @@ class VolunteeringState extends State<Volunteering> {
               ).paddingAll(10),
               if (volunteeringController.volunteenerNumber.value > 0)
                 SizedBox(
-                  height: 300, // Specify a fixed height, adjust as needed
+                  height: size.height *
+                      0.18, // Specify a fixed height, adjust as needed
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: volunteeringController.volunteenerNumber.value,
                     itemBuilder: (context, index) {
                       final label = 'إسم المشترك ${index + 1} الرباعي';
                       return TextFormField(
+                        // controller: volunteerNameController,
                         decoration: InputDecoration(
                           isDense: true,
                           hintTextDirection: TextDirection.rtl,
@@ -165,6 +170,11 @@ class VolunteeringState extends State<Volunteering> {
                           hintText: label,
                           hintStyle: const TextStyle(fontFamily: 'Cairo'),
                         ),
+                        onChanged: (value) {
+                          volunteeringController.volunteersSeparateName +=
+                              value.toString();
+                          log(volunteeringController.volunteersSeparateName);
+                        },
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'يجب إدخال $label';

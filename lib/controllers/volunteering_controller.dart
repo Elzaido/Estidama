@@ -7,7 +7,7 @@ import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/local/shared_preference.dart';
 import 'package:madenati/db/remote/sql.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
-
+import '../ui/widgets/interface_components.dart';
 class VolunteeringController extends GetxController {
   bool isDropdownOpen = false;
   List<String> volunteringTypeList = [
@@ -28,6 +28,9 @@ class VolunteeringController extends GetxController {
   RxDouble buttonOpacity = 0.0.obs;
 
   RxInt volunteenerNumber = 0.obs;
+
+  RxList<String> volunteersNameList = [""].obs;
+  String volunteersSeparateName = "";
 
   ///
   ///
@@ -56,8 +59,10 @@ class VolunteeringController extends GetxController {
       selectedVolunteringGroup.value = newValue;
   fromVolunteerTypeToInteger() => selectedVolunteringType.value == 'نظافة'
       ? 1
-      : selectedVolunteringType.value == 'انقاذ و رعاية الحيوانات';
-  fromVolunteerGroupToInteger() => selectedVolunteringType.value == 'مدرسة'
+      : selectedVolunteringType.value == 'رعاية الحيوانات'
+          ? 2
+          : 1;
+  fromVolunteerGroupToInteger() => selectedVolunteringGroup.value == 'مدرسة'
       ? 1
       : selectedVolunteringType.value == 'أهل حي'
           ? 2
@@ -65,27 +70,36 @@ class VolunteeringController extends GetxController {
 
   sendVolunteerRequest(TextEditingController volunteerSkills) async {
     var response;
+
+    print(volunteersSeparateName.toString());
+loading();
+// Loading();
+    // loading();
     try {
       response = await postRequest(volunteeringApplicationLink, {
         "volunteering_type": fromVolunteerTypeToInteger().toString(),
         "volunteer_group": fromVolunteerGroupToInteger().toString(),
-        "volunteer_skills": volunteerSkills.text,
-        "user_id": CacheHelper.getData(key: "user_id")
+        "volunteers_names": volunteersSeparateName.toString(),
+        "leader_id": CacheHelper.getData(key: "user_id")
       });
+      if (response["status"] == "not_allowed") {
+        defaultToast(
+            massage: 'لا يسمح ارسال اكثر من طلب لنفس نوع التطوع',
+            state: ToastStates.SUCCESS);
 
-      defaultToast(massage: 'تم إرسال الطلب بنجاح', state: ToastStates.SUCCESS);
-      volunteerSkills.text = "";
-      Get.back();
-
-      if (response['status'] == 'faild') {
-        print("faild");
-      }
-      if (response["status" == "not_allowed"]) {
         print("not_allowed");
       }
       if (response['status'] == 'success') {
+        volunteersSeparateName = "";
+        Get.back();
+
+        volunteersSeparateName = "";
         defaultToast(
             massage: 'تم إرسال الطلب بنجاح', state: ToastStates.SUCCESS);
+      }
+
+      if (response['status'] == 'faild') {
+        print("faild");
       }
     } catch (e) {
       log(0);
@@ -93,14 +107,17 @@ class VolunteeringController extends GetxController {
     return response;
   }
 
-  checkVolunteerData(TextEditingController volunteerSkills) {
-    if (volunteerSkills.text.length < 20 ||
+  checkVolunteerData(TextEditingController volunteersNumber) {
+    if (volunteersNumber.text.length <= 0 ||
         CacheHelper.getData(key: "user_id") == null) {
       defaultToast(
-          massage: "يرجى كتابة وصف لمهاراتك لايقل عن 20 حرف",
-          state: ToastStates.ERROR);
+          massage: "يرجى  اضافة عدد المتطوعين    ", state: ToastStates.ERROR);
+    } else if (volunteersSeparateName.isEmpty) {
+      defaultToast(
+          massage: "يرجى  كتابة اسماء المتطوعين    ", state: ToastStates.ERROR);
+      return;
     } else {
-      sendVolunteerRequest(volunteerSkills);
+      sendVolunteerRequest(volunteersNumber);
     }
   }
 }

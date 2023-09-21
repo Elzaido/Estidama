@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
-import 'package:madenati/ui/widgets/my_orders.dart';
+import 'package:madenati/ui/widgets/my_orders_widgets.dart';
 
 void showComplainInfoDialog(
     context, complainModel, myComplainsController, index) {
