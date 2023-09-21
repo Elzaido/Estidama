@@ -11,7 +11,6 @@ import 'package:madenati/ui/widgets/complain_form_titles.dart';
 class RecyclingForm extends StatelessWidget {
   RecyclingForm({super.key});
 
-  final itemWeightcontroller = TextEditingController();
   var geographicLocationData = Get.arguments;
 
   @override
@@ -20,76 +19,79 @@ class RecyclingForm extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: defaultAppBar(context: context, title: 'إعادة التدوير'),
-        body: SizedBox(
-          width: double.infinity,
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                children: [
-                  title(text: 'ما هو نوع المادة'),
-                  Obx(
-                    () => dropDown(
-                        selected: recyclingController
-                            .selectedRecyclingItem.value
-                            .toString(),
-                        list: recyclingController.recyclingItemList,
-                        flag: 4),
+        body: Obx(() => Stack(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        children: [
+                          title(text: 'ما هو نوع المادة'),
+                          Obx(
+                            () => dropDown(
+                                selected: recyclingController
+                                    .selectedRecyclingItem.value
+                                    .toString(),
+                                list: recyclingController.recyclingItemList,
+                                flag: 4),
+                          ),
+                          formField(
+                            control: recyclingController.itemWieghtController,
+                            isScure: false,
+                            label: 'وزن المادة بالكيلو',
+                            prefIcon: const Icon(Icons.numbers),
+                            isNumber: true,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'يجب إدخال وزن المادة';
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          Obx(() => recyclingController.locationSelected.value
+                              ? locationSelectedWidget(
+                                  context: context, whichPage: 2, size: size)
+                              : locationWidget(
+                                  title: "أضف موقعك",
+                                  context: context,
+                                  whichPage: 2,
+                                  size: size)),
+                          pickImageWidget(
+                            size,
+                            recyclingController,
+                            context,
+                          ),
+                          Obx(() => recyclingController.isShowImage.value != 1
+                              ? imagePlacerHolderWidget(recyclingController)
+                              : const Text(" ")),
+                          button(
+                              onPressed: () {
+                                recyclingController.checkRecyclingItemsData(
+                                    recyclingController
+                                        .itemWieghtController.text,
+                                    geographicLocationData);
+                              },
+                              child: const Text(
+                                "إرسال",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "Cairo"),
+                              )),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  formField(
-                    control: itemWeightcontroller,
-                    isScure: false,
-                    label: 'وزن المادة بالكيلو',
-                    prefIcon: const Icon(Icons.numbers),
-                    isNumber: true,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'يجب إدخال وزن المادة';
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
-                  Obx(() => recyclingController.locationSelected.value
-                      ? locationSelectedWidget(
-                          context: context, whichPage: 1, size: size)
-                      : locationWidget(
-                          title: "أضف موقعك",
-                          context: context,
-                          whichPage: 2,
-                          size: size)),
-                  pickImageWidget(
-                    size,
-                    recyclingController,
-                    context,
-                  ),
-                  Obx(() => recyclingController.isShowImage.value != 1
-                      ? imagePlacerHolderWidget(recyclingController)
-                      : const Text(" ")),
-                  button(
-                      onPressed: () {
-                        recyclingController.checkRecyclingItemsData(
-                            itemWeightcontroller.text, geographicLocationData);
-                      },
-                      child: const Text(
-                        "إرسال",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontFamily: "Cairo"),
-                      )),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  // button(
-                  //     onPressed: () {
-                  //       Get.toNamed('/recyclingmap');
-                  //     },
-                  //     child: const Text('See locations'))
-                ],
-              ),
-            ),
-          ),
-        ));
+                ),
+                if (recyclingController.isLoading.value) loading(),
+              ],
+            )));
   }
 
   Widget pickImageWidget(

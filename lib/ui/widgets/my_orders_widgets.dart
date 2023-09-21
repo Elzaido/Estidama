@@ -165,8 +165,9 @@ Widget deleteItemButton(model, MyComplainsController myComplainsController,
             myComplainsController.deleteVolunteer(
                 model.volunteerId.toString(), index);
           } else {
+            // This Function not working properly ... check it bro
             myComplainsController.deleteRecyclingOrder(
-                model.volunteerId.toString(), index);
+                model.recyclerId.toString(), index);
           }
         },
         style: ElevatedButton.styleFrom(
@@ -225,157 +226,8 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
               children: [
                 InkWell(
                   onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context1) => AlertDialog(
-                              title: const Text(
-                                'تفاصيل طلب التطوع',
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  fontFamily: 'Cairo',
-                                ),
-                              ),
-                              content: SizedBox(
-                                  width: size.width * 0.9,
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  volunteerModel
-                                                              .volunteeringType ==
-                                                          1
-                                                      ? 'عمليات تنظيف'
-                                                      : 'رعاية الحيوانات',
-                                                  style: const TextStyle(
-                                                    fontSize: 15,
-                                                  ),
-                                                ),
-                                                const Text(
-                                                  ' :',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                const Text('عمل التطوع',
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    )),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  volunteerModel
-                                                              .volunteerGroupType ==
-                                                          1
-                                                      ? 'مدرسة'
-                                                      : volunteerModel
-                                                                  .volunteerGroupType ==
-                                                              2
-                                                          ? 'أهل الحي'
-                                                          : 'جمعية خيرية',
-                                                  style: const TextStyle(
-                                                    fontSize: 15,
-                                                  ),
-                                                ),
-                                                const Text(
-                                                  ' :',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                const Text('جهة التطوع',
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    )),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        separator(),
-                                        Container(
-                                          width: double.maxFinite,
-                                          constraints: const BoxConstraints(
-                                              maxHeight: 150),
-                                          child: ListView.builder(
-                                            itemCount:
-                                                5, // Replace with your actual item count.
-                                            itemBuilder: (context, index) {
-                                              // Build your list items here.
-                                              return Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
-                                                children: [
-                                                  Text(
-                                                    'إسم المتطوع ${index + 1}: زيد رائد ربحي',
-                                                    textDirection:
-                                                        TextDirection.rtl,
-                                                  ),
-                                                  separator()
-                                                ],
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )),
-                              actions: <Widget>[
-                                Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        deleteItemButton(
-                                            volunteerModel,
-                                            myComplainsController,
-                                            index,
-                                            true,
-                                            context1,
-                                            2),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        activityState('تم قبول الطلب')
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context1, true);
-                                        },
-                                        child: const Text(
-                                          'إغلاق',
-                                          style: TextStyle(
-                                            fontFamily: 'Cairo',
-                                          ),
-                                        )),
-                                  ],
-                                ),
-                              ],
-                            ));
+                    showVoluteeringInfoDialog(context, volunteerModel,
+                        myComplainsController, index, size);
                   },
                   child: Expanded(
                     child: Padding(
@@ -454,9 +306,8 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
               children: [
                 InkWell(
                   onTap: () {
-                    // print(recyclingModel.rec);
-                    showComplainInfoDialog(
-                        context, recyclingModel, myComplainsController, index);
+                    showRecyclingInfoDialog(context, recyclingModel,
+                        myComplainsController, recyclingController, index);
                   },
                   child:
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -507,15 +358,11 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // deleteComplainButton(complainModel, myComplainsController,
-                    //     index, false, context),
-
                     deleteItemButton(recyclingModel, myComplainsController,
                         index, false, context, 3),
                     const SizedBox(
                       width: 30,
                     ),
-
                     recyclingModel.recyclingAcepetanceStatus == "rejected"
                         ? activityState('تم رفض الطلب')
                         : recyclingModel.recyclingAcepetanceStatus == "pending"
@@ -528,22 +375,22 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
           )));
 }
 
-Widget noComplainsCenterdTitle() {
-  return const Center(
+Widget noOrdersCenterdTitle(String title) {
+  return Center(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'لا يوجد شكاوي لعرضها',
-          style: TextStyle(
+          title,
+          style: const TextStyle(
             fontFamily: 'Cairo',
             fontSize: 13,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 7,
         ),
-        Icon(
+        const Icon(
           Icons.warning,
           color: Colors.red,
           size: 27,
@@ -553,12 +400,12 @@ Widget noComplainsCenterdTitle() {
   );
 }
 
-snapShotExceptionHandling(snapshot, size) async {
+snapShotExceptionHandling(snapshot, size) {
   if (snapshot.connectionState == ConnectionState.waiting) {
-    return await homeShimmerWidget(size: size);
+    return homeShimmerWidget(size: size);
   }
   if (snapshot.data['data'].length == null) {
-    return noComplainsCenterdTitle();
+    return noOrdersCenterdTitle('حدث خطأ ما');
   }
   if (snapshot.hasError) {
     return const Center(

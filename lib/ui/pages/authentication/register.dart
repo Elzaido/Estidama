@@ -9,8 +9,6 @@ import 'package:madenati/ui/widgets/interface_components.dart';
 class Register extends StatefulWidget {
   const Register({super.key});
 
-  static String verify = "";
-
   @override
   State<Register> createState() => _RegisterState();
 }

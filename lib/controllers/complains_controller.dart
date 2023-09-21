@@ -47,7 +47,6 @@ class ComplainsController extends GetxController {
     location = "";
     locationSelected.value = false;
     update();
-    isLoading.value = false;
   }
 
   int fromTextToIntComplain() {
@@ -150,7 +149,7 @@ class ComplainsController extends GetxController {
       defaultToast(
           massage: "حدث خطب ما يرجى الاعادة لاحقا", state: ToastStates.ERROR);
     }
-
+    isLoading.value = false;
     return response;
   }
 

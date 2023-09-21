@@ -21,7 +21,7 @@ import '../controllers/volunteering_controller.dart';
 class OnBoardingBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut( () => OnBoardingController() , fenix: true);
+    Get.lazyPut(() => OnBoardingController(), fenix: true);
   }
 }
 
@@ -36,6 +36,13 @@ class LoginBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut((() => LoginController()), fenix: true);
+  }
+}
+
+class VerifyBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut((() => RegisterController()), fenix: true);
   }
 }
 

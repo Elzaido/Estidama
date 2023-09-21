@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/volunteer_model.dart';
 import 'package:madenati/ui/widgets/interface_components.dart';
-import 'package:madenati/ui/widgets/my_orders.dart';
+import 'package:madenati/ui/widgets/my_orders_widgets.dart';
 
 class MyVolunteeringReq extends StatelessWidget {
   const MyVolunteeringReq({super.key}); // Fix super.key to Key? key
@@ -39,38 +39,17 @@ class MyVolunteeringReq extends StatelessWidget {
                                 controller,
                                 index,
                                 size)
-                            : noComplainsCenterdTitle());
+                            : noOrdersCenterdTitle('لا يوجد طلبات لعرضها'));
                       },
                     ));
               }
             } catch (exe) {
-              return noComplainsCenterdTitle();
+              return noOrdersCenterdTitle('لا يوجد طلبات لعرضها');
             }
-            return noComplainsCenterdTitle();
+            return noOrdersCenterdTitle('لا يوجد طلبات لعرضها');
           }),
         ),
       ),
     );
   }
-}
-
-Widget noComplainsCenterdTitle() {
-  return const Center(
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'لا يوجد طلبات تطوع لعرضها',
-          style: TextStyle(
-            fontFamily: 'Cairo',
-            fontSize: 13,
-          ),
-        ),
-        SizedBox(
-          width: 7,
-        ),
-        Icon(Icons.warning, color: Colors.red, size: 27)
-      ],
-    ),
-  );
 }
