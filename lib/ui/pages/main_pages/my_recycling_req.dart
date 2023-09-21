@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/recycling_model.dart';
 import 'package:madenati/ui/widgets/interface_components.dart';
-import 'package:madenati/ui/widgets/my_orders.dart';
+import 'package:madenati/ui/widgets/my_orders_widgets.dart';
 
 class MyRecyclingReq extends StatelessWidget {
   MyRecyclingReq({super.key});
@@ -40,6 +40,10 @@ class MyRecyclingReq extends StatelessWidget {
                                 physics: const BouncingScrollPhysics(),
                                 itemCount: controller.recyclingLength.value,
                                 itemBuilder: (context, index) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return homeShimmerWidget(size: size);
+                                  }
                                   if (snapshot.data['data'][index].length !=
                                       0) {
                                     controller.recyclingList.value = snapshot
