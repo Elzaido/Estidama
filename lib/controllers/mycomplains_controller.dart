@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:math';
+
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/local/shared_preference.dart';
@@ -40,9 +42,11 @@ class MyComplainsController extends GetxController {
     return response;
   }
 
-  deleteComplain(complainId, index) async {
-    var response =
-        await postRequest(deleteComplainLink, {"complain_id": "$complainId"});
+  deleteComplain(complainId, index, String complain_image_path) async {
+    var response = await postRequest(deleteComplainLink, {
+      "complain_id": "$complainId",
+      "complain_image_path": complain_image_path
+    });
 
     if (response['status'] == 'success') print("yess");
     complainList.removeAt(index);
@@ -53,21 +57,23 @@ class MyComplainsController extends GetxController {
   }
 
   //SOON
-  deleteVolunteer(volunteerId, index) async {
+  deleteVolunteer(String volunteering_id, index) async {
     var response = await postRequest(
-        delteVolunteerRequestLink, {"volunteer_id": "$volunteerId"});
+        delteVolunteerRequestLink, {"volunteering_id": "$volunteering_id"});
 
-    if (response['status'] == 'success') print("yess");
-    volunteerList.removeAt(index);
+    if (response['status'] == 'success') volunteerList.removeAt(index);
     volunteerLength.value--;
     defaultToast(massage: "تم حذف الشكوى بنجاح", state: ToastStates.SUCCESS);
     update();
     return response;
   }
 
-  deleteRecyclingOrder(recyclerId, index) async {
-    var response = await postRequest(
-        delteRecyclingrRequestLink, {"recycler_id": "$recyclerId"});
+  deleteRecyclingOrder(
+      recyclerId, index, String recycling_material_image_path) async {
+    var response = await postRequest(delteRecyclingrRequestLink, {
+      "recycler_id": "$recyclerId",
+      "material_img": recycling_material_image_path
+    });
 
     if (response['status'] == 'success') print("yess");
     recyclingList.removeAt(index);
@@ -103,5 +109,32 @@ class MyComplainsController extends GetxController {
       print("faild");
     }
     return response;
+  }
+
+  //volunteering split name from database  functions:
+  bool isThereSpace(String name) {
+    bool isThere = false;
+
+    for (var i = 0; i < name.length; i++) {
+      if (name[i] == ' ') {
+        isThere = true;
+      }
+    }
+
+    return isThere;
+  }
+
+  int volunteersCount(String name) {
+//// ahmad khaled samer
+    int i = 0;
+    int counter = 0;
+    for (i; i < name.length; i++) {
+      if (name[i] == ' ') {
+      } else {
+        counter++;
+      }
+    }
+    log(counter);
+    return counter;
   }
 }
