@@ -231,8 +231,8 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
               children: [
                 InkWell(
                   onTap: () {
-                    showVolunteeringDialog(volunteerModel,
-                        myComplainsController, index, context, size);
+                    showVolunteeringDialog(context, volunteerModel,
+                        myComplainsController, index, size);
                   },
                   child: Expanded(
                     child: Padding(
