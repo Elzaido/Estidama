@@ -165,13 +165,14 @@ Widget deleteItemButton(
           if (whichPage == 1) {
             log(model.complainId.toString());
             myComplainsController.deleteComplain(
-                model.complainId.toString(), index);
+                model.complainId.toString(), index, model.complainImagePath);
           } else if (whichPage == 2) {
             myComplainsController.deleteVolunteer(
-                model.volunteerId.toString(), index);
+                model.volunteering_id.toString(), index);
+            log(model.volunteering_id);
           } else {
             myComplainsController.deleteRecyclingOrder(
-                model.volunteerId.toString(), index);
+                model.recyclerId.toString(), index, model.materialImg);
           }
         },
         style: ElevatedButton.styleFrom(
@@ -230,8 +231,8 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
               children: [
                 InkWell(
                   onTap: () {
-                    showVoluteeringInfoDialog(context, volunteerModel,
-                        myComplainsController, index, size);
+                    showVolunteeringDialog(volunteerModel,
+                        myComplainsController, index, context, size);
                   },
                   child: Expanded(
                     child: Padding(
@@ -275,9 +276,9 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                     const SizedBox(
                       width: 30,
                     ),
-                    volunteerModel.isVoluteeringAccepted == "rejected"
+                    volunteerModel.is_voluteering_accepted == "rejected"
                         ? activityState('تم رفض الطلب')
-                        : volunteerModel.isVoluteeringAccepted == "pending"
+                        : volunteerModel.is_voluteering_accepted == "pending"
                             ? activityState('الطلب قيد الدراسة')
                             : activityState('تم قبول الطلب'),
                   ],
@@ -286,6 +287,144 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
             ),
           )));
 }
+
+void showVolunteeringDialog(VolunteerModel volunteerModel,
+    MyComplainsController myComplainsController, index, context, size) {
+  showDialog(
+      context: context,
+      builder: (context1) => AlertDialog(
+            title: const Text(
+              'تفاصيل طلب التطوع',
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                fontFamily: 'Cairo',
+              ),
+            ),
+            content: SizedBox(
+                width: size.width * 0.9,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                volunteerModel.volunteeringType == 1
+                                    ? 'عمليات تنظيف'
+                                    : 'رعاية الحيوانات',
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                              const Text(
+                                ' :',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const Text('عمل التطوع',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                volunteerModel.volunteerGroupType == 1
+                                    ? 'مدرسة'
+                                    : volunteerModel.volunteerGroupType == 2
+                                        ? 'أهل الحي'
+                                        : 'جمعية خيرية',
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                              const Text(
+                                ' :',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const Text('جهة التطوع',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      separator(),
+                      Container(
+                          width: double.maxFinite,
+                          constraints: const BoxConstraints(maxHeight: 150),
+                          child:
+                              Text(volunteerModel.volunteers_names.toString())),
+                    ],
+                  ),
+                  // myComplainsController.isThereSpace(
+                  //                     volunteerModel.volunteers_names
+                  //                         .toString()) ==
+                  //                 true
+                  //             ? "\n"+volunteerModel.volunteers_names.toString()
+                  //             :
+                )),
+            actions: <Widget>[
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      deleteItemButton(volunteerModel, myComplainsController,
+                          index, true, context1, 2),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      activityState('تم قبول الطلب')
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context1, true);
+                      },
+                      child: const Text(
+                        'إغلاق',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                        ),
+                      )),
+                ],
+              ),
+            ],
+          ));
+}
+
+//  ListView.builder(
+//                           itemCount: myComplainsController.volunteersCount(volunteerModel.volunteers_names.toString()), // Replace with your actual item count.
+//                           itemBuilder: (context, index) {
+//                             // Build your list items here.
+//                             return Column(
+//                               crossAxisAlignment: CrossAxisAlignment.end,
+//                               children: [
+//                                 Text(
+//                                   myComplainsController.splitVolunteersNames(volunteerModel.volunteers_names.toString()),
+//                                   textDirection: TextDirection.rtl,
+//                                 ),
+//                                 separator()
+//                               ],
+//                             );
+//                           },
+//                         ),
 
 Widget myrecyclingItem(context, RecyclingModel recyclingModel,
     MyComplainsController myComplainsController, index) {
