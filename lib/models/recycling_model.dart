@@ -6,7 +6,7 @@ class RecyclingModel {
   String? materialLocation;
   String? recyclerId;
   String? orderDate;
-  String ?recycling_accepetance_status;
+  String? recyclingAcepetanceStatus;
 
   RecyclingModel(
       {this.orderId,
@@ -16,7 +16,7 @@ class RecyclingModel {
       this.materialLocation,
       this.recyclerId,
       this.orderDate,
-      this.recycling_accepetance_status});
+      this.recyclingAcepetanceStatus});
 
   RecyclingModel.fromJson(Map<String, dynamic> json) {
     orderId = json['order_id'];
@@ -26,19 +26,19 @@ class RecyclingModel {
     materialLocation = json['material_location'];
     recyclerId = json['recycler_id'];
     orderDate = json['order_date'];
-    recycling_accepetance_status=json['recycling_accepetance_status'];
+    recyclingAcepetanceStatus = json['recycling_accepetance_status'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['order_id'] = this.orderId;
-    data['material_type'] = this.materialType;
-    data['material_weight'] = this.materialWeight;
-    data['material_img'] = this.materialImg;
-    data['material_location'] = this.materialLocation;
-    data['recycler_id'] = this.recyclerId;
-    data['order_date'] = this.orderDate;
-    data['recycling_accepetance_status']=this.recycling_accepetance_status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['order_id'] = orderId;
+    data['material_type'] = materialType;
+    data['material_weight'] = materialWeight;
+    data['material_img'] = materialImg;
+    data['material_location'] = materialLocation;
+    data['recycler_id'] = recyclerId;
+    data['order_date'] = orderDate;
+    data['recycling_accepetance_status'] = recyclingAcepetanceStatus;
     return data;
   }
 }

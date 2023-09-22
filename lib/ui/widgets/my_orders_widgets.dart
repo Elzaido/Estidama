@@ -38,7 +38,7 @@ Widget myComplainItem(context, ComplainsModel complainModel,
               children: [
                 InkWell(
                   onTap: () {
-                    print(complainModel.complain_accepetance_status);
+                    log('${complainModel.complainAccepetanceStatus}');
                     showComplainInfoDialog(
                         context, complainModel, myComplainsController, index);
                   },
@@ -94,14 +94,11 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                     const SizedBox(
                       width: 30,
                     ),
-
-                    complainModel.complain_accepetance_status == "rejected"
+                    complainModel.complainAccepetanceStatus == "rejected"
                         ? activityState('تم رفض الشكوى')
-                        : complainModel.complain_accepetance_status == "pending"
+                        : complainModel.complainAccepetanceStatus == "pending"
                             ? activityState('الشكوى قيد الدراسة')
                             : activityState("تم قبول الشكوى")
-
-                    // ,    activityState('الشكوى قيد الدراسة')
                   ],
                 ),
               ],
@@ -168,14 +165,14 @@ Widget deleteItemButton(
           if (whichPage == 1) {
             log(model.complainId.toString());
             myComplainsController.deleteComplain(
-                model.complainId.toString(), index,model.complainImagePath);
+                model.complainId.toString(), index, model.complainImagePath);
           } else if (whichPage == 2) {
             myComplainsController.deleteVolunteer(
                 model.volunteering_id.toString(), index);
-              log(model.volunteering_id);
+            log(model.volunteering_id);
           } else {
             myComplainsController.deleteRecyclingOrder(
-                model.recyclerId.toString(), index,model.materialImg);
+                model.recyclerId.toString(), index, model.materialImg);
           }
         },
         style: ElevatedButton.styleFrom(
@@ -291,143 +288,6 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
           )));
 }
 
-void showVolunteeringDialog(VolunteerModel volunteerModel,
-    MyComplainsController myComplainsController, index, context, size) {
-  showDialog(
-      context: context,
-      builder: (context1) => AlertDialog(
-            title: const Text(
-              'تفاصيل طلب التطوع',
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                fontFamily: 'Cairo',
-              ),
-            ),
-            content: SizedBox(
-                width: size.width * 0.9,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                volunteerModel.volunteeringType == 1
-                                    ? 'عمليات تنظيف'
-                                    : 'رعاية الحيوانات',
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                ),
-                              ),
-                              const Text(
-                                ' :',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const Text('عمل التطوع',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                volunteerModel.volunteerGroupType == 1
-                                    ? 'مدرسة'
-                                    : volunteerModel.volunteerGroupType == 2
-                                        ? 'أهل الحي'
-                                        : 'جمعية خيرية',
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                ),
-                              ),
-                              const Text(
-                                ' :',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const Text('جهة التطوع',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      separator(),
-                      Container(
-                          width: double.maxFinite,
-                          constraints: const BoxConstraints(maxHeight: 150),
-                          child: Text(volunteerModel.volunteers_names.toString())),
-                    ],
-                  ),
-                  // myComplainsController.isThereSpace(
-                  //                     volunteerModel.volunteers_names
-                  //                         .toString()) ==
-                  //                 true
-                  //             ? "\n"+volunteerModel.volunteers_names.toString()
-                  //             : 
-                )),
-            actions: <Widget>[
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      deleteItemButton(volunteerModel, myComplainsController,
-                          index, true, context1, 2),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      activityState('تم قبول الطلب')
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pop(context1, true);
-                      },
-                      child: const Text(
-                        'إغلاق',
-                        style: TextStyle(
-                          fontFamily: 'Cairo',
-                        ),
-                      )),
-                ],
-              ),
-            ],
-          ));
-}
-
-//  ListView.builder(
-//                           itemCount: myComplainsController.volunteersCount(volunteerModel.volunteers_names.toString()), // Replace with your actual item count.
-//                           itemBuilder: (context, index) {
-//                             // Build your list items here.
-//                             return Column(
-//                               crossAxisAlignment: CrossAxisAlignment.end,
-//                               children: [
-//                                 Text(
-//                                   myComplainsController.splitVolunteersNames(volunteerModel.volunteers_names.toString()),
-//                                   textDirection: TextDirection.rtl,
-//                                 ),
-//                                 separator()
-//                               ],
-//                             );
-//                           },
-//                         ),
-
 Widget myrecyclingItem(context, RecyclingModel recyclingModel,
     MyComplainsController myComplainsController, index) {
   RecyclingController recyclingController = Get.find();
@@ -455,9 +315,8 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
               children: [
                 InkWell(
                   onTap: () {
-                    // print(recyclingModel.rec);
-                    showComplainInfoDialog(
-                        context, recyclingModel, myComplainsController, index);
+                    showRecyclingInfoDialog(context, recyclingModel,
+                        myComplainsController, recyclingController, index);
                   },
                   child:
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -508,19 +367,14 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // deleteComplainButton(complainModel, myComplainsController,
-                    //     index, false, context),
-
                     deleteItemButton(recyclingModel, myComplainsController,
                         index, false, context, 3),
                     const SizedBox(
                       width: 30,
                     ),
-
-                    recyclingModel.recycling_accepetance_status == "rejected"
+                    recyclingModel.recyclingAcepetanceStatus == "rejected"
                         ? activityState('تم رفض الطلب')
-                        : recyclingModel.recycling_accepetance_status ==
-                                "pending"
+                        : recyclingModel.recyclingAcepetanceStatus == "pending"
                             ? activityState('الطلب قيد الدراسة')
                             : activityState('تم قبول الطلب'),
                   ],
@@ -530,22 +384,22 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
           )));
 }
 
-Widget noComplainsCenterdTitle() {
-  return const Center(
+Widget noOrdersCenterdTitle(String title) {
+  return Center(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'لا يوجد معلومات لعرضها',
-          style: TextStyle(
+          title,
+          style: const TextStyle(
             fontFamily: 'Cairo',
             fontSize: 13,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 7,
         ),
-        Icon(
+        const Icon(
           Icons.warning,
           color: Colors.red,
           size: 27,
@@ -555,12 +409,12 @@ Widget noComplainsCenterdTitle() {
   );
 }
 
-snapShotExceptionHandling(snapshot, size) async {
+snapShotExceptionHandling(snapshot, size) {
   if (snapshot.connectionState == ConnectionState.waiting) {
-    return await homeShimmerWidget(size: size);
+    return homeShimmerWidget(size: size);
   }
   if (snapshot.data['data'].length == null) {
-    return noComplainsCenterdTitle();
+    return noOrdersCenterdTitle('حدث خطأ ما');
   }
   if (snapshot.hasError) {
     return const Center(

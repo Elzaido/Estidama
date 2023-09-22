@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:madenati/ui/pages/authentication/verification.dart';
 import 'controllers/complains_controller.dart';
 import 'controllers/recycling_controller.dart';
 import 'controllers/volunteering_controller.dart';
@@ -69,6 +70,10 @@ class myApp extends StatelessWidget {
                 name: "/register",
                 page: (() => const Register()),
                 binding: RegisterBinding()),
+            GetPage(
+                name: '/verification',
+                page: (() => const Verification()),
+                binding: VerifyBinding()),
             GetPage(
                 name: '/launcher',
                 page: (() => const Luncher()),

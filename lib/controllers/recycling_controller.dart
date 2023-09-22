@@ -12,6 +12,7 @@ import 'package:madenati/db/local/shared_preference.dart';
 import 'reusable_functions.dart';
 
 class RecyclingController extends GetxController {
+  RxBool isLoading = false.obs;
   RxDouble imageOpacity = 0.0.obs;
   RxDouble textOpacity = 0.0.obs;
   RxDouble buttonOpacity = 0.0.obs;
@@ -23,10 +24,11 @@ class RecyclingController extends GetxController {
     'بلاستيك',
     'إلكترونيات',
     'حديد',
+    'أوراق',
   ];
   RxString selectedRecyclingItem = 'زجاج'.obs;
   Random randy = Random();
-  TextEditingController descriptionController = TextEditingController();
+  TextEditingController itemWieghtController = TextEditingController();
   File? recyclingItemImage;
   var picker = ImagePicker();
   var response;
@@ -34,7 +36,7 @@ class RecyclingController extends GetxController {
   @override
   void dispose() {
     super.dispose();
-    descriptionController.dispose();
+    itemWieghtController.dispose();
   }
 
   void loading() {
@@ -56,12 +58,11 @@ class RecyclingController extends GetxController {
 
   clearFieldsAndGoHome(description, location) {
     removeRecyclingItemImage();
-    descriptionController.text = "";
-
+    itemWieghtController.text = "";
     selectedRecyclingItem.value = recyclingItemList[0];
     isShowImage.value = 1;
     location = "";
-    Get.offNamed("/home");
+    locationSelected.value = false;
     update();
   }
 
@@ -81,13 +82,16 @@ class RecyclingController extends GetxController {
       case 'حديد':
         recyclingItemNumber = 4;
         break;
+      case 'أوراق':
+        recyclingItemNumber = 5;
+        break;
     }
     return recyclingItemNumber == 0 ? 1 : recyclingItemNumber;
   }
 
-  String fromIntToTextRecyclingItem(int item_number) {
-    String recyclingItemText = "";
-    switch (item_number) {
+  String fromIntToTextRecyclingItem(int itemNumber) {
+    String recyclingItemText = '';
+    switch (itemNumber) {
       case 1:
         recyclingItemText = 'زجاج';
         break;
@@ -101,7 +105,7 @@ class RecyclingController extends GetxController {
         recyclingItemText = 'حديد';
         break;
     }
-    return  recyclingItemText;
+    return recyclingItemText;
   }
 
   switchSelectedRecyclingItem(newValue) =>
@@ -175,18 +179,14 @@ class RecyclingController extends GetxController {
     if (response['status'] == 'no_user') {
       defaultToast(massage: "no  user", state: ToastStates.ERROR);
     }
-    // } catch (exe) {
-    //   defaultToast(
-    //       massage: "حدث خطب ما يرجى الاعادة لاحقا", state: ToastStates.ERROR);
-
-    //   return response;
-    // }
+    isLoading.value = false;
   }
 
   checkRecyclingItemsData(
     String weight,
     geographicLocation,
   ) {
+    isLoading.value = true;
     if (weight.isEmpty) {
       defaultToast(
           massage: "الرجاء تحديد وزن المادة", state: ToastStates.ERROR);

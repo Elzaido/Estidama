@@ -19,6 +19,8 @@ class OnBoarding extends StatelessWidget {
       title: 'معاً لبيئة أفضل',
     ),
     BoardingModel(
+        image: 'assets/Grid1.png', title: 'قدم الشكاوي المتعلقة بالبيئة'),
+    BoardingModel(
       image: 'assets/Grid4.png',
       title: 'ساهم في إعادة التدوير',
     ),

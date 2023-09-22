@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
           image: 'assets/volunteering.png',
           title: 'تطوع',
           text:
-              'قام أحد فرق التطوع في مدينة إربد بزراعة 20 شجرة على طريق الواصل بين منطقة أيدون و الحصن'),
+              'قام أحد فرق التطوع في مدينة إربد بإزالة النفايات على طريق الواصل بين منطقة أيدون و الحصن'),
     ];
     return Scaffold(
         appBar:
@@ -27,11 +27,11 @@ class Home extends StatelessWidget {
               children: [
                 carousel(items: images),
                 const SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 separator(),
                 const SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 useActionGridView(context)
               ],

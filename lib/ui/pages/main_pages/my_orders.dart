@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:madenati/controllers/mycomplains_controller.dart';
 import 'package:madenati/models/mycomplains_model.dart';
 import 'package:madenati/ui/widgets/my_orders_widgets.dart';
-import 'package:shimmer/shimmer.dart';
+import '../../widgets/interface_components.dart';
 
 class MyComplains extends StatelessWidget {
   const MyComplains({super.key});
@@ -52,47 +52,20 @@ class MyComplains extends StatelessWidget {
                                               controller.complainList[index],
                                               controller,
                                               index)
-                                          : noComplainsCenterdTitle());
+                                          : noOrdersCenterdTitle(
+                                              'لا يوجد شكاوي لعرضها'));
                                 }
-                                return noComplainsCenterdTitle();
+                                return noOrdersCenterdTitle(
+                                    'لا يوجد شكاوي لعرضها');
                               }),
                         ))
-                    : noComplainsCenterdTitle();
+                    : noOrdersCenterdTitle('لا يوجد شكاوي لعرضها');
               }
             } catch (e) {
               log(e.hashCode);
             }
-            return noComplainsCenterdTitle();
+            return noOrdersCenterdTitle('لا يوجد شكاوي لعرضها');
           }),
     );
   }
-
-  Widget separator() => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: (Container(
-          height: 1,
-          color: const Color.fromARGB(255, 226, 226, 226),
-        )),
-      );
-
-  Widget homeShimmerWidget({required Size size}) => Shimmer.fromColors(
-        baseColor: Colors.grey.shade300,
-        highlightColor: Colors.grey.shade100,
-        child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: ListView.separated(
-                itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Container(
-                        height: 150,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
-                    ),
-                separatorBuilder: (context, index) => separator(),
-                itemCount: 5)),
-      );
 }

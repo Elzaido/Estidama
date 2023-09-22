@@ -13,8 +13,6 @@ class Complains extends StatelessWidget {
   Complains({super.key});
 
   final dateControl = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
-
   var geographicLocationData = Get.arguments;
 
   @override

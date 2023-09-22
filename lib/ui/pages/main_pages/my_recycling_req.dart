@@ -36,8 +36,13 @@ class MyRecyclingReq extends StatelessWidget {
                   return snapshot.data.length != 0
                       ? Obx(() => Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: ListView.builder(
+                            child: ListView.separated(
                                 physics: const BouncingScrollPhysics(),
+                                separatorBuilder: (context, index) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: separator(),
+                                    ),
                                 itemCount: controller.recyclingLength.value,
                                 itemBuilder: (context, index) {
                                   if (snapshot.connectionState ==
@@ -59,18 +64,19 @@ class MyRecyclingReq extends StatelessWidget {
                                                 controller.recyclingList[index],
                                                 controller,
                                                 index)
-                                            : noComplainsCenterdTitle());
+                                            : noOrdersCenterdTitle(
+                                                'لا يوجد طلبات لعرضها'));
                                   }
-                                  return noComplainsCenterdTitle();
+                                  return noOrdersCenterdTitle(
+                                      'لا يوجد طلبات لعرضها');
                                 }),
                           ))
-                      : noComplainsCenterdTitle();
+                      : noOrdersCenterdTitle('لا يوجد طلبات لعرضها');
                 }
               } catch (e) {
                 log(e.hashCode);
               }
-
-              return noComplainsCenterdTitle();
+              return noOrdersCenterdTitle('لا يوجد طلبات لعرضها');
             })));
   }
 }

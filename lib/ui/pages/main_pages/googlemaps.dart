@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:madenati/controllers/complains_controller.dart';
 import 'package:madenati/controllers/recycling_controller.dart';
 import 'package:madenati/ui/widgets/interface_components.dart';
@@ -23,9 +24,6 @@ class MapScreenState extends State<MapScreen> {
   // Define a Set to hold markers.
   Set<Marker> markers = {};
 
-  // Variable to track whether to show the user's location button.
-  bool showUserLocationButton = true;
-
   @override
   void initState() {
     super.initState();
@@ -33,7 +31,7 @@ class MapScreenState extends State<MapScreen> {
 
   // Function to handle map creation and add markers.
   void _onMapCreated(GoogleMapController controller) {
-    setState(() {
+    setState(() async {
       mapController = controller;
 
       // Add a marker for an initial location (if needed).
@@ -53,6 +51,39 @@ class MapScreenState extends State<MapScreen> {
       mapController.moveCamera(
         CameraUpdate.newLatLngZoom(const LatLng(31.9465296, 35.8841449), 14.0),
       );
+      // Check location service status.
+      Location location = Location();
+      bool serviceEnabled = await location.serviceEnabled();
+      if (!serviceEnabled) {
+        // ignore: use_build_context_synchronously
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text(
+                  'فعل خدمات تحديد الموقع',
+                  textDirection: TextDirection.rtl,
+                  style: TextStyle(fontFamily: 'Cairo'),
+                ),
+                content: const Text(
+                  'يرجى تمكين خدمات الموقع على هاتفك',
+                  textDirection: TextDirection.rtl,
+                  style: TextStyle(fontFamily: 'Cairo'),
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text(
+                      'حسناً',
+                      style: TextStyle(fontFamily: 'Cairo'),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            });
+      }
     });
   }
 
@@ -93,8 +124,7 @@ class MapScreenState extends State<MapScreen> {
                 selectedLocation = position;
               });
             },
-            myLocationButtonEnabled:
-                showUserLocationButton, // Show the user's location button.
+            myLocationButtonEnabled: true, // Show the user's location button.
             myLocationEnabled: true, // Enable the user's location on the map.
           ),
           Align(

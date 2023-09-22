@@ -75,12 +75,21 @@ class MyComplainsController extends GetxController {
       "material_img": recycling_material_image_path
     });
 
-    if (response['status'] == 'success') print("yess");
-    recyclingList.removeAt(index);
-    recyclingLength.value--;
-    defaultToast(massage: "تم حذف الطلب بنجاح", state: ToastStates.SUCCESS);
-    update();
-    return response;
+    if (response != null) {
+      if (response['status'] == 'success') {
+        print("yess");
+        recyclingList.removeAt(index);
+        recyclingLength.value--;
+        defaultToast(massage: "تم حذف الطلب بنجاح", state: ToastStates.SUCCESS);
+        update();
+      } else {
+        // Handle the case where 'status' is not 'success'
+        print("Failed to delete order");
+      }
+    } else {
+      // Handle the case where response is null
+      print("Failed to delete order: response is null");
+    }
   }
 
   retriveCurrentUserVolunteeringOrders() async {
