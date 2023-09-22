@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'dart:math';
-
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/local/shared_preference.dart';
@@ -10,7 +9,6 @@ import 'package:madenati/models/mycomplains_model.dart';
 import 'package:madenati/models/recycling_model.dart';
 import 'package:madenati/models/volunteer_model.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
-// import '../constants/hotlinks.dart';
 
 class MyComplainsController extends GetxController {
   RxInt selectedPage = 0.obs;
@@ -63,7 +61,7 @@ class MyComplainsController extends GetxController {
 
     if (response['status'] == 'success') volunteerList.removeAt(index);
     volunteerLength.value--;
-    defaultToast(massage: "تم حذف الشكوى بنجاح", state: ToastStates.SUCCESS);
+    defaultToast(massage: "تم حذف الطلب بنجاح", state: ToastStates.SUCCESS);
     update();
     return response;
   }
@@ -120,7 +118,7 @@ class MyComplainsController extends GetxController {
     return response;
   }
 
-  //volunteering split name from database  functions:
+  //volunteering split name from database functions:
   bool isThereSpace(String name) {
     bool isThere = false;
 
