@@ -174,7 +174,7 @@ class VolunteeringState extends State<Volunteering> {
                           volunteeringController.volunteersSeparateName +=
                               value.toString();
                           log(volunteeringController.volunteersSeparateName);
-                        },
+                        }, 
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'يجب إدخال $label';

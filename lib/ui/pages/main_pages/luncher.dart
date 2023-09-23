@@ -5,11 +5,11 @@ import '../../../constants/colors.dart';
 import '../../../controllers/launcher_controller.dart';
 
 class Luncher extends StatelessWidget {
-  const Luncher({super.key});
+    Luncher({super.key});
+    LauncherController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    LauncherController controller = Get.find();
     return Scaffold(
         body: SizedBox(
           width: double.infinity,

@@ -53,9 +53,9 @@ class myApp extends StatelessWidget {
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
           initialRoute: CacheHelper.getData(key: 'onBoarding') == true
-              ? CacheHelper.getData(key: "isLogin") == true
+              ? (CacheHelper.getData(key: "isLogin") == true
                   ? "/launcher"
-                  : "/login"
+                  : "/login")
               : "/on_boarding",
           getPages: [
             GetPage(
@@ -72,11 +72,11 @@ class myApp extends StatelessWidget {
                 binding: RegisterBinding()),
             GetPage(
                 name: '/verification',
-                page: (() => const Verification()),
+                page: (() =>   Verification()),
                 binding: VerifyBinding()),
             GetPage(
                 name: '/launcher',
-                page: (() => const Luncher()),
+                page: (() =>   Luncher()),
                 binding: LauncherBindings()),
             GetPage(
               name: '/home',

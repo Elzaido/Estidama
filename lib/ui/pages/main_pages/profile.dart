@@ -12,45 +12,44 @@ class Profile extends StatelessWidget {
   ProfileController controller = Get.find();
   @override
   Widget build(BuildContext context) {
-    ProfileController profileController = Get.find();
+    // ProfileController profileController = Get.find();
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      appBar:
-          defaultAppBar(context: context, title: 'الملف الشخصي', isHome: true),
-      body: SizedBox(
-        width: size.width,
-        height: size.height,
-        child: SingleChildScrollView(
-          child: Column(children: [
-            Container(
-              margin: const EdgeInsets.all(5),
-              height: size.height * 0.16,
-              child: const Padding(
-                padding: EdgeInsets.all(10.0),
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://th.bing.com/th/id/OIP.2s7VxdmHEoDKji3gO_i-5QHaHa?pid=ImgDet&rs=1'),
-                  radius: 50,
+    return SafeArea(
+      child: Scaffold(
+        appBar:
+            defaultAppBar(context: context, title: 'الملف الشخصي', isHome: true),
+        body: SizedBox(
+          width: size.width,
+          height: size.height,
+          child: SingleChildScrollView(
+            child: Column(children: [
+              Container(
+                margin: const EdgeInsets.all(5),
+                height: size.height * 0.16,
+                child: const Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        'https://th.bing.com/th/id/OIP.2s7VxdmHEoDKji3gO_i-5QHaHa?pid=ImgDet&rs=1'),
+                    radius: 50,
+                  ),
                 ),
               ),
-            ),
-            Center(
-              child: Text(
-                CacheHelper.getData(key: "user_name").toString(),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 19,
+              Center(
+                child: Text(
+                  CacheHelper.getData(key: "user_name").toString(),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 19,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
-              child: Container(
+              const SizedBox(height: 20),
+              Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                      16.0), // Adjust the radius as needed
+                  borderRadius:
+                      BorderRadius.circular(16.0), // Adjust the radius as needed
                   color: const Color.fromARGB(255, 247, 247, 247),
                   boxShadow: [
                     BoxShadow(
@@ -67,11 +66,11 @@ class Profile extends StatelessWidget {
                     profileButton(
                         onPressed: () {},
                         icon: const Icon(Icons.numbers_outlined),
-                        text: CacheHelper.getData(key: "user_number")),
+                        text: "0${CacheHelper.getData(key: "user_number")}"),
                     separator(),
                     profileButton(
                         onPressed: () {},
-                        text: profileController
+                        text: controller
                             .iterateUserProvince(int.parse(
                                 CacheHelper.getData(key: "user_province")))
                             .toString(),
@@ -97,9 +96,9 @@ class Profile extends StatelessWidget {
                         icon: const Icon(Icons.logout)),
                   ],
                 ),
-              ),
-            )
-          ]),
+              ).paddingOnly(right: 15, left: 15, bottom: 15),
+            ]),
+          ),
         ),
       ),
     );

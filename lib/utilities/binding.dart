@@ -108,3 +108,10 @@ class AboutAppBinding implements Bindings {
     Get.lazyPut(() => AboutAppController(), fenix: true);
   }
 }
+
+class VerificationBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut((() => LoginController()), fenix: true);
+  }
+}

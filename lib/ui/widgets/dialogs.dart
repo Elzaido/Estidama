@@ -1,7 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/ui/widgets/my_orders_widgets.dart';
+import '../../constants/colors.dart';
 import 'interface_components.dart';
+
+void showVerificationDialog(context) {
+  showDialog(
+      context: context,
+      builder: (context1) => AlertDialog(
+            title: const Text(
+              'تأكيد رقم الهاتف',
+              textAlign: TextAlign.right,
+              style:
+                  TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.bold),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "لقد تم استخدام رقم تحقق للتجربة وذلك نظرا لان التطبيق في حالة التجربة",
+                    style: TextStyle(
+                      fontFamily: 'Cairo',
+                    ),
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
+                const SizedBox(
+                  height: 7,
+                ),
+                Image.asset("assets/verification_img.gif")
+              ],
+            ),
+            actions: <Widget>[
+              // Expanded(child: Container()),
+              Row(
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Text(
+                        'إغلاق',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                          color: alertColor,
+                        ),
+                      )),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  MaterialButton(
+                    color: mainColor,
+                    onPressed: () {},
+                    child: Text(
+                      "حسنا",
+                      style: TextStyle(
+                        fontFamily: 'Cairo',
+                        color: whiteColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ));
+}
 
 void showComplainInfoDialog(
     context, complainModel, myComplainsController, index) {

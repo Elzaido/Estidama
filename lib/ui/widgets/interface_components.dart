@@ -41,7 +41,7 @@ PreferredSizeWidget defaultAppBar({
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.pop(context);
+             Get.back();
             },
           )
         : null,
