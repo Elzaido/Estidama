@@ -15,6 +15,11 @@ class Home extends StatelessWidget {
           title: 'تطوع',
           text:
               'قام أحد فرق التطوع في مدينة إربد بإزالة النفايات على طريق الواصل بين منطقة أيدون و الحصن'),
+      carsoulItem(
+          image: 'assets/Grid4.png',
+          title: 'اعادة التدوير',
+          text:
+              'الحكومة الالمانية تعلن عن تبنيها شراء النفايات الالكترونية من المملكة الاردنية'),
     ];
     return Scaffold(
         appBar:

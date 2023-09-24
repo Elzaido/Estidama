@@ -21,7 +21,8 @@ Widget locationWidget(
             // Permission granted, navigate to the desired screen
             switch (whichPage) {
               case 1:
-                Get.toNamed("/map_screen", arguments: whichPage);
+
+                Get.offNamed("/map_screen", arguments: whichPage);
                 break;
               case 2:
                 Get.toNamed("/map_screen", arguments: whichPage);

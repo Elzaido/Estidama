@@ -1,7 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/ui/widgets/my_orders_widgets.dart';
+import '../../constants/colors.dart';
 import 'interface_components.dart';
+
+void showVerificationDialog(context) {
+  showDialog(
+      context: context,
+      builder: (context1) => AlertDialog(
+            title: const Text(
+              'تأكيد رقم الهاتف',
+              textAlign: TextAlign.right,
+              style:
+                  TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.bold),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "لقد تم استخدام رقم تحقق للتجربة وذلك نظرا لان التطبيق في حالة التجربة",
+                    style: TextStyle(
+                      fontFamily: 'Cairo',
+                    ),
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
+                const SizedBox(
+                  height: 7,
+                ),
+                Image.asset("assets/verification_img.gif")
+              ],
+            ),
+            actions: <Widget>[
+              // Expanded(child: Container()),
+              Row(
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Text(
+                        'إغلاق',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                          color: alertColor,
+                        ),
+                      )),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  MaterialButton(
+                    color: mainColor,
+                    onPressed: () {},
+                    child: Text(
+                      "حسنا",
+                      style: TextStyle(
+                        fontFamily: 'Cairo',
+                        color: whiteColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ));
+}
 
 void showComplainInfoDialog(
     context, complainModel, myComplainsController, index) {
@@ -105,7 +176,7 @@ void showRecyclingInfoDialog(context, recyclingModel, myComplainsController,
                           recyclingController.fromIntToTextRecyclingItem(
                               int.parse("${recyclingModel.materialType}")),
                           style: const TextStyle(
-                            fontSize: 15,
+                            fontSize: 15, fontFamily: "Cairo",
                           ),
                         ),
                         const Text(
@@ -115,6 +186,7 @@ void showRecyclingInfoDialog(context, recyclingModel, myComplainsController,
                         const Text('نوع المادة',
                             style: TextStyle(
                               fontSize: 15,
+                              fontFamily: "Cairo",
                               fontWeight: FontWeight.bold,
                             )),
                       ],
@@ -126,6 +198,7 @@ void showRecyclingInfoDialog(context, recyclingModel, myComplainsController,
                           'كيلو ',
                           style: TextStyle(
                             fontSize: 15,
+                            fontFamily: "Cairo",
                           ),
                         ),
                         Text(
@@ -141,6 +214,7 @@ void showRecyclingInfoDialog(context, recyclingModel, myComplainsController,
                         const Text('وزن المادة',
                             style: TextStyle(
                               fontSize: 15,
+                              fontFamily: "Cairo",
                               fontWeight: FontWeight.bold,
                             )),
                       ],
@@ -229,15 +303,20 @@ void showVolunteeringDialog(
                                     ? 'عمليات تنظيف'
                                     : 'رعاية الحيوانات',
                                 style: const TextStyle(
+                                  fontFamily: "Cairo",
                                   fontSize: 15,
                                 ),
                               ),
                               const Text(
                                 ' :',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Cairo",
+                                ),
                               ),
                               const Text('عمل التطوع',
                                   style: TextStyle(
+                                    fontFamily: "Cairo",
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
                                   )),
@@ -253,6 +332,7 @@ void showVolunteeringDialog(
                                         ? 'أهل الحي'
                                         : 'جمعية خيرية',
                                 style: const TextStyle(
+                                  fontFamily: "Cairo",
                                   fontSize: 15,
                                 ),
                               ),
@@ -263,6 +343,7 @@ void showVolunteeringDialog(
                               const Text('جهة التطوع',
                                   style: TextStyle(
                                     fontSize: 15,
+                                    fontFamily: "Cairo",
                                     fontWeight: FontWeight.bold,
                                   )),
                             ],
@@ -273,25 +354,45 @@ void showVolunteeringDialog(
                         height: 10,
                       ),
                       separator(),
-                      Container(
-                        width: double.maxFinite,
-                        constraints: const BoxConstraints(maxHeight: 150),
-                        child: ListView.builder(
-                          itemCount: 5, // Replace with your actual item count.
-                          itemBuilder: (context, index) {
-                            // Build your list items here.
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  'إسم المتطوع ${index + 1}: زيد رائد ربحي',
-                                  textDirection: TextDirection.rtl,
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Column(
+                        children: [
+                        const  Text(
+                            "اسماء المتطوعين",
+                            style: TextStyle(
+                              fontFamily: "Cairo",
+                            ),
+                          ),
+                          Container(
+                              width: double.maxFinite,
+                              constraints: const BoxConstraints(maxHeight: 150),
+                              child: Text(
+                                volunteerModel.volunteersNames.toString(),
+                                style:const TextStyle(
+                                  fontFamily: "Cairo",
                                 ),
-                                separator()
-                              ],
-                            );
-                          },
-                        ),
+                              )
+
+                              // ListView.builder(
+                              //   itemCount: 5, // Replace with your actual item count.
+                              //   itemBuilder: (context, index) {
+                              //     // Build your list items here.
+                              //     return Column(
+                              //       crossAxisAlignment: CrossAxisAlignment.end,
+                              //       children: [
+                              //         Text(
+                              //           'إسم المتطوع ${index + 1}: زيد رائد ربحي',
+                              //           textDirection: TextDirection.rtl,
+                              //         ),
+                              //         separator()
+                              //       ],
+                              //     );
+                              //   },
+                              // ),
+                              ),
+                        ],
                       ),
                     ],
                   ),

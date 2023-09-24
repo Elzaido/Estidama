@@ -24,11 +24,6 @@ class MapScreenState extends State<MapScreen> {
   // Define a Set to hold markers.
   Set<Marker> markers = {};
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   // Function to handle map creation and add markers.
   void _onMapCreated(GoogleMapController controller) {
     setState(() async {
@@ -56,35 +51,39 @@ class MapScreenState extends State<MapScreen> {
       bool serviceEnabled = await location.serviceEnabled();
       if (!serviceEnabled) {
         // ignore: use_build_context_synchronously
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text(
-                  'فعل خدمات تحديد الموقع',
-                  textDirection: TextDirection.rtl,
-                  style: TextStyle(fontFamily: 'Cairo'),
-                ),
-                content: const Text(
-                  'يرجى تمكين خدمات الموقع على هاتفك',
-                  textDirection: TextDirection.rtl,
-                  style: TextStyle(fontFamily: 'Cairo'),
-                ),
-                actions: <Widget>[
-                  TextButton(
-                    child: const Text(
-                      'حسناً',
-                      style: TextStyle(fontFamily: 'Cairo'),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            });
+        showMapDialog();
       }
     });
+  }
+
+  void showMapDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text(
+              'فعل خدمات تحديد الموقع',
+              textDirection: TextDirection.rtl,
+              style: TextStyle(fontFamily: 'Cairo'),
+            ),
+            content: const Text(
+              'يرجى تمكين خدمات الموقع على هاتفك',
+              textDirection: TextDirection.rtl,
+              style: TextStyle(fontFamily: 'Cairo'),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text(
+                  'حسناً',
+                  style: TextStyle(fontFamily: 'Cairo'),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 
   @override
@@ -135,14 +134,18 @@ class MapScreenState extends State<MapScreen> {
                 onPressed: () {
                   if (selectedLocation != null) {
                     if (whichPage == 1) {
-                      Get.offNamed("/complains",
+                      Get.back();
+                      Get.toNamed("/complains",
                           arguments: selectedLocation.toString());
-                      complainsController.locationSelected = true.obs;
+                      complainsController.locationSelected.value = true;
                     } else {
+                      // Get.back();
+
                       Get.offNamed("/recyclingform",
                           arguments: selectedLocation.toString());
-
-                      recyclingController.locationSelected = true.obs;
+                      
+// print("4444444444444 ${selectedLocation.toString()}");
+                      recyclingController.locationSelected.value = true;
                     }
                   } else {
                     // Location is null, handle accordingly (show a message or alert).

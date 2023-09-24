@@ -63,6 +63,7 @@ class RecyclingController extends GetxController {
     isShowImage.value = 1;
     location = "";
     locationSelected.value = false;
+    Get.back();
     update();
   }
 
@@ -154,6 +155,8 @@ class RecyclingController extends GetxController {
   }
 
   uploadRecyclingItem(String location, String weight) async {
+    isLoading.value = true;
+
     response = await postRequestWithFile(
         recyclingOrderLink,
         recyclingItemImage,
@@ -186,7 +189,8 @@ class RecyclingController extends GetxController {
     String weight,
     geographicLocation,
   ) {
-    isLoading.value = true;
+
+    print(geographicLocation);
     if (weight.isEmpty) {
       defaultToast(
           massage: "الرجاء تحديد وزن المادة", state: ToastStates.ERROR);

@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
-import 'package:madenati/controllers/mycomplains_controller.dart';
+import 'package:madenati/controllers/myorders_controller.dart';
 import 'package:madenati/controllers/recycling_controller.dart';
 import 'package:madenati/models/mycomplains_model.dart';
 import 'package:madenati/models/recycling_model.dart';
@@ -13,7 +13,8 @@ import 'package:madenati/ui/widgets/dialogs.dart';
 import 'interface_components.dart';
 
 Widget myComplainItem(context, ComplainsModel complainModel,
-    MyComplainsController myComplainsController, index) {
+    MyComplainsController myComplainsController, int index) {
+      print(index);
   return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Container(
@@ -73,7 +74,7 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                         ),
                       ),
                     ),
-                    Padding(
+                 complainModel.complainImagePath!=null?   Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Image(
                           image: NetworkImage(
@@ -82,7 +83,7 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                           height: 100,
                           width: 100,
                           fit: BoxFit.cover,
-                        )),
+                        )):SizedBox(),
                   ]),
                 ),
                 separator(),
@@ -152,7 +153,7 @@ Widget activityState(String state) {
 Widget deleteItemButton(
         dynamic model,
         MyComplainsController myComplainsController,
-        index,
+        int index,
         bool indialog,
         context1,
         int whichPage) =>
@@ -163,16 +164,18 @@ Widget deleteItemButton(
         onPressed: () {
           if (indialog) Navigator.pop(context1, true);
           if (whichPage == 1) {
-            log(model.complainId.toString());
-            myComplainsController.deleteComplain(
+          print(index);
+          // myComplainsController.complainList. first;
+            myComplainsController.deleteComplain(model,
                 model.complainId.toString(), index, model.complainImagePath);
           } else if (whichPage == 2) {
             myComplainsController.deleteVolunteer(
-                model.volunteering_id.toString(), index);
-            log(model.volunteering_id);
-          } else {
+                model.volunteeringId.toString(), index);
+            log(model.volunteeringId);
+          } else if(whichPage==3){
+            print("============================");
             myComplainsController.deleteRecyclingOrder(
-                model.recyclerId.toString(), index, model.materialImg);
+                model.orderId.toString(), index, model.materialImg);
           }
         },
         style: ElevatedButton.styleFrom(
@@ -246,7 +249,7 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                                 ? 'نظافة'
                                 : 'رعاية الحيوانات',
                             style: const TextStyle(
-                              fontSize: 15,
+                              fontSize: 15, fontFamily: "Cairo",
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -257,7 +260,7 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                                 : volunteerModel.volunteerGroupType == " 2"
                                     ? 'أهل الحي'
                                     : 'جمعية خيرية',
-                            style: const TextStyle(
+                            style: const TextStyle( fontFamily: "Cairo",
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
@@ -276,9 +279,9 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                     const SizedBox(
                       width: 30,
                     ),
-                    volunteerModel.is_voluteering_accepted == "rejected"
+                    volunteerModel.isVolunteeringAccepted == "rejected"
                         ? activityState('تم رفض الطلب')
-                        : volunteerModel.is_voluteering_accepted == "pending"
+                        : volunteerModel.isVolunteeringAccepted == "pending"
                             ? activityState('الطلب قيد الدراسة')
                             : activityState('تم قبول الطلب'),
                   ],

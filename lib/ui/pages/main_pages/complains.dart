@@ -14,10 +14,10 @@ class Complains extends StatelessWidget {
 
   final dateControl = TextEditingController();
   var geographicLocationData = Get.arguments;
+  ComplainsController complainsController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    ComplainsController complainsController = Get.find();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: defaultAppBar(context: context, title: 'تقديم شكوى'),
@@ -92,7 +92,7 @@ class Complains extends StatelessWidget {
                               )),
                           const SizedBox(
                             height: 10,
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -154,7 +154,7 @@ class Complains extends StatelessWidget {
                                 // complainsController.isShowImage.value = 0;
                                 complainsController
                                     .pickComplainImageFromGallery();
-                                Navigator.pop(context1, true);
+                                Get.back();
                               },
                               child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

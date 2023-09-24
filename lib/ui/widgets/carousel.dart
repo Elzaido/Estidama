@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
+import 'package:get/get.dart'; 
 import '../../constants/colors.dart';
 
 Widget carsoulItem({
@@ -20,6 +21,7 @@ Widget carsoulItem({
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,
+              
             ),
             Container(
                 width: 200,
@@ -34,9 +36,7 @@ Widget carsoulItem({
                 ),
                 child: Align(
                   alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Column(
+                  child:   Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
@@ -60,8 +60,8 @@ Widget carsoulItem({
                           textDirection: TextDirection.ltr,
                         ),
                       ],
-                    ),
-                  ),
+                    ).paddingAll(10),
+                   
                 )),
           ],
         ),

@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:math';
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
@@ -17,7 +15,7 @@ class MyComplainsController extends GetxController {
     selectedPage.value = index;
   }
 
-  RxList<ComplainsModel> complainList = [ComplainsModel()].obs;
+  List<ComplainsModel> complainList = [ComplainsModel()];
   RxList<VolunteerModel> volunteerList = [VolunteerModel()].obs;
   RxList<RecyclingModel> recyclingList = [RecyclingModel()].obs;
 
@@ -40,49 +38,65 @@ class MyComplainsController extends GetxController {
     return response;
   }
 
-  deleteComplain(complainId, index, String complain_image_path) async {
+  deleteComplain(model, complainId, index, String complain_image_path) async {
     var response = await postRequest(deleteComplainLink, {
       "complain_id": "$complainId",
       "complain_image_path": complain_image_path
     });
+    // var item = complainList[index];
 
+// complainList.removeAt(0);
     if (response['status'] == 'success') print("yess");
-    complainList.removeAt(index);
-    complainLength.value--;
+    // complainList.add(ComplainsModel(
+    // complainAccepetanceStatus: "ddd", complainDescription: "hghghghghg"));
+    // log(index);
+    // complainList.v removeWhere((element) => false);
+    // complainLength.value--;
     defaultToast(massage: "تم حذف الشكوى بنجاح", state: ToastStates.SUCCESS);
-    update();
-    return response;
+    // update();
+    Get.forceAppUpdate();
+    // return response;
   }
 
   //SOON
   deleteVolunteer(String volunteering_id, index) async {
+   Get.forceAppUpdate();
     var response = await postRequest(
         delteVolunteerRequestLink, {"volunteering_id": "$volunteering_id"});
+   
 
-    if (response['status'] == 'success') volunteerList.removeAt(index);
-    volunteerLength.value--;
-    defaultToast(massage: "تم حذف الطلب بنجاح", state: ToastStates.SUCCESS);
-    update();
+    // volunteerList.removeAt(index);
+    // volunteerLength.value--;
+    if (response['status'] == 'success') {
+      defaultToast(massage: "تم حذف الطلب بنجاح", state: ToastStates.SUCCESS);
+    }else{
+            defaultToast(massage: "لم يتم حذف الطلب  ", state: ToastStates.SUCCESS);
+
+    }
     return response;
   }
 
   deleteRecyclingOrder(
       recyclerId, index, String recycling_material_image_path) async {
     var response = await postRequest(delteRecyclingrRequestLink, {
-      "recycler_id": "$recyclerId",
+      "order_id": "$recyclerId",
       "material_img": recycling_material_image_path
     });
-
+ Get.forceAppUpdate();
     if (response != null) {
       if (response['status'] == 'success') {
-        print("yess");
-        recyclingList.removeAt(index);
-        recyclingLength.value--;
+        // print("yess");
+        // recyclingList.removeAt(index);
+        // recyclingLength.value--;
+        
+        
+       
         defaultToast(massage: "تم حذف الطلب بنجاح", state: ToastStates.SUCCESS);
-        update();
-      } else {
+        // update();
+      } else if(response['status'] == 'faild'){
         // Handle the case where 'status' is not 'success'
-        print("Failed to delete order");
+        defaultToast(massage: "لم يتم حذف الطلب ", state: ToastStates.SUCCESS);
+        // update();
       }
     } else {
       // Handle the case where response is null

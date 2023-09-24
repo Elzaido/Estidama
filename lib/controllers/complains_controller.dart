@@ -65,19 +65,20 @@ class ComplainsController extends GetxController {
         complainNumber = 4;
         break;
       case 'تلوث هواء':
-        complainNumber = 4;
+        complainNumber = 5;
         break;
       case 'معامل طوب / حجر':
-        complainNumber = 4;
+        complainNumber = 6;
         break;
       case 'حيوانات ضالة ورعي جائر':
-        complainNumber = 4;
+        complainNumber = 7;
         break;
     }
     return complainNumber;
   }
 
   switchSelectedComplain(newValue) => selectedComplain.value = newValue;
+
   switchSelectedComplainStatus(newValue) =>
       selectedComplainStatus.value = newValue;
 
@@ -159,6 +160,12 @@ class ComplainsController extends GetxController {
     geographicLocation,
   ) {
     isLoading.value = true;
+    if (complainImage == null) {
+      defaultToast(
+          massage: "يجب اختيار صورة للشكوى او مكانها",
+          state: ToastStates.ERROR);
+      return;
+    }
     if (descriptionController.text.length < 20) {
       defaultToast(
           massage: "يجب كتابة وصف للشكوى لايقل عن 20 حرف",
