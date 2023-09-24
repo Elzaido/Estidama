@@ -73,8 +73,6 @@ class Complains extends StatelessWidget {
                               onPressed: () {
                                 if (geographicLocationData != null) {
                                   complainsController.checkComplainsData(
-                                    complainsController
-                                        .descriptionController.text,
                                     geographicLocationData
                                         .toString(), // Ensure it's a string
                                   );
@@ -83,6 +81,7 @@ class Complains extends StatelessWidget {
                                   defaultToast(
                                       massage: 'الرجاء تحديد الموقع مرة أخرى',
                                       state: ToastStates.WARNING);
+                                  complainsController.isLoading = false.obs;
                                 }
                               },
                               child: const Text(

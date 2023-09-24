@@ -38,7 +38,7 @@ class ComplainsController extends GetxController {
   var picker = ImagePicker();
   var response;
 
-  clearFieldsAndGoHome(description, location) {
+  clearFieldsAndGoHome(location) {
     descriptionController.text = "";
     complainImage = null;
     selectedComplain.value = complainsList[0];
@@ -120,7 +120,7 @@ class ComplainsController extends GetxController {
     update();
   }
 
-  uploadComplain(String location, String description) async {
+  uploadComplain(String location) async {
     try {
       response = await postRequestWithFile(
           addComplainsLink,
@@ -133,49 +133,53 @@ class ComplainsController extends GetxController {
             "complain_date": getCurrentDate().toString(),
             "complain_location": location,
             "complain_status": selectedComplainStatus.value.toString(),
-            "complain_description": description.toString(),
+            "complain_description": descriptionController.text.toString(),
           },
           "complain_image_path");
       if (response['status'] == 'success') {
         defaultToast(
             massage: "تم ارسال الشكوى بنجاح", state: ToastStates.SUCCESS);
-        clearFieldsAndGoHome(description, location);
+        clearFieldsAndGoHome(location);
+        isLoading.value = false;
       }
 
       if (response['status'] == 'faild') {
         defaultToast(massage: "faild", state: ToastStates.ERROR);
+        isLoading.value = false;
       }
     } catch (exe) {
       defaultToast(
           massage: "حدث خطب ما يرجى الاعادة لاحقا", state: ToastStates.ERROR);
+      isLoading.value = false;
     }
-    isLoading.value = false;
     return response;
   }
 
   void checkComplainsData(
-    String description,
     geographicLocation,
   ) {
     isLoading.value = true;
-    if (description.length < 20) {
+    if (descriptionController.text.length < 20) {
       defaultToast(
           massage: "يجب كتابة وصف للشكوى لايقل عن 20 حرف",
           state: ToastStates.ERROR);
+      isLoading.value = false;
       return;
     }
 
     if (geographicLocation == null) {
       defaultToast(massage: "يجب اختيار موقع للشكوى", state: ToastStates.ERROR);
+      isLoading.value = false;
       return;
     }
 
     if (complainImage == null) {
       defaultToast(
           massage: " يجب اختيار صورة لمكان الشكوى", state: ToastStates.ERROR);
+      isLoading.value = false;
       return;
     }
 
-    uploadComplain(geographicLocation, description);
+    uploadComplain(geographicLocation);
   }
 }
