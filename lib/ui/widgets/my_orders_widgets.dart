@@ -13,7 +13,8 @@ import 'package:madenati/ui/widgets/dialogs.dart';
 import 'interface_components.dart';
 
 Widget myComplainItem(context, ComplainsModel complainModel,
-    MyComplainsController myComplainsController, index) {
+    MyComplainsController myComplainsController, int index) {
+      print(index);
   return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Container(
@@ -73,7 +74,7 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                         ),
                       ),
                     ),
-                    Padding(
+                 complainModel.complainImagePath!=null?   Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Image(
                           image: NetworkImage(
@@ -82,7 +83,7 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                           height: 100,
                           width: 100,
                           fit: BoxFit.cover,
-                        )),
+                        )):SizedBox(),
                   ]),
                 ),
                 separator(),
@@ -152,7 +153,7 @@ Widget activityState(String state) {
 Widget deleteItemButton(
         dynamic model,
         MyComplainsController myComplainsController,
-        index,
+        int index,
         bool indialog,
         context1,
         int whichPage) =>
@@ -163,16 +164,18 @@ Widget deleteItemButton(
         onPressed: () {
           if (indialog) Navigator.pop(context1, true);
           if (whichPage == 1) {
-            log(model.complainId.toString());
+          print(index);
+          // myComplainsController.complainList. first;
             myComplainsController.deleteComplain(model,
                 model.complainId.toString(), index, model.complainImagePath);
           } else if (whichPage == 2) {
             myComplainsController.deleteVolunteer(
-                model.volunteering_id.toString(), index);
-            log(model.volunteering_id);
-          } else {
+                model.volunteeringId.toString(), index);
+            log(model.volunteeringId);
+          } else if(whichPage==3){
+            print("============================");
             myComplainsController.deleteRecyclingOrder(
-                model.recyclerId.toString(), index, model.materialImg);
+                model.orderId.toString(), index, model.materialImg);
           }
         },
         style: ElevatedButton.styleFrom(
