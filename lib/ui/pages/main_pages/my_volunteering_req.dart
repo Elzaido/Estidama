@@ -24,24 +24,23 @@ class MyVolunteeringReq extends StatelessWidget {
               snapShotExceptionHandling(snapshot, size);
 
               if (snapshot.hasData) {
-                controller.volunteerList.value = snapshot.data['data']
-                    .map<VolunteerModel>(
-                        (complainData) => VolunteerModel.fromJson(complainData))
-                    .toList();
-                return Obx(() => ListView.builder(
+                // controller.volunteerList.value = snapshot.data['data']
+                //     .map<VolunteerModel>(
+                //         (complainData) => VolunteerModel.fromJson(complainData))
+                //     .toList();
+                return  ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemCount: controller.volunteerList.length,
+                      itemCount:snapshot.data['data'].length,
                       itemBuilder: (context, index) {
-                        return Obx(() => controller.volunteerList.isNotEmpty
-                            ? volunteerItem(
+                        return  volunteerItem(
                                 context,
-                                controller.volunteerList[index],
+                               VolunteerModel.fromJson(snapshot.data['data'][index]),
                                 controller,
                                 index,
-                                size)
-                            : noOrdersCenterdTitle('لا يوجد طلبات لعرضها'));
+                                size);
+                            // : noOrdersCenterdTitle('لا يوجد طلبات لعرضها'));
                       },
-                    ));
+                    );
               }
             } catch (exe) {
               return noOrdersCenterdTitle('لا يوجد طلبات لعرضها');
