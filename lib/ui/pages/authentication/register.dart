@@ -81,7 +81,10 @@ class _RegisterState extends State<Register> {
                       label: 'الإسم',
                       prefIcon: const Icon(Icons.person_outline),
                       validator: (String? value) {
-                        if (value!.length < 8) {
+                         if(value!.length>20){
+                          return 'يجب ان لايتعدى اسم المستخدم اكثر من 20 خانة';
+                        }
+                        if (value.length < 8) {
                           return "يجب ان يكون الاسم 8 احرف او اكثر";
                         }
                         if (value.isEmpty) {
@@ -190,12 +193,16 @@ class _RegisterState extends State<Register> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              hintText: "  رقم الهاتف",
+                              hintText: "رقم الهاتف ",
+                              // labelText:,
                               hintStyle: const TextStyle(fontFamily: 'Cairo'),
                             ),
                             validator: (value) {
                               if (value!.length != 9) {
-                                return "يجب ان يتكون رقم الهاتف من 9 خانات ";
+                                return "يجب ان يتكون رقم الهاتف من 9 خانات";
+                              }
+                              if (value .startsWith('0')) {
+                                return "يجب ان لا يبدأ الرقم بصفر ";
                               } else if (value.isEmpty) {
                                 return 'يجب إدخال رقم الهاتف';
                               } else {
@@ -231,7 +238,15 @@ class _RegisterState extends State<Register> {
                               ? const Icon(Icons.remove_red_eye)
                               : const Icon(Icons.visibility_off)),
                       validator: (String? value) {
-                        if (value!.isEmpty) {
+                       
+                        if (value == "1=1" ||
+                            value ==
+                                "SELECT * FROM Users WHERE UserId = 105 OR 1=1;" ||
+                            value == "\" or " "=\"" ||
+                            value!.endsWith("'")) {
+                          return "محاولة اختراق معلومات المستخدمين جنحة جنائية يعاقب عليها القانون";
+                        }
+                        if (value .isEmpty) {
                           return 'يجب إدخال كلمة السر';
                         } else if (value.toString().length < 8) {
                           return "يجب ان تكون كلمة المرور 8 خانات او اكثر";

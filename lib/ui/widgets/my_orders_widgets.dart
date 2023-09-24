@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
-import 'package:madenati/controllers/mycomplains_controller.dart';
+import 'package:madenati/controllers/myorders_controller.dart';
 import 'package:madenati/controllers/recycling_controller.dart';
 import 'package:madenati/models/mycomplains_model.dart';
 import 'package:madenati/models/recycling_model.dart';
@@ -164,7 +164,7 @@ Widget deleteItemButton(
           if (indialog) Navigator.pop(context1, true);
           if (whichPage == 1) {
             log(model.complainId.toString());
-            myComplainsController.deleteComplain(
+            myComplainsController.deleteComplain(model,
                 model.complainId.toString(), index, model.complainImagePath);
           } else if (whichPage == 2) {
             myComplainsController.deleteVolunteer(
@@ -276,9 +276,9 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                     const SizedBox(
                       width: 30,
                     ),
-                    volunteerModel.is_voluteering_accepted == "rejected"
+                    volunteerModel.isVolunteeringAccepted == "rejected"
                         ? activityState('تم رفض الطلب')
-                        : volunteerModel.is_voluteering_accepted == "pending"
+                        : volunteerModel.isVolunteeringAccepted == "pending"
                             ? activityState('الطلب قيد الدراسة')
                             : activityState('تم قبول الطلب'),
                   ],

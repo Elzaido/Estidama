@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/ui/pages/main_pages/activities.dart';
@@ -11,16 +13,20 @@ class LauncherController extends GetxController {
   final pages = <String>['/profile', '/home', '/myComplains'];
 
   void changePage(int index) {
-    currentIndex.value = index;
-    final currentPage = pages[index];
-    Get.offNamed(currentPage, id: 1);
+    try {
+      currentIndex.value = index;
+      final currentPage = pages[index];
+      Get.offNamed(currentPage, id: 1);
+    } catch (e) {
+      log(e.hashCode);
+    }
   }
 
   Route? onGenerateRoute(RouteSettings settings) {
     if (settings.name == '/profile') {
       return GetPageRoute(
         settings: settings,
-        page: () =>   Profile(),
+        page: () => Profile(),
         binding: ProfileBinding(),
       );
     } else if (settings.name == '/home') {

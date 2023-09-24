@@ -1,5 +1,4 @@
-// ignore_for_file: avoid_print
-
+ 
 import 'dart:math';
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
@@ -40,7 +39,7 @@ class MyComplainsController extends GetxController {
     return response;
   }
 
-  deleteComplain(complainId, index, String complain_image_path) async {
+  deleteComplain(model,complainId, index, String complain_image_path) async {
     var response = await postRequest(deleteComplainLink, {
       "complain_id": "$complainId",
       "complain_image_path": complain_image_path
@@ -48,7 +47,8 @@ class MyComplainsController extends GetxController {
 
     if (response['status'] == 'success') print("yess");
     complainList.removeAt(index);
-    complainLength.value--;
+    // complainList.v removeWhere((element) => false);
+    // complainLength.value--;
     defaultToast(massage: "تم حذف الشكوى بنجاح", state: ToastStates.SUCCESS);
     update();
     return response;

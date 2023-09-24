@@ -5,18 +5,18 @@ import 'package:get/get.dart';
 import 'package:madenati/controllers/onboarding_controller.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../models/boardingmodel.dart';
-import '../../db/local/shared_preference.dart';
-import '../widgets/interface_components.dart';
+ import '../widgets/interface_components.dart';
 
 class OnBoarding extends StatelessWidget {
   OnBoarding({super.key});
 
   OnBoardingController controller = Get.find();
-
+  var boardController = PageController();
   List<BoardingModel> boarding = [
     BoardingModel(
       image: 'assets/Grid3.png',
-      title: 'معاً لبيئة أفضل',
+      title:'التطبيق الاول لوزارة البيئة',
+      // 'معاً لبيئة أفضل'
     ),
     BoardingModel(
         image: 'assets/Grid1.png', title: 'قدم الشكاوي المتعلقة بالبيئة'),
@@ -30,15 +30,9 @@ class OnBoarding extends StatelessWidget {
     ),
   ];
 
-  void submit() {
-    CacheHelper.saveData(key: 'onBoarding', value: true).then((value) {
-      if (value) {
-        Get.offNamed("/login");
-      }
-    });
-  }
+  
 
-  var boardController = PageController();
+
   @override
   Widget build(BuildContext context) {
     OnBoardingController onBoardingController = Get.find();
@@ -67,7 +61,7 @@ class OnBoarding extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
             child: TextButton(
                 onPressed: () {
-                  submit();
+                 controller. submit();
                 },
                 child: const Text(
                   'تخطي',
@@ -103,7 +97,7 @@ class OnBoarding extends StatelessWidget {
                     backgroundColor: Colors.green,
                     onPressed: () {
                       if (onBoardingController.isLast.value) {
-                        submit();
+                         controller. submit();
                       } else {
                         boardController.nextPage(
                             duration: const Duration(

@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:madenati/controllers/mycomplains_controller.dart';
+import 'package:madenati/controllers/myorders_controller.dart';
 import 'package:madenati/models/mycomplains_model.dart';
 import 'package:madenati/ui/widgets/my_orders_widgets.dart';
 import '../../widgets/interface_components.dart';
@@ -39,6 +39,7 @@ class MyComplains extends StatelessWidget {
                                     child: separator(),
                                   ),
                               itemBuilder: (context, index) {
+                               print("index: ++++== $index");
                                 if (snapshot.data['data'][index].length != 0) {
                                   controller.complainList.value = snapshot
                                       .data['data']
@@ -51,7 +52,7 @@ class MyComplains extends StatelessWidget {
                                               context,
                                               controller.complainList[index],
                                               controller,
-                                              index)
+                                              0)
                                           : noOrdersCenterdTitle(
                                               'لا يوجد شكاوي لعرضها'));
                                 }

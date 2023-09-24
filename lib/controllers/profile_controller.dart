@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:get/get.dart';
 import 'package:madenati/db/local/shared_preference.dart';
 
@@ -17,23 +19,28 @@ class ProfileController extends GetxController {
     12: "الطفيلة"
   };
   String iterateUserProvince(int provinceNum) {
-
     //THIS FUNCTION IS USED TO LOOP ON THE PROVINCES
     // AND GET KEYS TO SAVE WITH THE CREDENTIALS
-
     String value = '';
-
-    provincesx.forEach((k, v) {
-      if (k == provinceNum) {
-        value = v;
-        return;
-      }
-    });
+    try {
+      provincesx.forEach((k, v) {
+        if (k == provinceNum) {
+          value = v;
+          return;
+        }
+      });
+    } catch (e) {
+      log(e.hashCode);
+    }
     return value.toString();
   }
 
   signOutActions() async {
-    CacheHelper.clearData();
-    await Get.offAllNamed("/login");
+    try {
+      CacheHelper.clearData();
+      await Get.offAllNamed("/login");
+    } catch (e) {
+      log(e.hashCode);
+    }
   }
 }

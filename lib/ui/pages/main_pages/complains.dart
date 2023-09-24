@@ -14,10 +14,10 @@ class Complains extends StatelessWidget {
 
   final dateControl = TextEditingController();
   var geographicLocationData = Get.arguments;
+  ComplainsController complainsController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    ComplainsController complainsController = Get.find();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: defaultAppBar(context: context, title: 'تقديم شكوى'),
@@ -69,31 +69,7 @@ class Complains extends StatelessWidget {
                           Obx(() => complainsController.isShowImage.value != 1
                               ? imagePlacerHolderWidget(complainsController)
                               : const Text(" ")),
-                          button(
-                              onPressed: () {
-                                if (geographicLocationData != null) {
-                                  complainsController.checkComplainsData(
-                                    complainsController
-                                        .descriptionController.text,
-                                    geographicLocationData
-                                        .toString(), // Ensure it's a string
-                                  );
-                                } else {
-                                  // Handle the case where geographicLocationData is null.
-                                  defaultToast(
-                                      massage: 'الرجاء تحديد الموقع مرة أخرى',
-                                      state: ToastStates.WARNING);
-                                }
-                              },
-                              child: const Text(
-                                "إرسال الشكوى",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: "Cairo"),
-                              )),
-                          const SizedBox(
-                            height: 10,
-                          )
+                          submitComplainBtn(),
                         ],
                       ),
                     ),
@@ -155,7 +131,7 @@ class Complains extends StatelessWidget {
                                 // complainsController.isShowImage.value = 0;
                                 complainsController
                                     .pickComplainImageFromGallery();
-                                Navigator.pop(context1, true);
+                                Get.back();
                               },
                               child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -231,5 +207,27 @@ class Complains extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget submitComplainBtn() {
+    return button(
+        onPressed: () {
+          if (geographicLocationData != null) {
+            complainsController.checkComplainsData(
+              complainsController.descriptionController.text,
+              geographicLocationData.toString(), // Ensure it's a string
+            );
+            // Get.offNamed(  '/map_screen');
+          } else {
+            // Handle the case where geographicLocationData is null.
+            defaultToast(
+                massage: 'الرجاء تحديد الموقع مرة أخرى',
+                state: ToastStates.WARNING);
+          }
+        },
+        child: const Text(
+          "إرسال الشكوى",
+          style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "Cairo"),
+        ));
   }
 }
