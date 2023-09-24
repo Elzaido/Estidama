@@ -6,7 +6,7 @@ class VolunteerModel {
   String? volunteerGroupType;
 
   String? isVolunteeringAccepted;
-  String? volunteers_names;
+  String? volunteersNames;
   VolunteerModel(
       {this.volunteeringType,
       this.volunteerSkills,
@@ -14,7 +14,7 @@ class VolunteerModel {
       this.userId,
       this.volunteerGroupType,
       this.isVolunteeringAccepted,
-      this.volunteers_names});
+      this.volunteersNames});
 
   VolunteerModel.fromJson(Map<String, dynamic> json) {
     volunteeringType = json['volunteering_type'];
@@ -24,7 +24,7 @@ class VolunteerModel {
     volunteerGroupType = json['volunteer_group_type'];
 
     isVolunteeringAccepted = json['is_voluteering_accepted'];
-    volunteers_names = json['volunteers_names'];
+    volunteersNames = json['volunteers_names'];
   }
 
   Map<String, dynamic> toJson() {
@@ -36,7 +36,7 @@ class VolunteerModel {
     data['volunteer_group_type'] = volunteerGroupType;
 
     data['is_voluteering_accepted'] = isVolunteeringAccepted;
-    data['volunteers_names'] = volunteers_names;
+    data['volunteers_names'] = volunteersNames;
     return data;
   }
 }
