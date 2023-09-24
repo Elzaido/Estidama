@@ -12,43 +12,43 @@ class MyVolunteeringReq extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     MyComplainsController controller = Get.find();
-    return Center(
-      child: Expanded(
-        child: FutureBuilder(
-          future: controller.retriveCurrentUserVolunteeringOrders(),
-          builder: ((context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return homeShimmerWidget(size: size);
-            }
-            try {
-              snapShotExceptionHandling(snapshot, size);
+    return SizedBox(
+      width: size.width,
+      height: size.height,
+      child: FutureBuilder(
+        future: controller.retriveCurrentUserVolunteeringOrders(),
+        builder: ((context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return homeShimmerWidget(size: size);
+          }
+          try {
+            snapShotExceptionHandling(snapshot, size);
 
-              if (snapshot.hasData) {
-                controller.volunteerList.value = snapshot.data['data']
-                    .map<VolunteerModel>(
-                        (complainData) => VolunteerModel.fromJson(complainData))
-                    .toList();
-                return Obx(() => ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: controller.volunteerList.length,
-                      itemBuilder: (context, index) {
-                        return Obx(() => controller.volunteerList.isNotEmpty
-                            ? volunteerItem(
-                                context,
-                                controller.volunteerList[index],
-                                controller,
-                                index,
-                                size)
-                            : noOrdersCenterdTitle('لا يوجد طلبات لعرضها'));
-                      },
-                    ));
-              }
-            } catch (exe) {
-              return noOrdersCenterdTitle('لا يوجد طلبات لعرضها');
+            if (snapshot.hasData) {
+              controller.volunteerList.value = snapshot.data['data']
+                  .map<VolunteerModel>(
+                      (complainData) => VolunteerModel.fromJson(complainData))
+                  .toList();
+              return Obx(() => ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: controller.volunteerList.length,
+                    itemBuilder: (context, index) {
+                      return Obx(() => controller.volunteerList.isNotEmpty
+                          ? volunteerItem(
+                              context,
+                              controller.volunteerList[index],
+                              controller,
+                              index,
+                              size)
+                          : noOrdersCenterdTitle('لا يوجد طلبات لعرضها'));
+                    },
+                  ));
             }
+          } catch (exe) {
             return noOrdersCenterdTitle('لا يوجد طلبات لعرضها');
-          }),
-        ),
+          }
+          return noOrdersCenterdTitle('لا يوجد طلبات لعرضها');
+        }),
       ),
     );
   }

@@ -34,43 +34,37 @@ class MyRecyclingReq extends StatelessWidget {
                   controller.recyclingLength.value =
                       snapshot.data['data'].length;
                   return snapshot.data.length != 0
-                      ? Obx(() => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListView.separated(
-                                physics: const BouncingScrollPhysics(),
-                                separatorBuilder: (context, index) => Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: separator(),
-                                    ),
-                                itemCount: controller.recyclingLength.value,
-                                itemBuilder: (context, index) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return homeShimmerWidget(size: size);
-                                  }
-                                  if (snapshot.data['data'][index].length !=
-                                      0) {
-                                    controller.recyclingList.value = snapshot
-                                        .data['data']
-                                        .map<RecyclingModel>((recyclingdata) =>
-                                            RecyclingModel.fromJson(
-                                                recyclingdata))
-                                        .toList();
-                                    return Obx(() =>
-                                        controller.recyclingList.isNotEmpty
-                                            ? myrecyclingItem(
-                                                context,
-                                                controller.recyclingList[index],
-                                                controller,
-                                                index)
-                                            : noOrdersCenterdTitle(
-                                                'لا يوجد طلبات لعرضها'));
-                                  }
-                                  return noOrdersCenterdTitle(
-                                      'لا يوجد طلبات لعرضها');
-                                }),
-                          ))
+                      ? Obx(() => ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          separatorBuilder: (context, index) => Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: separator(),
+                              ),
+                          itemCount: controller.recyclingLength.value,
+                          itemBuilder: (context, index) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return homeShimmerWidget(size: size);
+                            }
+                            if (snapshot.data['data'][index].length != 0) {
+                              controller.recyclingList.value = snapshot
+                                  .data['data']
+                                  .map<RecyclingModel>((recyclingdata) =>
+                                      RecyclingModel.fromJson(recyclingdata))
+                                  .toList();
+                              return Obx(() =>
+                                  controller.recyclingList.isNotEmpty
+                                      ? myrecyclingItem(
+                                          context,
+                                          controller.recyclingList[index],
+                                          controller,
+                                          index)
+                                      : noOrdersCenterdTitle(
+                                          'لا يوجد طلبات لعرضها'));
+                            }
+                            return noOrdersCenterdTitle('لا يوجد طلبات لعرضها');
+                          }))
                       : noOrdersCenterdTitle('لا يوجد طلبات لعرضها');
                 }
               } catch (e) {
