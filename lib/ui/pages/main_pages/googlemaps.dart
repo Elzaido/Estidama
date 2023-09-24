@@ -138,12 +138,14 @@ class MapScreenState extends State<MapScreen> {
                       Get.toNamed("/complains",
                           arguments: selectedLocation.toString());
                       complainsController.locationSelected.value = true;
-                       
                     } else {
+                      // Get.back();
+
                       Get.offNamed("/recyclingform",
                           arguments: selectedLocation.toString());
-
-                      recyclingController.locationSelected = true.obs;
+                      
+// print("4444444444444 ${selectedLocation.toString()}");
+                      recyclingController.locationSelected.value = true;
                     }
                   } else {
                     // Location is null, handle accordingly (show a message or alert).

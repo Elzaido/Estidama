@@ -249,7 +249,7 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                                 ? 'نظافة'
                                 : 'رعاية الحيوانات',
                             style: const TextStyle(
-                              fontSize: 15,
+                              fontSize: 15, fontFamily: "Cairo",
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -260,7 +260,7 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                                 : volunteerModel.volunteerGroupType == " 2"
                                     ? 'أهل الحي'
                                     : 'جمعية خيرية',
-                            style: const TextStyle(
+                            style: const TextStyle( fontFamily: "Cairo",
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
