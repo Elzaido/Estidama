@@ -35,7 +35,7 @@ class MyRecyclingReq extends StatelessWidget {
                       snapshot.data['data'].length;
                   return snapshot.data.length != 0
                       ? Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.only(top: 10),
                           child: ListView.separated(
                               physics: const BouncingScrollPhysics(),
                               separatorBuilder: (context, index) => Padding(
@@ -50,24 +50,18 @@ class MyRecyclingReq extends StatelessWidget {
                                   return homeShimmerWidget(size: size);
                                 }
                                 if (snapshot.data['data'][index].length != 0) {
-                                  // controller.recyclingList.value = snapshot
-                                  //     .data['data']
-                                  //     .map<RecyclingModel>((recyclingdata) =>
-                                  //         RecyclingModel.fromJson(
-                                  //             recyclingdata))
-                                  //     .toList();
                                   return myrecyclingItem(
                                       context,
                                       RecyclingModel.fromJson(snapshot
                                               .data['data'][
                                           index]), //  controller.recyclingList[index]
                                       controller,
-                                      index);
+                                      index,
+                                      size);
                                 }
                                 return noOrdersCenterdTitle(
                                     'لا يوجد طلبات لعرضها');
-                              }),
-                        )
+                              }))
                       : noOrdersCenterdTitle('لا يوجد طلبات لعرضها');
                 }
               } catch (e) {

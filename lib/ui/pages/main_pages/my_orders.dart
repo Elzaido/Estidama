@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,33 +39,37 @@ class _MyComplainsState extends State<MyComplains> {
                         ? Padding(
                             padding: const EdgeInsets.only(top: 10),
                             child: ListView.builder(
-                                  physics: const BouncingScrollPhysics(),
-                                  itemCount:   snapshot.data['data'].length, // controller.complainLength.value,
-                                  itemBuilder: (context, int index) {
-                                    print("index: ++++== $index");
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: snapshot.data['data']
+                                    .length, // controller.complainLength.value,
+                                itemBuilder: (context, int index) {
+                                  print("index: ++++== $index");
 
-                                    if (snapshot.data['data'][index].length !=
-                                        0) {
-                                      controller.complainList = snapshot
-                                          .data['data']
-                                          .map<ComplainsModel>((complainData) =>
-                                              ComplainsModel.fromJson(
-                                                  complainData))
-                                          .toList();
-                                      return controller.complainList.isNotEmpty
-                                          ? myComplainItem(
-                                              context,
-                                             ComplainsModel.fromJson(snapshot.data['data'][index]) ,//controller.complainList[index]
-                                              controller,
-                                              index)
-                                          : noOrdersCenterdTitle(
-                                              'لا يوجد شكاوي لعرضها');
-                                    }
-                                    return noOrdersCenterdTitle(
-                                        'لا يوجد شكاوي لعرضها');
-                                  }),
-                            ) 
-                        : SizedBox())
+                                  if (snapshot.data['data'][index].length !=
+                                      0) {
+                                    controller.complainList = snapshot
+                                        .data['data']
+                                        .map<ComplainsModel>((complainData) =>
+                                            ComplainsModel.fromJson(
+                                                complainData))
+                                        .toList();
+                                    return controller.complainList.isNotEmpty
+                                        ? myComplainItem(
+                                            context,
+                                            ComplainsModel.fromJson(snapshot
+                                                    .data['data'][
+                                                index]), //controller.complainList[index]
+                                            controller,
+                                            index,
+                                            size)
+                                        : noOrdersCenterdTitle(
+                                            'لا يوجد شكاوي لعرضها');
+                                  }
+                                  return noOrdersCenterdTitle(
+                                      'لا يوجد شكاوي لعرضها');
+                                }),
+                          )
+                        : const SizedBox())
                     : noOrdersCenterdTitle('لا يوجد شكاوي لعرضها');
               }
             } catch (e) {

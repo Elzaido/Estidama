@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; 
+import 'package:get/get.dart';
 import '../../constants/colors.dart';
 
 Widget carsoulItem({
@@ -21,14 +21,13 @@ Widget carsoulItem({
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,
-              
             ),
             Container(
                 width: 200,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: mainColor.withOpacity(0.9),
+                      color: mainColor.withOpacity(0.8),
                       spreadRadius: 6,
                       blurRadius: 6,
                     ),
@@ -36,42 +35,38 @@ Widget carsoulItem({
                 ),
                 child: Align(
                   alignment: Alignment.topRight,
-                  child:   Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          title,
-                          style: const TextStyle(
-                            fontSize: 35,
-                            fontFamily: 'Cairo',
-                            color: Colors.white,
-                          ),
-                          textAlign: TextAlign.right,
-                          textDirection: TextDirection.ltr,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 30,
+                          fontFamily: 'Cairo',
+                          color: Colors.white,
                         ),
-                        Text(
-                          text,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'Cairo',
-                            color: Colors.white,
-                          ),
-                          textAlign: TextAlign.right,
-                          textDirection: TextDirection.ltr,
+                        textAlign: TextAlign.right,
+                        textDirection: TextDirection.ltr,
+                      ),
+                      Text(
+                        text,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Cairo',
+                          color: Colors.white,
                         ),
-                      ],
-                    ).paddingAll(10),
-                   
+                        textAlign: TextAlign.right,
+                        textDirection: TextDirection.ltr,
+                      ),
+                    ],
+                  ).paddingAll(10),
                 )),
           ],
         ),
       ),
     );
- 
+
 // If you want to add a carsoul item add it here and it will appear in the UI.
-
-
-
 
 Widget carousel({required List<Widget> items}) => CarouselSlider(
     items: items,
@@ -86,5 +81,3 @@ Widget carousel({required List<Widget> items}) => CarouselSlider(
       autoPlayCurve: Curves.fastOutSlowIn,
       scrollDirection: Axis.horizontal,
     ));
-
-

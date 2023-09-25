@@ -72,11 +72,11 @@ class myApp extends StatelessWidget {
                 binding: RegisterBinding()),
             GetPage(
                 name: '/verification',
-                page: (() =>   Verification()),
+                page: (() => const Verification()),
                 binding: VerifyBinding()),
             GetPage(
                 name: '/launcher',
-                page: (() =>   Luncher()),
+                page: (() => Luncher()),
                 binding: LauncherBindings()),
             GetPage(
               name: '/home',

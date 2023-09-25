@@ -9,11 +9,13 @@ import 'package:pinput/pinput.dart';
 //THIS CODE FEATURE WAS MADE BY EL ZAIDO
 // AND DEVELOPED AND MAINTAINED BY ZAMEL STUDIOS
 class Verification extends StatefulWidget {
+  const Verification({super.key});
+
   @override
-  State<Verification> createState() => _nameState();
+  State<Verification> createState() => _NameState();
 }
 
-class _nameState extends State<Verification> {
+class _NameState extends State<Verification> {
   final pinController = TextEditingController();
 
   @override
@@ -24,7 +26,7 @@ class _nameState extends State<Verification> {
 
   void _initialize() async {
     await Future.delayed(const Duration(milliseconds: 1500));
-     pinController.setText('1971');
+    pinController.setText('1971');
   }
 
   @override
@@ -133,10 +135,19 @@ class _nameState extends State<Verification> {
   Widget submitButton(code, registerController, name, phone, password) {
     return button(
         onPressed: () {
-          code="1971";
+          code = "1971";
           if (code == '1971') {
             // Perform the signup function here with the provided arguments
-            // loading();
+            registerController.signUpProcess(
+              name,
+              phone,
+              registerController.selectedProvince.value,
+              registerController.isMaleSelected.value == true
+                  ? "male"
+                  : "female",
+              password,
+            );
+
             showVerificationDialog(context,name,phone,password,registerController);
            
           } else {
