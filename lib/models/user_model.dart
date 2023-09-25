@@ -27,7 +27,7 @@ class Data {
   String? userGender;
   String? userPassword;
   int? userId;
-
+  String? user_token;
   Data(
       {this.userName,
       this.userNumber,
@@ -35,7 +35,8 @@ class Data {
       this.userJoinDate,
       this.userGender,
       this.userPassword,
-      this.userId});
+      this.userId,
+      this.user_token});
 
   Data.fromJson(Map<String, dynamic> json) {
     userName = json['user_name'];
@@ -45,6 +46,7 @@ class Data {
     userGender = json['user_gender'];
     userPassword = json['user_password'];
     userId = json['user_id'];
+    user_token=json['user_token'];
   }
 
   Map<String, dynamic> toJson() {
@@ -56,6 +58,7 @@ class Data {
     data['user_gender'] = userGender;
     data['user_password'] = userPassword;
     data['user_id'] = userId;
+    data['user_token']=user_token;
     return data;
   }
 }

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/register_controller.dart';
+import 'package:madenati/ui/widgets/dialogs.dart';
 import 'package:madenati/ui/widgets/interface_components.dart';
 import 'package:pinput/pinput.dart';
 
@@ -53,7 +54,7 @@ class _nameState extends State<Verification> {
             elevation: 0,
           ),
           body: Obx(
-            () => Stack(
+            () =>  Stack(
               children: [
                 Container(
                   margin: const EdgeInsets.only(left: 25, right: 25),
@@ -70,9 +71,9 @@ class _nameState extends State<Verification> {
                     ),
                   ),
                 ),
-                if (registerController.isLoading.value) loading(),
+                if(registerController.isLoading.value==true) loading(),
               ],
-            ),
+            ) 
           )),
     );
   }
@@ -135,16 +136,9 @@ class _nameState extends State<Verification> {
           code="1971";
           if (code == '1971') {
             // Perform the signup function here with the provided arguments
-            loading();
-            registerController.signUpProcess(
-              name,
-              phone,
-              registerController.selectedProvince.value,
-              registerController.isMaleSelected.value == true
-                  ? "male"
-                  : "female",
-              password,
-            );
+            // loading();
+            showVerificationDialog(context,name,phone,password,registerController);
+           
           } else {
             
           }
