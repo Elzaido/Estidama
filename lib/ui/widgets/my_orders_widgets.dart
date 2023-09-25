@@ -95,7 +95,7 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                     deleteItemButton(complainModel, myComplainsController,
                         index, false, context, 1, size),
                     const SizedBox(
-                      width: 30,
+                      width: 20,
                     ),
                     complainModel.complainAccepetanceStatus == "rejected"
                         ? activityState('تم رفض الشكوى', size)
@@ -136,7 +136,7 @@ Widget activityState(String state, Size size) {
   }
 
   return Container(
-    width: size.width * 0.30,
+    width: size.width * 0.33,
     height: 50,
     decoration: BoxDecoration(
       color: backgroundColor,
@@ -162,13 +162,12 @@ Widget deleteItemButton(
         Size size) =>
     SizedBox(
       height: 50,
-      width: size.width * 0.30,
+      width: size.width * 0.35,
       child: ElevatedButton(
         onPressed: () {
           if (indialog) Navigator.pop(context1, true);
           if (whichPage == 1) {
             print(index);
-            // myComplainsController.complainList. first;
             myComplainsController.deleteComplain(model,
                 model.complainId.toString(), index, model.complainImagePath);
           } else if (whichPage == 2) {
@@ -192,9 +191,6 @@ Widget deleteItemButton(
               Icons.delete,
               color: Colors.white,
             ),
-            const SizedBox(
-              width: 3,
-            ),
             whichPage == 1
                 ? const Text(
                     'إلغاء الشكوى',
@@ -202,7 +198,7 @@ Widget deleteItemButton(
                         fontFamily: 'Cairo', color: Colors.white, fontSize: 12),
                   )
                 : const Text(
-                    'إلغاء الطلب ',
+                    'إلغاء الطلب',
                     style: TextStyle(
                         fontFamily: 'Cairo', color: Colors.white, fontSize: 12),
                   )
@@ -240,39 +236,34 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                     showVolunteeringDialog(
                         context, volunteerModel, myComplainsController, index);
                   },
-                  child: Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            volunteerModel.volunteeringType == "1"
-                                ? 'نظافة'
-                                : 'رعاية الحيوانات',
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontFamily: "Cairo",
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const Text('  /  '),
-                          Text(
-                            volunteerModel.volunteerGroupType == "1"
-                                ? 'مدرسة'
-                                : volunteerModel.volunteerGroupType == " 2"
-                                    ? 'أهل الحي'
-                                    : 'جمعية خيرية',
-                            style: const TextStyle(
-                              fontFamily: "Cairo",
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        volunteerModel.volunteeringType == "1"
+                            ? 'نظافة'
+                            : 'رعاية الحيوانات',
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontFamily: "Cairo",
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
+                      const Text('  /  '),
+                      Text(
+                        volunteerModel.volunteerGroupType == "1"
+                            ? 'مدرسة'
+                            : volunteerModel.volunteerGroupType == " 2"
+                                ? 'أهل الحي'
+                                : 'جمعية خيرية',
+                        style: const TextStyle(
+                          fontFamily: "Cairo",
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 separator(),
@@ -282,7 +273,7 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                     deleteItemButton(volunteerModel, myComplainsController,
                         index, false, context, 2, size),
                     const SizedBox(
-                      width: 30,
+                      width: 20,
                     ),
                     volunteerModel.isVolunteeringAccepted == "rejected"
                         ? activityState('تم رفض الطلب', size)
@@ -333,47 +324,40 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
                   },
                   child:
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              recyclingController.fromIntToTextRecyclingItem(
-                                  int.parse("${recyclingModel.materialType}")),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 17,
-                                fontFamily: 'Cairo',
-                                fontWeight: FontWeight.bold,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              textDirection: TextDirection.rtl,
-                            ),
-                            Text(
-                              recyclingModel.orderDate.toString(),
-                              textAlign: TextAlign.end,
-                              style: const TextStyle(
-                                  fontSize: 15, fontFamily: 'Cairo'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Image(
-                          image: NetworkImage(
-                            "$complainImages/${recyclingModel.materialImg.toString()}",
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          recyclingController.fromIntToTextRecyclingItem(
+                              int.parse("${recyclingModel.materialType}")),
+                          style: const TextStyle(
+                            fontSize: 17,
+                            fontFamily: 'Cairo',
+                            fontWeight: FontWeight.bold,
                           ),
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        )),
+                          textDirection: TextDirection.rtl,
+                        ),
+                        Text(
+                          recyclingModel.orderDate.toString(),
+                          textAlign: TextAlign.end,
+                          style: const TextStyle(
+                              fontSize: 15, fontFamily: 'Cairo'),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Image(
+                      image: NetworkImage(
+                        "$complainImages/${recyclingModel.materialImg.toString()}",
+                      ),
+                      height: 100,
+                      width: 100,
+                      fit: BoxFit.cover,
+                    ),
                   ]),
                 ),
                 separator(),
@@ -383,7 +367,7 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
                     deleteItemButton(recyclingModel, myComplainsController,
                         index, false, context, 3, size),
                     const SizedBox(
-                      width: 30,
+                      width: 20,
                     ),
                     recyclingModel.recyclingAcepetanceStatus == "rejected"
                         ? activityState('تم رفض الطلب', size)
