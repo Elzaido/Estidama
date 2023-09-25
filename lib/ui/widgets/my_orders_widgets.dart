@@ -1,4 +1,4 @@
-// ignore_for_file: unrelated_type_equality_checks
+// ignore_for_file: unrelated_type_equality_checks, avoid_print
 
 import 'dart:developer';
 import 'package:flutter/material.dart';
@@ -13,8 +13,8 @@ import 'package:madenati/ui/widgets/dialogs.dart';
 import 'interface_components.dart';
 
 Widget myComplainItem(context, ComplainsModel complainModel,
-    MyComplainsController myComplainsController, int index) {
-      print(index);
+    MyComplainsController myComplainsController, int index, Size size) {
+  print(index);
   return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Container(
@@ -74,16 +74,18 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                         ),
                       ),
                     ),
-                 complainModel.complainImagePath!=null?   Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Image(
-                          image: NetworkImage(
-                            "$complainImages/${complainModel.complainImagePath.toString()}",
-                          ),
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        )):SizedBox(),
+                    complainModel.complainImagePath != null
+                        ? Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Image(
+                              image: NetworkImage(
+                                "$complainImages/${complainModel.complainImagePath.toString()}",
+                              ),
+                              height: 100,
+                              width: 100,
+                              fit: BoxFit.cover,
+                            ))
+                        : const SizedBox(),
                   ]),
                 ),
                 separator(),
@@ -91,15 +93,15 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     deleteItemButton(complainModel, myComplainsController,
-                        index, false, context, 1),
+                        index, false, context, 1, size),
                     const SizedBox(
                       width: 30,
                     ),
                     complainModel.complainAccepetanceStatus == "rejected"
-                        ? activityState('تم رفض الشكوى')
+                        ? activityState('تم رفض الشكوى', size)
                         : complainModel.complainAccepetanceStatus == "pending"
-                            ? activityState('الشكوى قيد الدراسة')
-                            : activityState("تم قبول الشكوى")
+                            ? activityState('الشكوى قيد الدراسة', size)
+                            : activityState("تم قبول الشكوى", size)
                   ],
                 ),
               ],
@@ -107,7 +109,7 @@ Widget myComplainItem(context, ComplainsModel complainModel,
           )));
 }
 
-Widget activityState(String state) {
+Widget activityState(String state, Size size) {
   Color backgroundColor;
   switch (state) {
     case 'الشكوى قيد الدراسة':
@@ -134,7 +136,7 @@ Widget activityState(String state) {
   }
 
   return Container(
-    width: 140,
+    width: size.width * 0.30,
     height: 50,
     decoration: BoxDecoration(
       color: backgroundColor,
@@ -156,23 +158,24 @@ Widget deleteItemButton(
         int index,
         bool indialog,
         context1,
-        int whichPage) =>
+        int whichPage,
+        Size size) =>
     SizedBox(
       height: 50,
-      width: 140,
+      width: size.width * 0.30,
       child: ElevatedButton(
         onPressed: () {
           if (indialog) Navigator.pop(context1, true);
           if (whichPage == 1) {
-          print(index);
-          // myComplainsController.complainList. first;
+            print(index);
+            // myComplainsController.complainList. first;
             myComplainsController.deleteComplain(model,
                 model.complainId.toString(), index, model.complainImagePath);
           } else if (whichPage == 2) {
             myComplainsController.deleteVolunteer(
                 model.volunteeringId.toString(), index);
             log(model.volunteeringId);
-          } else if(whichPage==3){
+          } else if (whichPage == 3) {
             print("============================");
             myComplainsController.deleteRecyclingOrder(
                 model.orderId.toString(), index, model.materialImg);
@@ -234,8 +237,8 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
               children: [
                 InkWell(
                   onTap: () {
-                    showVolunteeringDialog(context, volunteerModel,
-                        myComplainsController, index, size);
+                    showVolunteeringDialog(
+                        context, volunteerModel, myComplainsController, index);
                   },
                   child: Expanded(
                     child: Padding(
@@ -249,7 +252,8 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                                 ? 'نظافة'
                                 : 'رعاية الحيوانات',
                             style: const TextStyle(
-                              fontSize: 15, fontFamily: "Cairo",
+                              fontSize: 15,
+                              fontFamily: "Cairo",
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -260,7 +264,8 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                                 : volunteerModel.volunteerGroupType == " 2"
                                     ? 'أهل الحي'
                                     : 'جمعية خيرية',
-                            style: const TextStyle( fontFamily: "Cairo",
+                            style: const TextStyle(
+                              fontFamily: "Cairo",
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
@@ -275,15 +280,15 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     deleteItemButton(volunteerModel, myComplainsController,
-                        index, false, context, 2),
+                        index, false, context, 2, size),
                     const SizedBox(
                       width: 30,
                     ),
                     volunteerModel.isVolunteeringAccepted == "rejected"
-                        ? activityState('تم رفض الطلب')
+                        ? activityState('تم رفض الطلب', size)
                         : volunteerModel.isVolunteeringAccepted == "pending"
-                            ? activityState('الطلب قيد الدراسة')
-                            : activityState('تم قبول الطلب'),
+                            ? activityState('الطلب قيد الدراسة', size)
+                            : activityState('تم قبول الطلب', size),
                   ],
                 ),
               ],
@@ -292,7 +297,7 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
 }
 
 Widget myrecyclingItem(context, RecyclingModel recyclingModel,
-    MyComplainsController myComplainsController, index) {
+    MyComplainsController myComplainsController, index, Size size) {
   RecyclingController recyclingController = Get.find();
   return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -318,8 +323,13 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
               children: [
                 InkWell(
                   onTap: () {
-                    showRecyclingInfoDialog(context, recyclingModel,
-                        myComplainsController, recyclingController, index);
+                    showRecyclingInfoDialog(
+                      context,
+                      recyclingModel,
+                      myComplainsController,
+                      recyclingController,
+                      index,
+                    );
                   },
                   child:
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -371,15 +381,15 @@ Widget myrecyclingItem(context, RecyclingModel recyclingModel,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     deleteItemButton(recyclingModel, myComplainsController,
-                        index, false, context, 3),
+                        index, false, context, 3, size),
                     const SizedBox(
                       width: 30,
                     ),
                     recyclingModel.recyclingAcepetanceStatus == "rejected"
-                        ? activityState('تم رفض الطلب')
+                        ? activityState('تم رفض الطلب', size)
                         : recyclingModel.recyclingAcepetanceStatus == "pending"
-                            ? activityState('الطلب قيد الدراسة')
-                            : activityState('تم قبول الطلب'),
+                            ? activityState('الطلب قيد الدراسة', size)
+                            : activityState('تم قبول الطلب', size),
                   ],
                 ),
               ],
@@ -396,7 +406,7 @@ Widget noOrdersCenterdTitle(String title) {
           title,
           style: const TextStyle(
             fontFamily: 'Cairo',
-            fontSize: 13,
+            fontSize: 15,
           ),
         ),
         const SizedBox(
@@ -405,7 +415,7 @@ Widget noOrdersCenterdTitle(String title) {
         const Icon(
           Icons.warning,
           color: Colors.red,
-          size: 27,
+          size: 30,
         )
       ],
     ),

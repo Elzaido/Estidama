@@ -76,6 +76,7 @@ void showVerificationDialog(context) {
 
 void showComplainInfoDialog(
     context, complainModel, myComplainsController, index) {
+  Size size = MediaQuery.of(context).size;
   showDialog(
       context: context,
       builder: (context1) => AlertDialog(
@@ -120,15 +121,15 @@ void showComplainInfoDialog(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       deleteItemButton(complainModel, myComplainsController,
-                          index, true, context1, 1),
+                          index, true, context1, 1, size),
                       const SizedBox(
                         width: 10,
                       ),
                       complainModel.complainAccepetanceStatus == "rejected"
-                          ? activityState('تم رفض الشكوى')
+                          ? activityState('تم رفض الشكوى', size)
                           : complainModel.complainAccepetanceStatus == "pending"
-                              ? activityState('الشكوى قيد الدراسة')
-                              : activityState("تم قبول الشكوى")
+                              ? activityState('الشكوى قيد الدراسة', size)
+                              : activityState("تم قبول الشكوى", size)
                     ],
                   ),
                   const SizedBox(
@@ -152,6 +153,7 @@ void showComplainInfoDialog(
 
 void showRecyclingInfoDialog(context, recyclingModel, myComplainsController,
     recyclingController, index) {
+  Size size = MediaQuery.of(context).size;
   showDialog(
       context: context,
       builder: (context1) => AlertDialog(
@@ -176,7 +178,8 @@ void showRecyclingInfoDialog(context, recyclingModel, myComplainsController,
                           recyclingController.fromIntToTextRecyclingItem(
                               int.parse("${recyclingModel.materialType}")),
                           style: const TextStyle(
-                            fontSize: 15, fontFamily: "Cairo",
+                            fontSize: 15,
+                            fontFamily: "Cairo",
                           ),
                         ),
                         const Text(
@@ -242,16 +245,16 @@ void showRecyclingInfoDialog(context, recyclingModel, myComplainsController,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       deleteItemButton(recyclingModel, myComplainsController,
-                          index, true, context1, 3),
+                          index, true, context1, 3, size),
                       const SizedBox(
                         width: 10,
                       ),
                       recyclingModel.recyclingAcepetanceStatus == "rejected"
-                          ? activityState('تم رفض الشكوى')
+                          ? activityState('تم رفض الطلب', size)
                           : recyclingModel.recyclingAcepetanceStatus ==
                                   "pending"
-                              ? activityState('الشكوى قيد الدراسة')
-                              : activityState("تم قبول الشكوى")
+                              ? activityState('الطلب قيد الدراسة', size)
+                              : activityState("تم قبول الطلب", size)
                     ],
                   ),
                   const SizedBox(
@@ -274,7 +277,8 @@ void showRecyclingInfoDialog(context, recyclingModel, myComplainsController,
 }
 
 void showVolunteeringDialog(
-    context, volunteerModel, myComplainsController, index, size) {
+    context, volunteerModel, myComplainsController, index) {
+  Size size = MediaQuery.of(context).size;
   showDialog(
       context: context,
       builder: (context1) => AlertDialog(
@@ -358,8 +362,9 @@ void showVolunteeringDialog(
                         height: 20,
                       ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                        const  Text(
+                          const Text(
                             "اسماء المتطوعين",
                             style: TextStyle(
                               fontFamily: "Cairo",
@@ -370,28 +375,10 @@ void showVolunteeringDialog(
                               constraints: const BoxConstraints(maxHeight: 150),
                               child: Text(
                                 volunteerModel.volunteersNames.toString(),
-                                style:const TextStyle(
+                                style: const TextStyle(
                                   fontFamily: "Cairo",
                                 ),
-                              )
-
-                              // ListView.builder(
-                              //   itemCount: 5, // Replace with your actual item count.
-                              //   itemBuilder: (context, index) {
-                              //     // Build your list items here.
-                              //     return Column(
-                              //       crossAxisAlignment: CrossAxisAlignment.end,
-                              //       children: [
-                              //         Text(
-                              //           'إسم المتطوع ${index + 1}: زيد رائد ربحي',
-                              //           textDirection: TextDirection.rtl,
-                              //         ),
-                              //         separator()
-                              //       ],
-                              //     );
-                              //   },
-                              // ),
-                              ),
+                              )),
                         ],
                       ),
                     ],
@@ -404,11 +391,15 @@ void showVolunteeringDialog(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       deleteItemButton(volunteerModel, myComplainsController,
-                          index, true, context1, 2),
+                          index, true, context1, 2, size),
                       const SizedBox(
                         width: 10,
                       ),
-                      activityState('تم قبول الطلب')
+                      volunteerModel.isVolunteeringAccepted == "rejected"
+                          ? activityState('تم رفض الطلب', size)
+                          : volunteerModel.isVolunteeringAccepted == "pending"
+                              ? activityState('الطلب قيد الدراسة', size)
+                              : activityState('تم قبول الطلب', size),
                     ],
                   ),
                   const SizedBox(
