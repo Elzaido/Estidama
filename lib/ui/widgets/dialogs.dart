@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
-import 'package:madenati/ui/widgets/my_orders_widgets.dart';
+ import 'package:madenati/ui/widgets/my_orders_widgets.dart';
 import '../../constants/colors.dart';
 import 'interface_components.dart';
 
-void showVerificationDialog(context) {
+void showVerificationDialog(context, name, phone, password,registerController) {
   showDialog(
       context: context,
       builder: (context1) => AlertDialog(
@@ -15,7 +15,7 @@ void showVerificationDialog(context) {
               style:
                   TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.bold),
             ),
-            content: Column(
+            content: Obx(() => Column (
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Align(
@@ -31,9 +31,10 @@ void showVerificationDialog(context) {
                 const SizedBox(
                   height: 7,
                 ),
-                Image.asset("assets/verification_img.gif")
+                Image.asset("assets/verification_img.gif"),
+                if(registerController.isLoading.value==true)loading()
               ],
-            ),
+            )),
             actions: <Widget>[
               // Expanded(child: Container()),
               Row(
@@ -59,7 +60,18 @@ void showVerificationDialog(context) {
                   ),
                   MaterialButton(
                     color: mainColor,
-                    onPressed: () {},
+                    onPressed: () {
+                      // var registerController = Get.put(RegisterController());
+                      registerController.signUpProcess(
+                        name,
+                        phone,
+                        registerController.selectedProvince.value,
+                        registerController.isMaleSelected.value == true
+                            ? "male"
+                            : "female",
+                        password,
+                      );
+                    },
                     child: Text(
                       "حسنا",
                       style: TextStyle(
@@ -176,7 +188,8 @@ void showRecyclingInfoDialog(context, recyclingModel, myComplainsController,
                           recyclingController.fromIntToTextRecyclingItem(
                               int.parse("${recyclingModel.materialType}")),
                           style: const TextStyle(
-                            fontSize: 15, fontFamily: "Cairo",
+                            fontSize: 15,
+                            fontFamily: "Cairo",
                           ),
                         ),
                         const Text(
@@ -359,7 +372,7 @@ void showVolunteeringDialog(
                       ),
                       Column(
                         children: [
-                        const  Text(
+                          const Text(
                             "اسماء المتطوعين",
                             style: TextStyle(
                               fontFamily: "Cairo",
@@ -370,7 +383,7 @@ void showVolunteeringDialog(
                               constraints: const BoxConstraints(maxHeight: 150),
                               child: Text(
                                 volunteerModel.volunteersNames.toString(),
-                                style:const TextStyle(
+                                style: const TextStyle(
                                   fontFamily: "Cairo",
                                 ),
                               )
