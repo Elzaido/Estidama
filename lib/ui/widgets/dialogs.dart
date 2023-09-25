@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
-import 'package:madenati/ui/widgets/my_orders_widgets.dart';
+ import 'package:madenati/ui/widgets/my_orders_widgets.dart';
 import '../../constants/colors.dart';
 import 'interface_components.dart';
 
-void showVerificationDialog(context) {
+void showVerificationDialog(context, name, phone, password,registerController) {
   showDialog(
       context: context,
       builder: (context1) => AlertDialog(
@@ -15,7 +15,7 @@ void showVerificationDialog(context) {
               style:
                   TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.bold),
             ),
-            content: Column(
+            content: Obx(() => Column (
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Align(
@@ -31,9 +31,10 @@ void showVerificationDialog(context) {
                 const SizedBox(
                   height: 7,
                 ),
-                Image.asset("assets/verification_img.gif")
+                Image.asset("assets/verification_img.gif"),
+                if(registerController.isLoading.value==true)loading()
               ],
-            ),
+            )),
             actions: <Widget>[
               // Expanded(child: Container()),
               Row(
@@ -59,7 +60,18 @@ void showVerificationDialog(context) {
                   ),
                   MaterialButton(
                     color: mainColor,
-                    onPressed: () {},
+                    onPressed: () {
+                      // var registerController = Get.put(RegisterController());
+                      registerController.signUpProcess(
+                        name,
+                        phone,
+                        registerController.selectedProvince.value,
+                        registerController.isMaleSelected.value == true
+                            ? "male"
+                            : "female",
+                        password,
+                      );
+                    },
                     child: Text(
                       "حسنا",
                       style: TextStyle(

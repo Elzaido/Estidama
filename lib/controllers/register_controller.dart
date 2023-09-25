@@ -85,6 +85,20 @@ class RegisterController extends GetxController {
     return key.toString();
   }
 
+  // String token() async {
+  //   final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+  //   String? token;
+
+  //   try {
+  //     token = await firebaseMessaging.getToken();
+  //     print('FCM Token: $token');
+  //   } catch (error) {
+  //     print('Error getting FCM token: $error');
+  //   }
+
+  //   return token;
+  // }
+
   Future<void> saveCredentials({
     required String user_name,
     required String user_phone,
@@ -92,13 +106,8 @@ class RegisterController extends GetxController {
     required String gender,
     required String user_password,
   }) async {
-    // Save credentials logic here.
-    DateTime get_current_date = DateTime.now();
-    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
-    // Format the current date using the DateFormat object.
-    String formattedDate = dateFormat.format(get_current_date);
-    log(formattedDate.toString());
-
+    // String getToken = token() .toString();
+    isLoading.value = true;
     final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
     String? token;
 
@@ -109,6 +118,14 @@ class RegisterController extends GetxController {
       print('Error getting FCM token: $error');
     }
 
+    print("otottoootototototoot ${token}");
+    // Save credentials logic here.
+    DateTime get_current_date = DateTime.now();
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+    // Format the current date using the DateFormat object.
+    String formattedDate = dateFormat.format(get_current_date);
+    // log(formattedDate.toString());
+
     var response = await postRequest(signUpLink, {
       "join_date": formattedDate,
       "password": user_password,
@@ -117,7 +134,7 @@ class RegisterController extends GetxController {
       "name": user_name,
       "province": iterateUserProvince(user_province),
       "status": "online",
-      //  "token": token,
+      "user_token": token
     });
 
     //STATUS IS CHANGEABLE :ONCE THE USER SIGNS UP THIS MEANS HE IS ONLINE
@@ -143,7 +160,6 @@ class RegisterController extends GetxController {
 
   void signUpProcess(String user_name, String user_phone, String user_province,
       String gender, String user_password) {
-    isLoading.value = true;
     log('$selectedProvince');
     if (user_name.isEmpty ||
         user_phone.isEmpty ||
@@ -152,6 +168,7 @@ class RegisterController extends GetxController {
         user_password.isEmpty) {
       defaultToast(massage: '! تأكد من الحقول', state: ToastStates.ERROR);
     } else {
+      isLoading.value=true;
       saveCredentials(
         user_name: user_name,
         user_phone: user_phone,
