@@ -29,7 +29,7 @@ class VolunteeringController extends GetxController {
   RxInt volunteenerNumber = 0.obs;
 
   RxList<String> volunteersNameList = [""].obs;
-  RxString volunteersSeparateName = RxString('');
+  String volunteersSeparateName = "";
   RxBool isLoading = false.obs;
 
   ///
@@ -73,6 +73,9 @@ class VolunteeringController extends GetxController {
     isLoading.value = true;
     print(volunteersSeparateName.toString());
 
+    // loading();
+// Loading();
+    // loading();
     try {
       response = await postRequest(volunteeringApplicationLink, {
         "volunteering_type": fromVolunteerTypeToInteger().toString(),
@@ -83,13 +86,13 @@ class VolunteeringController extends GetxController {
       if (response["status"] == "not_allowed") {
         defaultToast(
             massage: 'لا يسمح ارسال اكثر من طلب لنفس نوع التطوع',
-            state: ToastStates.ERROR);
+            state: ToastStates.SUCCESS);
       }
       if (response['status'] == 'success') {
-        volunteersSeparateName = "".obs;
+        volunteersSeparateName = "";
         Get.back();
 
-        volunteersSeparateName = "".obs;
+        volunteersSeparateName = "";
         defaultToast(
             massage: 'تم إرسال الطلب بنجاح', state: ToastStates.SUCCESS);
       }

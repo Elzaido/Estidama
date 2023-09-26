@@ -93,7 +93,6 @@ class VolunteeringState extends State<Volunteering> {
       TextEditingController volunteenurNumberController,
       TextEditingController volunteerNameController) {
     Size size = MediaQuery.of(context1).size;
-
     return AlertDialog(
       title: const Text(
         'تقديم طلب تطوع',
@@ -132,8 +131,11 @@ class VolunteeringState extends State<Volunteering> {
               title(text: 'عدد الأشخاص المشاركين في التطوع'),
               TextFormField(
                 onChanged: (value) {
+                  // setState(() {
+                  // Update the number of volunteers when the user enters a value.
                   volunteeringController.volunteenerNumber.value =
                       int.tryParse(value) ?? 0;
+                  // });
                 },
                 decoration: InputDecoration(
                   isDense: true,
@@ -168,13 +170,10 @@ class VolunteeringState extends State<Volunteering> {
                           hintText: label,
                           hintStyle: const TextStyle(fontFamily: 'Cairo'),
                         ),
-
-                        onFieldSubmitted: (value) {
-                          // Append the complete name with a space
-                          volunteeringController.volunteersSeparateName.value +=
-                              value.trim() + ' ';
-                          log(volunteeringController
-                              .volunteersSeparateName.value);
+                        onChanged: (value) {
+                          volunteeringController.volunteersSeparateName +=
+                              value.toString();
+                          log(volunteeringController.volunteersSeparateName);
                         },
                         validator: (value) {
                           if (value!.isEmpty) {
