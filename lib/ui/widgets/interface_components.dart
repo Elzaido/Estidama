@@ -3,7 +3,6 @@ import 'package:madenati/models/boardingmodel.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../constants/colors.dart';
 import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:madenati/controllers/complains_controller.dart';
 import 'package:madenati/controllers/recycling_controller.dart';
@@ -41,7 +40,7 @@ PreferredSizeWidget defaultAppBar({
               color: Colors.white,
             ),
             onPressed: () {
-             Get.back();
+              Get.back();
             },
           )
         : null,

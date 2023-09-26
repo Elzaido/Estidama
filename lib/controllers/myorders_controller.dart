@@ -53,16 +53,13 @@ class MyComplainsController extends GetxController {
   }
 
   //SOON
-  deleteVolunteer(String volunteering_id, index) async {
+  deleteVolunteer(volunteering_id, index) async {
     var response = await postRequest(
-        delteVolunteerRequestLink, {"volunteering_id": volunteering_id});
+        delteVolunteerRequestLink, {"volunteering_id": "$volunteering_id"});
+    if (response['status'] == 'success') print("yess");
+    defaultToast(massage: "تم حذف الطلب بنجاح", state: ToastStates.SUCCESS);
+
     Get.forceAppUpdate();
-    if (response['status'] == 'success') {
-      defaultToast(massage: "تم حذف الطلب بنجاح", state: ToastStates.SUCCESS);
-    } else {
-      defaultToast(massage: "لم يتم حذف الطلب  ", state: ToastStates.SUCCESS);
-    }
-    return response;
   }
 
   deleteRecyclingOrder(
