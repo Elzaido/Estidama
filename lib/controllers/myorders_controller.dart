@@ -40,25 +40,34 @@ class MyComplainsController extends GetxController {
     return response;
   }
 
-  deleteComplain(model, complainId, index, String complain_image_path) async {
+  deleteComplain(complainId, index, String complain_image_path) async {
     var response = await postRequest(deleteComplainLink, {
       "complain_id": "$complainId",
       "complain_image_path": complain_image_path
     });
+    Get.forceAppUpdate();
 
     if (response['status'] == 'success') print("yess");
 
     defaultToast(massage: "تم حذف الشكوى بنجاح", state: ToastStates.SUCCESS);
-    Get.forceAppUpdate();
   }
 
   //SOON
   deleteVolunteer(volunteering_id, index) async {
     var response = await postRequest(
         delteVolunteerRequestLink, {"volunteering_id": "$volunteering_id"});
-    if (response['status'] == 'success') print("yess");
-    defaultToast(massage: "تم حذف الطلب بنجاح", state: ToastStates.SUCCESS);
-
+    if (response != null) {
+      if (response['status'] == 'success') {
+        print("yess");
+        defaultToast(massage: "تم حذف الطلب بنجاح", state: ToastStates.SUCCESS);
+      } else if (response['status'] == 'faild') {
+        // Handle the case where 'status' is not 'success'
+        defaultToast(massage: "لم يتم حذف الطلب ", state: ToastStates.SUCCESS);
+      }
+    } else {
+      // Handle the case where response is null
+      print("Failed to delete order: response is null");
+    }
     Get.forceAppUpdate();
   }
 

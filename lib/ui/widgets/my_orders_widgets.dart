@@ -168,7 +168,7 @@ Widget deleteItemButton(
           if (indialog) Navigator.pop(context1, true);
           if (whichPage == 1) {
             print(index);
-            myComplainsController.deleteComplain(model,
+            myComplainsController.deleteComplain(
                 model.complainId.toString(), index, model.complainImagePath);
           } else if (whichPage == 2) {
             myComplainsController.deleteVolunteer(

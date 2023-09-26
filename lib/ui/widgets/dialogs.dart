@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
- import 'package:madenati/ui/widgets/my_orders_widgets.dart';
+import 'package:madenati/ui/widgets/my_orders_widgets.dart';
 import '../../constants/colors.dart';
 import 'interface_components.dart';
 
-void showVerificationDialog(context, name, phone, password,registerController) {
+void showVerificationDialog(
+    context, name, phone, password, registerController) {
   showDialog(
       context: context,
       builder: (context1) => AlertDialog(
@@ -15,26 +16,26 @@ void showVerificationDialog(context, name, phone, password,registerController) {
               style:
                   TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.bold),
             ),
-            content: Obx(() => Column (
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    "لقد تم استخدام رقم تحقق للتجربة وذلك نظرا لان التطبيق في حالة التجربة",
-                    style: TextStyle(
-                      fontFamily: 'Cairo',
+            content: Obx(() => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "لقد تم استخدام رقم تحقق للتجربة وذلك نظرا لان التطبيق في حالة التجربة",
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                        ),
+                        textDirection: TextDirection.rtl,
+                      ),
                     ),
-                    textDirection: TextDirection.rtl,
-                  ),
-                ),
-                const SizedBox(
-                  height: 7,
-                ),
-                Image.asset("assets/verification_img.gif"),
-                if(registerController.isLoading.value==true)loading()
-              ],
-            )),
+                    const SizedBox(
+                      height: 7,
+                    ),
+                    Image.asset("assets/verification_img.gif"),
+                    if (registerController.isLoading.value == true) loading()
+                  ],
+                )),
             actions: <Widget>[
               // Expanded(child: Container()),
               Row(
@@ -288,6 +289,21 @@ void showRecyclingInfoDialog(context, recyclingModel, myComplainsController,
           ));
 }
 
+String formatNames(String names) {
+  final nameList = names.trim().split(
+      RegExp(r'\s+|,\s*')); // Split by spaces or commas with optional spaces
+  final formattedNames = <String>[];
+  for (var i = 0; i < nameList.length; i += 4) {
+    final name1 = i < nameList.length ? nameList[i] : '';
+    final name2 = (i + 1) < nameList.length ? nameList[i + 1] : '';
+    final name3 = (i + 2) < nameList.length ? nameList[i + 2] : '';
+    final name4 = (i + 3) < nameList.length ? nameList[i + 3] : '';
+
+    formattedNames.add('$name1 $name2 $name3 $name4: المتطوع ${i ~/ 4 + 1}');
+  }
+  return formattedNames.join('\n'); // Join with newline for line breaks
+}
+
 void showVolunteeringDialog(
     context, volunteerModel, myComplainsController, index) {
   Size size = MediaQuery.of(context).size;
@@ -383,14 +399,16 @@ void showVolunteeringDialog(
                             ),
                           ),
                           Container(
-                              width: double.maxFinite,
-                              constraints: const BoxConstraints(maxHeight: 150),
-                              child: Text(
-                                volunteerModel.volunteersNames.toString(),
-                                style: const TextStyle(
-                                  fontFamily: "Cairo",
-                                ),
-                              )),
+                            width: double.maxFinite,
+                            constraints: const BoxConstraints(maxHeight: 150),
+                            child: Text(
+                              formatNames(
+                                  volunteerModel.volunteersNames.toString()),
+                              style: const TextStyle(
+                                fontFamily: "Cairo",
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ],
