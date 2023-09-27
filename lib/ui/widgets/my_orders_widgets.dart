@@ -14,7 +14,7 @@ import 'interface_components.dart';
 
 Widget myComplainItem(context, ComplainsModel complainModel,
     MyComplainsController myComplainsController, int index) {
-      print(index);
+  print(index);
   return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Container(
@@ -74,16 +74,18 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                         ),
                       ),
                     ),
-                 complainModel.complainImagePath!=null?   Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Image(
-                          image: NetworkImage(
-                            "$complainImages/${complainModel.complainImagePath.toString()}",
-                          ),
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        )):SizedBox(),
+                    complainModel.complainImagePath != null
+                        ? Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Image(
+                              image: NetworkImage(
+                                "$complainImages/${complainModel.complainImagePath.toString()}",
+                              ),
+                              height: 100,
+                              width: 100,
+                              fit: BoxFit.cover,
+                            ))
+                        : SizedBox(),
                   ]),
                 ),
                 separator(),
@@ -164,15 +166,15 @@ Widget deleteItemButton(
         onPressed: () {
           if (indialog) Navigator.pop(context1, true);
           if (whichPage == 1) {
-          print(index);
-          // myComplainsController.complainList. first;
+            print(index);
+            // myComplainsController.complainList. first;
             myComplainsController.deleteComplain(model,
                 model.complainId.toString(), index, model.complainImagePath);
           } else if (whichPage == 2) {
             myComplainsController.deleteVolunteer(
                 model.volunteeringId.toString(), index);
             log(model.volunteeringId);
-          } else if(whichPage==3){
+          } else if (whichPage == 3) {
             print("============================");
             myComplainsController.deleteRecyclingOrder(
                 model.orderId.toString(), index, model.materialImg);
@@ -249,7 +251,8 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                                 ? 'نظافة'
                                 : 'رعاية الحيوانات',
                             style: const TextStyle(
-                              fontSize: 15, fontFamily: "Cairo",
+                              fontSize: 15,
+                              fontFamily: "Cairo",
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -260,7 +263,8 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                                 : volunteerModel.volunteerGroupType == " 2"
                                     ? 'أهل الحي'
                                     : 'جمعية خيرية',
-                            style: const TextStyle( fontFamily: "Cairo",
+                            style: const TextStyle(
+                              fontFamily: "Cairo",
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
