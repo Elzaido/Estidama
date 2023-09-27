@@ -69,7 +69,30 @@ class Complains extends StatelessWidget {
                           Obx(() => complainsController.isShowImage.value != 1
                               ? imagePlacerHolderWidget(complainsController)
                               : const Text(" ")),
-                          submitComplainBtn(),
+                          button(
+                              onPressed: () {
+                                if (geographicLocationData != null) {
+                                  complainsController.checkComplainsData(
+                                    geographicLocationData
+                                        .toString(), // Ensure it's a string
+                                  );
+                                } else {
+                                  // Handle the case where geographicLocationData is null.
+                                  defaultToast(
+                                      massage: 'الرجاء تحديد الموقع مرة أخرى',
+                                      state: ToastStates.WARNING);
+                                  complainsController.isLoading = false.obs;
+                                }
+                              },
+                              child: const Text(
+                                "إرسال الشكوى",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "Cairo"),
+                              )),
+                          const SizedBox(
+                            height: 10,
+                          ),
                         ],
                       ),
                     ),
@@ -207,27 +230,5 @@ class Complains extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Widget submitComplainBtn() {
-    return button(
-        onPressed: () {
-          if (geographicLocationData != null) {
-            complainsController.checkComplainsData(
-              complainsController.descriptionController.text,
-              geographicLocationData.toString(), // Ensure it's a string
-            );
-            // Get.offNamed(  '/map_screen');
-          } else {
-            // Handle the case where geographicLocationData is null.
-            defaultToast(
-                massage: 'الرجاء تحديد الموقع مرة أخرى',
-                state: ToastStates.WARNING);
-          }
-        },
-        child: const Text(
-          "إرسال الشكوى",
-          style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "Cairo"),
-        ));
   }
 }

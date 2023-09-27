@@ -58,7 +58,7 @@ class OnBoarding extends StatelessWidget {
         Align(
           alignment: Alignment.topRight,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
             child: TextButton(
                 onPressed: () {
                  controller. submit();

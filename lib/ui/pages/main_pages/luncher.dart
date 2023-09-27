@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,8 +7,8 @@ import '../../../constants/colors.dart';
 import '../../../controllers/launcher_controller.dart';
 
 class Luncher extends StatelessWidget {
-    Luncher({super.key});
-    LauncherController controller = Get.find();
+  Luncher({super.key});
+  LauncherController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {

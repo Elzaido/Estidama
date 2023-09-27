@@ -21,7 +21,6 @@ Widget locationWidget(
             // Permission granted, navigate to the desired screen
             switch (whichPage) {
               case 1:
-
                 Get.offNamed("/map_screen", arguments: whichPage);
                 break;
               case 2:
@@ -41,6 +40,7 @@ Widget locationWidget(
           }
         },
         child: Container(
+          height: size.height * 0.13,
           key: const Key('first'),
           decoration: BoxDecoration(
             borderRadius:
@@ -65,7 +65,6 @@ Widget locationWidget(
                   fit: BoxFit.cover,
                 ),
                 Container(
-                    height: size.height * 0.13,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       boxShadow: [
