@@ -4,9 +4,9 @@ class VolunteerModel {
   String? volunteeringId;
   String? userId;
   String? volunteerGroupType;
-
   String? isVolunteeringAccepted;
   String? volunteersNames;
+
   VolunteerModel(
       {this.volunteeringType,
       this.volunteerSkills,

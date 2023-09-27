@@ -39,24 +39,22 @@ class _NameState extends State<Verification> {
     String code = "";
     RegisterController registerController = Get.find();
     Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-          extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
+    return Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
             ),
-            elevation: 0,
           ),
-          body: Obx(
-            () =>  Stack(
+          elevation: 0,
+        ),
+        body: Obx(() => Stack(
               children: [
                 Container(
                   margin: const EdgeInsets.only(left: 25, right: 25),
@@ -73,11 +71,9 @@ class _NameState extends State<Verification> {
                     ),
                   ),
                 ),
-                if(registerController.isLoading.value==true) loading(),
+                if (registerController.isLoading.value == true) loading(),
               ],
-            ) 
-          )),
-    );
+            )));
   }
 
   Widget verificationBody(code, size) {
@@ -148,11 +144,9 @@ class _NameState extends State<Verification> {
               password,
             );
 
-            showVerificationDialog(context,name,phone,password,registerController);
-           
-          } else {
-            
-          }
+            showVerificationDialog(
+                context, name, phone, password, registerController);
+          } else {}
         },
         child: const Text(
           'تحقق من رقم الهاتف',
