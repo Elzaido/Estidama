@@ -6,6 +6,8 @@ class ComplainsModel {
   String? complainImagePath;
   String? complainId;
   String? complainAccepetanceStatus;
+
+  String? complainerId;
   ComplainsModel(
       {this.complainDate,
       this.complainLocation,
@@ -13,7 +15,8 @@ class ComplainsModel {
       this.complainDescription,
       this.complainImagePath,
       this.complainId,
-      this.complainAccepetanceStatus});
+      this.complainAccepetanceStatus,
+      this.complainerId});
 
   ComplainsModel.fromJson(Map<String, dynamic> json) {
     // complainType = json['complain_type'];
@@ -25,6 +28,7 @@ class ComplainsModel {
     complainImagePath = json['complain_image_path'];
     complainId = json['complain_id'];
     complainAccepetanceStatus = json['complain_accepetance_status'];
+    complainerId = json['complainer_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -36,6 +40,7 @@ class ComplainsModel {
     data['complain_image_path'] = complainImagePath;
     data['complain_id'] = complainId;
     data['complain_accepetance_status'] = complainAccepetanceStatus;
+    data['complainer_id'] = complainId;
     return data;
   }
 }

@@ -35,7 +35,7 @@ class VolunteerModel {
     data['user_id'] = userId;
     data['volunteer_group_type'] = volunteerGroupType;
 
-    data['is_voluteering_accepted'] = isVolunteeringAccepted;
+    data['is_volunteering_accepted'] = isVolunteeringAccepted;
     data['volunteers_names'] = volunteersNames;
     return data;
   }

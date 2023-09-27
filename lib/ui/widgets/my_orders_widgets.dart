@@ -13,7 +13,9 @@ import 'package:madenati/ui/widgets/dialogs.dart';
 import 'interface_components.dart';
 
 Widget myComplainItem(context, ComplainsModel complainModel,
+ 
     MyComplainsController myComplainsController, int index, Size size) {
+ 
   print(index);
   return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -85,7 +87,9 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                               width: 100,
                               fit: BoxFit.cover,
                             ))
+  
                         : const SizedBox(),
+  
                   ]),
                 ),
                 separator(),
@@ -168,6 +172,7 @@ Widget deleteItemButton(
           if (indialog) Navigator.pop(context1, true);
           if (whichPage == 1) {
             print(index);
+ 
             myComplainsController.deleteComplain(
                 model.complainId.toString(), index, model.complainImagePath);
           } else if (whichPage == 2) {
@@ -236,6 +241,39 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                     showVolunteeringDialog(
                         context, volunteerModel, myComplainsController, index);
                   },
+ 
+                  child: Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            volunteerModel.volunteeringType == "1"
+                                ? 'نظافة'
+                                : 'رعاية الحيوانات',
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontFamily: "Cairo",
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const Text('  /  '),
+                          Text(
+                            volunteerModel.volunteerGroupType == "1"
+                                ? 'مدرسة'
+                                : volunteerModel.volunteerGroupType == " 2"
+                                    ? 'أهل الحي'
+                                    : 'جمعية خيرية',
+                            style: const TextStyle(
+                              fontFamily: "Cairo",
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+ 
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     mainAxisSize: MainAxisSize.max,
@@ -249,6 +287,7 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                           fontFamily: "Cairo",
                           fontWeight: FontWeight.bold,
                         ),
+ 
                       ),
                       const Text('  /  '),
                       Text(
