@@ -13,9 +13,7 @@ import 'package:madenati/ui/widgets/dialogs.dart';
 import 'interface_components.dart';
 
 Widget myComplainItem(context, ComplainsModel complainModel,
- 
     MyComplainsController myComplainsController, int index, Size size) {
- 
   print(index);
   return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -87,9 +85,7 @@ Widget myComplainItem(context, ComplainsModel complainModel,
                               width: 100,
                               fit: BoxFit.cover,
                             ))
-  
                         : const SizedBox(),
-  
                   ]),
                 ),
                 separator(),
@@ -172,7 +168,7 @@ Widget deleteItemButton(
           if (indialog) Navigator.pop(context1, true);
           if (whichPage == 1) {
             print(index);
- 
+
             myComplainsController.deleteComplain(
                 model.complainId.toString(), index, model.complainImagePath);
           } else if (whichPage == 2) {
@@ -225,7 +221,8 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
             spreadRadius: 2,
             blurRadius: 4,
             offset: const Offset(
-                0, 2), // Shadow position [horizontal, vertical]
+              0, 2,
+            ), // Shadow position [horizontal, vertical]
           ),
         ],
       ),
@@ -237,7 +234,11 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
             InkWell(
               onTap: () {
                 showVolunteeringDialog(
-                    context, volunteerModel, myComplainsController, index);
+                  context,
+                  volunteerModel,
+                  myComplainsController,
+                  index,
+                );
               },
               child: Expanded(
                 child: Padding(
@@ -278,8 +279,15 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                deleteItemButton(volunteerModel, myComplainsController,
-                    index, false, context, 2, size),
+                deleteItemButton(
+                  volunteerModel,
+                  myComplainsController,
+                  index,
+                  false,
+                  context,
+                  2,
+                  size,
+                ),
                 const SizedBox(
                   width: 20,
                 ),
@@ -296,6 +304,7 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
     ),
   );
 }
+
 
 Widget myrecyclingItem(context, RecyclingModel recyclingModel,
     MyComplainsController myComplainsController, index, Size size) {
