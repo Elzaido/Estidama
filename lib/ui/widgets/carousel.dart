@@ -133,7 +133,7 @@ Widget ImageWidgetForAchievemnts(size) {
           children: [
             Center(
               child: Image(
-                image: const AssetImage("assets/nointernet.png"),
+                image: const AssetImage("assets/noInternet.png"),
                 fit: BoxFit.fill,
                 width: double.infinity, // Match the width of the Container
                 height: size.height * 0.29, // Match the height of the Container
