@@ -6,7 +6,7 @@ class VolunteerModel {
   String? volunteerGroupType;
   String? isVolunteeringAccepted;
   String? volunteersNames;
-
+//volunteersNames
   VolunteerModel(
       {this.volunteeringType,
       this.volunteerSkills,

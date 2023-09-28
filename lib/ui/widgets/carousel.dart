@@ -93,13 +93,13 @@ Widget carousel(
       builder: (context, AsyncSnapshot snapshot) {
         try {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return SizedBox(
-              width: size.width,
-              height: size.height * 0.26,
-              child: const FadeInImage(
-                  placeholder: AssetImage("assets/pablita-loading.gif"),
-                  image: AssetImage("assets/pablita-loading.gif")),
-            );
+            // return SizedBox(
+            //   width: size.width,
+            //   height: size.height * 0.26,
+            //   child: const FadeInImage(
+            //       placeholder: AssetImage("assets/pablita-loading.gif"),
+            //       image: AssetImage("assets/pablita-loading.gif")),
+            // );
           }
           List<Widget> carouselItems =
               []; // Create a list to store CarouselSlider items
