@@ -156,40 +156,22 @@ class VolunteeringState extends State<Volunteering> {
                       0.18, // Specify a fixed height, adjust as needed
                   child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: volunteeringController.volunteenerNumber.value,
+                    itemCount: volunteeringController.text_controllers.length,
                     itemBuilder: (context, index) {
+                      volunteeringController.buildTextField(index);
                       final label = 'إسم المشترك ${index + 1} الرباعي';
-                      return TextFormField(
-                        // controller: volunteerNameController,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          hintTextDirection: TextDirection.rtl,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          hintText: label,
-                          hintStyle: const TextStyle(fontFamily: 'Cairo'),
-                        ),
-                        onChanged: (value) {
-                          volunteeringController.volunteersSeparateName +=
-                              value.toString();
-                          log(volunteeringController.volunteersSeparateName);
-                        },
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'يجب إدخال $label';
-                          } else {
-                            return null;
-                          }
-                        },
-                        textDirection: TextDirection.rtl,
-                      ).paddingAll(10);
+                      return volunteeringController.buildTextField(index);
                     },
                   ),
                 ),
               button(
-                  onPressed: () => volunteeringController
-                      .checkVolunteerData(volunteenurNumberController),
+                  onPressed: () {
+                    volunteeringController.text_controllers.add(TextEditingController());
+                    volunteeringController.text_fields.add(TextField());
+                    // volunteeringController.sepearateAndGetVolunteersNames();
+                    volunteeringController
+                        .checkVolunteerData(volunteenurNumberController);
+                  },
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

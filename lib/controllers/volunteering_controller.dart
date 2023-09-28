@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/local/shared_preference.dart';
 import 'package:madenati/db/remote/sql.dart';
+import 'package:madenati/ui/widgets/interface_components.dart';
 import 'package:madenati/ui/widgets/toast_widget.dart';
+import "../ui/widgets/interface_components.dart";
 
 class VolunteeringController extends GetxController {
   bool isDropdownOpen = false;
@@ -28,12 +30,41 @@ class VolunteeringController extends GetxController {
 
   RxInt volunteenerNumber = 0.obs;
 
-  RxList<String> volunteersNameList = [""].obs;
-  String volunteersSeparateName = "";
+  // RxList<String> volunteersNameList = [""].obs;
+  RxString volunteersSeparateName = "".obs;
   RxBool isLoading = false.obs;
+  RxList<TextEditingController> text_controllers =
+      [TextEditingController()].obs;
+  RxList<TextField> text_fields = [TextField()].obs;
+
+  // @override
+  // void onInit() {
+  //   // TODO: implement onInit
+  //   super.onInit();
+  //   // Initialize the lists with empty controllers and text fields.
+  //   for (int i = 0; i < volunteenerNumber.value; i++) {
+  //     text_controllers.add(TextEditingController());
+  //     text_fields.add(buildTextField(i));
+  //   }
+  // }
 
   ///
   ///
+  TextField buildTextField(int index) {
+    return TextField(
+      controller: text_controllers[index],
+      decoration: InputDecoration(labelText: 'Field $index'),
+    );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    for (var controller in text_controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
 
   void loading() {
     //NO SET STATE IN THE APP !  USE GETX
@@ -68,10 +99,17 @@ class VolunteeringController extends GetxController {
           ? 2
           : 3;
 
-  sendVolunteerRequest(TextEditingController volunteerSkills) async {
+  String sepearateAndGetVolunteersNames() {
+    for (int i = 0; i < volunteenerNumber.value; i++) {
+      volunteersSeparateName.value += text_controllers[i].text.toString();
+    }
+    return volunteersSeparateName.value;
+  }
+
+  sendVolunteerRequest(TextEditingController volunteersNames) async {
     var response;
     isLoading.value = true;
-    print(volunteersSeparateName.toString());
+    print(sepearateAndGetVolunteersNames());
 
     // loading();
 // Loading();
@@ -80,8 +118,8 @@ class VolunteeringController extends GetxController {
       response = await postRequest(volunteeringApplicationLink, {
         "volunteering_type": fromVolunteerTypeToInteger().toString(),
         "volunteer_group": fromVolunteerGroupToInteger().toString(),
-        "volunteers_names": volunteersSeparateName.toString(),
-        "leader_id": CacheHelper.getData(key: "user_id")
+        "volunteers_names": sepearateAndGetVolunteersNames().toString(),
+        "leader_id": CacheHelper.getData(key: "user_id").toString()
       });
       if (response["status"] == "not_allowed") {
         defaultToast(
@@ -89,10 +127,10 @@ class VolunteeringController extends GetxController {
             state: ToastStates.SUCCESS);
       }
       if (response['status'] == 'success') {
-        volunteersSeparateName = "";
+        volunteersSeparateName .value= "";
         Get.back();
 
-        volunteersSeparateName = "";
+        volunteersSeparateName.value = "";
         defaultToast(
             massage: 'تم إرسال الطلب بنجاح', state: ToastStates.SUCCESS);
       }
@@ -102,7 +140,8 @@ class VolunteeringController extends GetxController {
       }
     } catch (e) {
       defaultToast(
-          massage: "حدث خطأ ما يرجى المحاولة لاحقا", state: ToastStates.ERROR);
+          massage: "${e}",
+          state: ToastStates.ERROR); // "حدث خطأ ما يرجى المحاولة لاحقا"
     }
     return response;
   }

@@ -207,87 +207,104 @@ Widget deleteItemButton(
         ),
       ),
     );
-
 Widget volunteerItem(context, VolunteerModel volunteerModel,
     MyComplainsController myComplainsController, index, Size size) {
   return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      child: Container(
-          decoration: BoxDecoration(
-            borderRadius:
-                BorderRadius.circular(16.0), // Adjust the radius as needed
-            color: const Color.fromARGB(255, 247, 247, 247),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.4), // Shadow color
-                spreadRadius: 2,
-                blurRadius: 4,
-                offset: const Offset(
-                    0, 2), // Shadow position [horizontal, vertical]
-              ),
-            ],
+    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16.0), // Adjust the radius as needed
+        color: const Color.fromARGB(255, 247, 247, 247),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.4), // Shadow color
+            spreadRadius: 2,
+            blurRadius: 4,
+            offset: const Offset(
+              0, 2,
+            ), // Shadow position [horizontal, vertical]
           ),
-          child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          showVolunteeringDialog(context, volunteerModel,
-                              myComplainsController, index);
-                        },
-                        child: Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                volunteerModel.volunteeringType == "1"
-                                    ? 'نظافة'
-                                    : 'رعاية الحيوانات',
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontFamily: "Cairo",
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const Text('  /  '),
-                              Text(
-                                volunteerModel.volunteerGroupType == "1"
-                                    ? 'مدرسة'
-                                    : volunteerModel.volunteerGroupType == " 2"
-                                        ? 'أهل الحي'
-                                        : 'جمعية خيرية',
-                                style: const TextStyle(
-                                  fontFamily: "Cairo",
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ))),
-                    separator(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        deleteItemButton(volunteerModel, myComplainsController,
-                            index, false, context, 2, size),
-                        const SizedBox(
-                          width: 20,
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            InkWell(
+              onTap: () {
+                showVolunteeringDialog(
+                  context,
+                  volunteerModel,
+                  myComplainsController,
+                  index,
+                );
+              },
+              child: Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        volunteerModel.volunteeringType == "1"
+                            ? 'نظافة'
+                            : 'رعاية الحيوانات',
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontFamily: "Cairo",
+                          fontWeight: FontWeight.bold,
                         ),
-                        volunteerModel.isVolunteeringAccepted == "rejected"
-                            ? activityState('تم رفض الطلب', size)
-                            : volunteerModel.isVolunteeringAccepted == "pending"
-                                ? activityState('الطلب قيد الدراسة', size)
-                                : activityState('تم قبول الطلب', size),
-                      ],
-                    ),
-                  ]))));
+                      ),
+                      const Text('  /  '),
+                      Text(
+                        volunteerModel.volunteerGroupType == "1"
+                            ? 'مدرسة'
+                            : volunteerModel.volunteerGroupType == " 2"
+                                ? 'أهل الحي'
+                                : 'جمعية خيرية',
+                        style: const TextStyle(
+                          fontFamily: "Cairo",
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            separator(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                deleteItemButton(
+                  volunteerModel,
+                  myComplainsController,
+                  index,
+                  false,
+                  context,
+                  2,
+                  size,
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                volunteerModel.isVolunteeringAccepted == "rejected"
+                    ? activityState('تم رفض الطلب', size)
+                    : volunteerModel.isVolunteeringAccepted == "pending"
+                        ? activityState('الطلب قيد الدراسة', size)
+                        : activityState('تم قبول الطلب', size),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
+
 
 Widget myrecyclingItem(context, RecyclingModel recyclingModel,
     MyComplainsController myComplainsController, index, Size size) {
