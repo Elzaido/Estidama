@@ -392,21 +392,29 @@ void showVolunteeringDialog(
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          const Text(
-                            "اسماء المتطوعين",
-                            style: TextStyle(
-                              fontFamily: "Cairo",
-                            ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                ":",
+                                style: TextStyle(
+                                  fontFamily: "Cairo",
+                                ),
+                              ),
+                              Text(
+                                "اسماء المتطوعين",
+                                style: TextStyle(
+                                  fontFamily: "Cairo",
+                                ),
+                              ),
+                            ],
                           ),
                           Container(
                             width: double.maxFinite,
                             constraints: const BoxConstraints(maxHeight: 150),
                             child: Text(
-                              //  formatNames(
-                              //   volunteerModel.volunteersNames.toString()
                               volunteerModel.volunteersNames.toString(),
-                              // formatNames(
-                              //     volunteerModel.volunteersNames.toString()),
+                              textDirection: TextDirection.rtl,
                               style: const TextStyle(
                                 fontFamily: "Cairo",
                               ),
