@@ -12,3 +12,4 @@ const String getCurrentUserVolunteeringOrders = "$gateway/core/retrive_volunteer
 const String delteVolunteerRequestLink = "$gateway/core/delete_volunteer_request.php";
 const String getCurrentUserRecyclingOrders = "$gateway/core/retrive_recycling_orders.php";
 const String delteRecyclingrRequestLink = "$gateway/core/delete_recycling_order.php";
+const String retriveAchievementsLink="$gateway/dashboard/retrive_achievements.php";

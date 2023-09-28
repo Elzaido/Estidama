@@ -1,29 +1,36 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:madenati/constants/hotlinks.dart';
+import 'package:madenati/controllers/home_controller.dart';
+import 'package:madenati/models/achievements_model.dart';
+import 'package:madenati/ui/widgets/interface_components.dart';
 import '../../constants/colors.dart';
 
-Widget carsoulItem({
-  required String image,
-  required String title,
-  required String text,
-}) =>
+Widget carsoulItem(
+        {required String image,
+        required String title,
+        required String text,
+        required Size size}) =>
     ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: SizedBox(
-        height: 200,
+        height: size.height * 0.3,
         width: double.infinity,
         child: Stack(
           alignment: Alignment.centerLeft,
           children: [
-            Image.asset(
-              image,
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: double.infinity,
+            SizedBox(
+              width: double
+                  .infinity, // This makes the container take the full width
+              child: FadeInImage(
+                fit: BoxFit.cover,
+                placeholder: const AssetImage("assets/Grid1.png"),
+                image: NetworkImage(image),
+              ),
             ),
             Container(
-                width: 200,
+                width: size.width * 0.5,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -41,22 +48,32 @@ Widget carsoulItem({
                       Text(
                         title,
                         style: const TextStyle(
-                          fontSize: 30,
+                          fontSize: 17,
                           fontFamily: 'Cairo',
                           color: Colors.white,
                         ),
                         textAlign: TextAlign.right,
                         textDirection: TextDirection.ltr,
                       ),
-                      Text(
-                        text,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'Cairo',
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.right,
-                        textDirection: TextDirection.ltr,
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.circle,
+                            size: 8,
+                            color: Colors.white,
+                          ).paddingAll(5),
+                          Text(
+                            text,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Cairo',
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.right,
+                            textDirection: TextDirection.ltr,
+                          ),
+                        ],
                       ),
                     ],
                   ).paddingAll(10),
@@ -67,17 +84,91 @@ Widget carsoulItem({
     );
 
 // If you want to add a carsoul item add it here and it will appear in the UI.
+Widget carousel(
+    {required List<Widget> items,
+    required HomeController homeController,
+    required Size size}) {
+  return FutureBuilder(
+      future: homeController.getAchievementsData(),
+      builder: (context, AsyncSnapshot snapshot) {
+        try {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return SizedBox(
+              width: size.width,
+              height: size.height * 0.26,
+              child: const FadeInImage(
+                  placeholder: AssetImage("assets/pablita-loading.gif"),
+                  image: AssetImage("assets/pablita-loading.gif")),
+            );
+          }
+          List<Widget> carouselItems =
+              []; // Create a list to store CarouselSlider items
 
-Widget carousel({required List<Widget> items}) => CarouselSlider(
-    items: items,
-    options: CarouselOptions(
-      initialPage: 0,
-      viewportFraction: 1.0,
-      enableInfiniteScroll: true,
-      reverse: false,
-      autoPlay: true,
-      autoPlayInterval: const Duration(seconds: 5),
-      autoPlayAnimationDuration: const Duration(seconds: 1),
-      autoPlayCurve: Curves.fastOutSlowIn,
-      scrollDirection: Axis.horizontal,
-    ));
+          for (int index = 0; index < snapshot.data['data'].length; index++) {
+            AchievementModel model =
+                AchievementModel.fromJson(snapshot.data['data'][index]);
+            carouselItems.add(
+              carsoulItem(
+                size: size,
+                image: "$complainImages/${model.achievementImg}",
+                title: model.achievementDescription.toString(),
+                text: model.achievementTitle.toString(),
+              ),
+            );
+          }
+
+          return CarouselSlider(
+            items: carouselItems, // Use the list of CarouselSlider items
+            options: CarouselOptions(
+              initialPage: 0,
+              viewportFraction: 1.0,
+              enableInfiniteScroll: true,
+              reverse: false,
+              autoPlay: true,
+              autoPlayInterval: const Duration(seconds: 10),
+              autoPlayAnimationDuration: const Duration(seconds: 1),
+              autoPlayCurve: Curves.fastOutSlowIn,
+              scrollDirection: Axis.horizontal,
+            ),
+          );
+        } catch (e) {
+          print(e);
+        }
+        return ImageWidgetForAchievemnts(size);
+      });
+}
+
+Widget ImageWidgetForAchievemnts(size) {
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(16.0),
+    child: Stack(
+      children: [
+        Column(
+          children: [
+            Center(
+              child: Image(
+                image: const AssetImage("assets/noInternet.png"),
+                fit: BoxFit.fill,
+                width: double.infinity, // Match the width of the Container
+                height: size.height * 0.29, // Match the height of the Container
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(10, 9),
+                    color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
+                    spreadRadius: 4,
+                    blurRadius: 6,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        )
+      ],
+    ),
+  ).paddingOnly(top: 10);
+}

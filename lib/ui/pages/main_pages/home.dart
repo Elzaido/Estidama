@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:madenati/controllers/home_controller.dart';
+import 'package:madenati/models/achievements_model.dart';
 import 'package:madenati/ui/widgets/carousel.dart';
 import '../../../models/gridmodel.dart';
 import '../../widgets/interface_components.dart';
 import '../../widgets/grid_widget.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  List<AchievementModel> achievementsList = [];
+  HomeController homeController = Get.find();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<Widget> images = [
-      carsoulItem(
-          image: 'assets/volunteering.png',
-          title: 'تطوع',
-          text:
-              'قام أحد فرق التطوع في مدينة إربد بإزالة النفايات على طريق الواصل بين منطقة أيدون و الحصن'),
-      carsoulItem(
-          image: 'assets/Grid4.png',
-          title: 'اعادة التدوير',
-          text:
-              'الحكومة الالمانية تعلن عن تبنيها شراء النفايات الالكترونية من المملكة الاردنية'),
-    ];
+    List<Widget> carousel_data = [];
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar:
             defaultAppBar(context: context, title: 'الرئيسية', isHome: true),
@@ -30,7 +36,10 @@ class Home extends StatelessWidget {
             padding: const EdgeInsets.all(15.0),
             child: Column(
               children: [
-                carousel(items: images),
+                carousel(
+                    items: carousel_data,
+                    homeController: homeController,
+                    size: size),
                 const SizedBox(
                   height: 5,
                 ),
@@ -38,7 +47,7 @@ class Home extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                useActionGridView(context)
+                useActionGridView(context).paddingAll(2)
               ],
             ),
           ),
