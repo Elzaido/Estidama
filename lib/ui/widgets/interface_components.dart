@@ -297,7 +297,7 @@ Widget separator() => Padding(
       )),
     );
 
-Widget homeShimmerWidget({required Size size}) => Shimmer.fromColors(
+Widget shimmerWidget({required Size size}) => Shimmer.fromColors(
       baseColor: Colors.grey.shade300,
       highlightColor: Colors.grey.shade100,
       child: Padding(
@@ -316,4 +316,84 @@ Widget homeShimmerWidget({required Size size}) => Shimmer.fromColors(
                   ),
               separatorBuilder: (context, index) => separator(),
               itemCount: 5)),
+    );
+
+Widget homeShimmerWidget({required Size size}) => Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: size.height * 0.25, // Adjust this value as needed
+                width: double
+                    .infinity, // Use double.infinity to fill the available width
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              const SizedBox(height: 7.5),
+              separator(),
+              const SizedBox(height: 7.5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: size.height * 0.25, // Adjust this value as needed
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: Container(
+                      height: size.height * 0.25, // Adjust this value as needed
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: size.height * 0.25, // Adjust this value as needed
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: Container(
+                      height: size.height * 0.25, // Adjust this value as needed
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
