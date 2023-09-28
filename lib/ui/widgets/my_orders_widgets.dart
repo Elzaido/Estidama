@@ -291,9 +291,9 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                 const SizedBox(
                   width: 20,
                 ),
-                volunteerModel.isVolunteeringAccepted == "rejected"
+                volunteerModel.is_volunteering_accepted == "rejected"
                     ? activityState('تم رفض الطلب', size)
-                    : volunteerModel.isVolunteeringAccepted == "pending"
+                    : volunteerModel.is_volunteering_accepted == "pending"
                         ? activityState('الطلب قيد الدراسة', size)
                         : activityState('تم قبول الطلب', size),
               ],

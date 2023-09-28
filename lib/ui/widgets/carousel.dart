@@ -100,10 +100,41 @@ Widget carousel(
 Widget imageWidgetForAchievemnts(size) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(16.0),
+// <<<<<<< zamel
+//     child: Stack(
+//       children: [
+//         Column(
+//           children: [
+//             Center(
+//               child: Image(
+//                 image: const AssetImage("assets/noInternet.png"),
+//                 fit: BoxFit.fill,
+//                 width: double.infinity, // Match the width of the Container
+//                 height: size.height * 0.29, // Match the height of the Container
+//               ),
+//             ),
+//             Container(
+//               width: double.infinity,
+//               decoration: BoxDecoration(
+//                 boxShadow: [
+//                   BoxShadow(
+//                     offset: const Offset(10, 9),
+//                     color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
+//                     spreadRadius: 4,
+//                     blurRadius: 6,
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         )
+//       ],
+// =======
     child: SizedBox(
       width: double.infinity, // Match the width of the Container
       height: size.height * 0.29, // Match the height of the Container
       child: loading(),
+// >>>>>>> master
     ),
   ).paddingOnly(top: 10);
 }
