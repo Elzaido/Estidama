@@ -19,16 +19,12 @@ class MyVolunteeringReq extends StatelessWidget {
         future: controller.retriveCurrentUserVolunteeringOrders(),
         builder: ((context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return homeShimmerWidget(size: size);
+            return shimmerWidget(size: size);
           }
           try {
             snapShotExceptionHandling(snapshot, size);
 
             if (snapshot.hasData) {
-              // controller.volunteerList.value = snapshot.data['data']
-              //     .map<VolunteerModel>(
-              //         (complainData) => VolunteerModel.fromJson(complainData))
-              //     .toList();
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: snapshot.data['data'].length,

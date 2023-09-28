@@ -26,7 +26,7 @@ class MyRecyclingReq extends StatelessWidget {
             future: controller.retriveCurrentUserRecyclingOrders(),
             builder: ((BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return homeShimmerWidget(size: size);
+                return shimmerWidget(size: size);
               }
               try {
                 snapShotExceptionHandling(snapshot, size);
@@ -47,7 +47,7 @@ class MyRecyclingReq extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return homeShimmerWidget(size: size);
+                                  return shimmerWidget(size: size);
                                 }
                                 if (snapshot.data['data'][index].length != 0) {
                                   return myrecyclingItem(
