@@ -25,7 +25,7 @@ Widget carsoulItem(
                   .infinity, // This makes the container take the full width
               child: FadeInImage(
                 fit: BoxFit.cover,
-                placeholder: const AssetImage("assets/Grid1.png"),
+                placeholder: const AssetImage("assets/loading.gif"),
                 image: NetworkImage(image),
               ),
             ),
@@ -48,32 +48,22 @@ Widget carsoulItem(
                       Text(
                         title,
                         style: const TextStyle(
-                          fontSize: 17,
+                          fontSize: 18,
                           fontFamily: 'Cairo',
                           color: Colors.white,
                         ),
                         textAlign: TextAlign.right,
                         textDirection: TextDirection.ltr,
                       ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.circle,
-                            size: 8,
-                            color: Colors.white,
-                          ).paddingAll(5),
-                          Text(
-                            text,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Cairo',
-                              color: Colors.white,
-                            ),
-                            textAlign: TextAlign.right,
-                            textDirection: TextDirection.ltr,
-                          ),
-                        ],
+                      Text(
+                        text,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Cairo',
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.right,
+                        textDirection: TextDirection.ltr,
                       ),
                     ],
                   ).paddingAll(10),
@@ -93,13 +83,9 @@ Widget carousel(
       builder: (context, AsyncSnapshot snapshot) {
         try {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // return SizedBox(
-            //   width: size.width,
-            //   height: size.height * 0.26,
-            //   child: const FadeInImage(
-            //       placeholder: AssetImage("assets/pablita-loading.gif"),
-            //       image: AssetImage("assets/pablita-loading.gif")),
-            // );
+
+            loading();
+ 
           }
           List<Widget> carouselItems =
               []; // Create a list to store CarouselSlider items
@@ -111,8 +97,8 @@ Widget carousel(
               carsoulItem(
                 size: size,
                 image: "$complainImages/${model.achievementImg}",
-                title: model.achievementDescription.toString(),
-                text: model.achievementTitle.toString(),
+                title: model.achievementTitle.toString(),
+                text: model.achievementDescription.toString(),
               ),
             );
           }
@@ -125,7 +111,7 @@ Widget carousel(
               enableInfiniteScroll: true,
               reverse: false,
               autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 10),
+              autoPlayInterval: const Duration(seconds: 15),
               autoPlayAnimationDuration: const Duration(seconds: 1),
               autoPlayCurve: Curves.fastOutSlowIn,
               scrollDirection: Axis.horizontal,
@@ -147,7 +133,7 @@ Widget ImageWidgetForAchievemnts(size) {
           children: [
             Center(
               child: Image(
-                image: const AssetImage("assets/noInternet.png"),
+                image: const AssetImage("assets/nointernet.png"),
                 fit: BoxFit.fill,
                 width: double.infinity, // Match the width of the Container
                 height: size.height * 0.29, // Match the height of the Container
@@ -158,8 +144,8 @@ Widget ImageWidgetForAchievemnts(size) {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    offset: Offset(10, 9),
-                    color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
+                    offset: const Offset(10, 9),
+                    color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
                     spreadRadius: 4,
                     blurRadius: 6,
                   ),
