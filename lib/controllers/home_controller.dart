@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 import 'package:madenati/db/remote/sql.dart';
-import 'package:madenati/ui/widgets/toast_widget.dart';
-
 import '../constants/hotlinks.dart';
 
 class HomeController extends GetxController {
@@ -14,13 +12,10 @@ class HomeController extends GetxController {
         print("workkkks");
       }
 
-      if (response['status'] == 'faild') {
-        // defaultToast(massage: "فشل ", state: state)
-      }
+      if (response['status'] == 'faild') {}
     } catch (e) {
       print(e.hashCode);
     }
     return response;
   }
-  
 }
