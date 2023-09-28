@@ -68,10 +68,10 @@ class VolunteeringState extends State<Volunteering> {
                                   context1,
                                 ) =>
                                     showVolunteeringDialog(
-                                        volunteeringController,
-                                        context1,
-                                        volunteenurNumberController,
-                                        volunteerNameController));
+                                      volunteeringController,
+                                      context1,
+                                      volunteenurNumberController,
+                                    ));
                           },
                           child: const Text(
                             'تقديم طلب التطوع',
@@ -88,10 +88,10 @@ class VolunteeringState extends State<Volunteering> {
   }
 
   Widget showVolunteeringDialog(
-      VolunteeringController volunteeringController,
-      context1,
-      TextEditingController volunteenurNumberController,
-      TextEditingController volunteerNameController) {
+    VolunteeringController volunteeringController,
+    context1,
+    TextEditingController volunteenurNumberController,
+  ) {
     Size size = MediaQuery.of(context1).size;
     return AlertDialog(
       title: const Text(
@@ -131,11 +131,11 @@ class VolunteeringState extends State<Volunteering> {
               title(text: 'عدد الأشخاص المشاركين في التطوع'),
               TextFormField(
                 onChanged: (value) {
-                  // setState(() {
-                  // Update the number of volunteers when the user enters a value.
-                  volunteeringController.volunteenerNumber.value =
-                      int.tryParse(value) ?? 0;
-                  // });
+                  setState(() {
+                    // Update the number of volunteers when the user enters a value.
+                    volunteeringController.volunteenerNumber.value =
+                        int.tryParse(value) ?? 0;
+                  });
                 },
                 decoration: InputDecoration(
                   isDense: true,
@@ -156,19 +156,44 @@ class VolunteeringState extends State<Volunteering> {
                       0.18, // Specify a fixed height, adjust as needed
                   child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: volunteeringController.text_controllers.length,
+                    itemCount: volunteeringController.volunteenerNumber.value,
                     itemBuilder: (context, index) {
-                      volunteeringController.buildTextField(index);
+                      volunteeringController.volunteersControllers
+                          .add(TextEditingController());
                       final label = 'إسم المشترك ${index + 1} الرباعي';
-                      return volunteeringController.buildTextField(index);
+                      return TextFormField(
+                        controller:
+                            volunteeringController.volunteersControllers[index],
+                        decoration: InputDecoration(
+                          isDense: true,
+                          hintTextDirection: TextDirection.rtl,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          hintText: label,
+                          hintStyle: const TextStyle(fontFamily: 'Cairo'),
+                        ),
+                        // onChanged: (value) {
+                        //   // volunteeringController.volunteersSeparateName +=
+                        //   //     value.toString();
+                        //   // log(volunteeringController.volunteersSeparateName);
+                        // },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'يجب إدخال $label';
+                          } else {
+                            return null;
+                          }
+                        },
+                        textDirection: TextDirection.rtl,
+                      ).paddingAll(10);
                     },
                   ),
                 ),
               button(
                   onPressed: () {
-                    volunteeringController.text_controllers.add(TextEditingController());
-                    volunteeringController.text_fields.add(TextField());
-                    // volunteeringController.sepearateAndGetVolunteersNames();
+                    // volunteeringController.volunteersSeparateName.value =
+                    //     volunteerNameController.text.toString();
                     volunteeringController
                         .checkVolunteerData(volunteenurNumberController);
                   },
@@ -196,7 +221,6 @@ class VolunteeringState extends State<Volunteering> {
                       )
                     ],
                   )).paddingAll(10),
-              // if ,
             ],
           ),
         ),

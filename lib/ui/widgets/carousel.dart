@@ -83,7 +83,9 @@ Widget carousel(
       builder: (context, AsyncSnapshot snapshot) {
         try {
           if (snapshot.connectionState == ConnectionState.waiting) {
+
             loading();
+ 
           }
           List<Widget> carouselItems =
               []; // Create a list to store CarouselSlider items

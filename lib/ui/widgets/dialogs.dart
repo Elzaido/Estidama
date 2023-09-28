@@ -402,8 +402,8 @@ void showVolunteeringDialog(
                             width: double.maxFinite,
                             constraints: const BoxConstraints(maxHeight: 150),
                             child: Text(
-                                //  formatNames(
-                                //   volunteerModel.volunteersNames.toString()
+                              //  formatNames(
+                              //   volunteerModel.volunteersNames.toString()
                               volunteerModel.volunteersNames.toString(),
                               // formatNames(
                               //     volunteerModel.volunteersNames.toString()),
