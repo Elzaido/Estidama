@@ -46,6 +46,7 @@ dependencies:
   shimmer: ^3.0.0
   location: ^5.0.3
   pinput: ^3.0.1
+  cached_network_image: ^3.3.0
   
   #Firebase
   firebase_core: ^2.15.1

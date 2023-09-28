@@ -27,7 +27,7 @@ class _MyComplainsState extends State<MyComplains> {
           future: controller.retriveCurrentUserComplains(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return homeShimmerWidget(size: size);
+              return shimmerWidget(size: size);
             }
             try {
               snapShotExceptionHandling(snapshot, size);

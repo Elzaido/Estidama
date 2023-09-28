@@ -213,7 +213,8 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
     child: Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.0), // Adjust the radius as needed
+        borderRadius:
+            BorderRadius.circular(16.0), // Adjust the radius as needed
         color: const Color.fromARGB(255, 247, 247, 247),
         boxShadow: [
           BoxShadow(
@@ -221,7 +222,8 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
             spreadRadius: 2,
             blurRadius: 4,
             offset: const Offset(
-              0, 2,
+              0,
+              2,
             ), // Shadow position [horizontal, vertical]
           ),
         ],
@@ -240,38 +242,36 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                   index,
                 );
               },
-              child: Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text(
-                        volunteerModel.volunteeringType == "1"
-                            ? 'نظافة'
-                            : 'رعاية الحيوانات',
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontFamily: "Cairo",
-                          fontWeight: FontWeight.bold,
-                        ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      volunteerModel.volunteeringType == "1"
+                          ? 'نظافة'
+                          : 'رعاية الحيوانات',
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontFamily: "Cairo",
+                        fontWeight: FontWeight.bold,
                       ),
-                      const Text('  /  '),
-                      Text(
-                        volunteerModel.volunteerGroupType == "1"
-                            ? 'مدرسة'
-                            : volunteerModel.volunteerGroupType == " 2"
-                                ? 'أهل الحي'
-                                : 'جمعية خيرية',
-                        style: const TextStyle(
-                          fontFamily: "Cairo",
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    ),
+                    const Text('  /  '),
+                    Text(
+                      volunteerModel.volunteerGroupType == "1"
+                          ? 'مدرسة'
+                          : volunteerModel.volunteerGroupType == " 2"
+                              ? 'أهل الحي'
+                              : 'جمعية خيرية',
+                      style: const TextStyle(
+                        fontFamily: "Cairo",
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -304,7 +304,6 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
     ),
   );
 }
-
 
 Widget myrecyclingItem(context, RecyclingModel recyclingModel,
     MyComplainsController myComplainsController, index, Size size) {
@@ -427,7 +426,7 @@ Widget noOrdersCenterdTitle(String title) {
 
 snapShotExceptionHandling(snapshot, size) {
   if (snapshot.connectionState == ConnectionState.waiting) {
-    return homeShimmerWidget(size: size);
+    return shimmerWidget(size: size);
   }
   if (snapshot.data['data'].length == null) {
     return noOrdersCenterdTitle('حدث خطأ ما');
