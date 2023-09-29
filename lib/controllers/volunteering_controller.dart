@@ -98,11 +98,7 @@ class VolunteeringController extends GetxController {
   sendVolunteerRequest() async {
     var response;
     RxString getNames = getAllNamesFromList();
-    // print(getNames.toString());
-    // print(getAllNamesFromList().toString());
-    // loading();
-// Loading();
-    // loading();
+
     try {
       response = await postRequest(volunteeringApplicationLink, {
         "volunteering_type": fromVolunteerTypeToInteger().toString(),
