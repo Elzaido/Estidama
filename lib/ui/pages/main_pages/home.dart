@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madenati/controllers/home_controller.dart';
 import 'package:madenati/models/achievements_model.dart';
-import 'package:madenati/ui/widgets/carousel.dart';
+import '../../widgets/carousel.dart';
 import '../../../constants/hotlinks.dart';
 import '../../../models/gridmodel.dart';
 import '../../widgets/interface_components.dart';

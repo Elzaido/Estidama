@@ -64,7 +64,7 @@ class VolunteeringController extends GetxController {
       ? 1
       : selectedVolunteringType.value == 'رعاية الحيوانات'
           ? 2
-          : 1;   
+          : 1;
   fromVolunteerGroupToInteger() => selectedVolunteringGroup.value == 'مدرسة'
       ? 1
       : selectedVolunteringType.value == 'أهل حي'
