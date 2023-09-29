@@ -67,13 +67,7 @@ class RegisterController extends GetxController {
 //Future update
   changeGender() => gender.value == "male" ? gender.value = "female" : "male";
 
-  //BEFORE YOU BEGIN PLEASE NOTICE THIS:
-  // PROVINCES IN DATABASE ARE IN ENGLISH  AND HAVE NDECIES : {IRBID: 1 ,AMMAN: 2}....
-  //WE NEED TO SEND THE PROVINCE ID WHICH IS A STRING (PREFERABLE )  TO THE RESPONSE
-  //THIS HELPS IN PUTTING MULI LANGAUGE LIKE ARABIC OR CHINEES...
   String iterateUserProvince(String province) {
-    //THIS FUNCTION IS USED TO LOOP ON THE PROVINCES
-    // AND GET KEYS TO SAVE WITH THE CREDENTIALS
     int key = 0;
 
     provincesx.forEach((k, v) {
@@ -85,20 +79,6 @@ class RegisterController extends GetxController {
     return key.toString();
   }
 
-  // String token() async {
-  //   final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-  //   String? token;
-
-  //   try {
-  //     token = await firebaseMessaging.getToken();
-  //     print('FCM Token: $token');
-  //   } catch (error) {
-  //     print('Error getting FCM token: $error');
-  //   }
-
-  //   return token;
-  // }
-
   Future<void> saveCredentials({
     required String user_name,
     required String user_phone,
@@ -106,7 +86,6 @@ class RegisterController extends GetxController {
     required String gender,
     required String user_password,
   }) async {
-    // String getToken = token() .toString();
     isLoading.value = true;
     final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
     String? token;
@@ -118,7 +97,7 @@ class RegisterController extends GetxController {
       print('Error getting FCM token: $error');
     }
 
-    print("otottoootototototoot ${token}");
+    print("otottoootototototoot $token");
     // Save credentials logic here.
     DateTime get_current_date = DateTime.now();
     DateFormat dateFormat = DateFormat('yyyy-MM-dd');
@@ -136,9 +115,6 @@ class RegisterController extends GetxController {
       "status": "online",
       "user_token": token
     });
-
-    //STATUS IS CHANGEABLE :ONCE THE USER SIGNS UP THIS MEANS HE IS ONLINE
-    //, ONCE HE SIGNS OUT OR EXIT APP IT MEANS HIS OFFILINE
 
     if (response['status'] == "faild") {
       defaultToast(
@@ -168,7 +144,7 @@ class RegisterController extends GetxController {
         user_password.isEmpty) {
       defaultToast(massage: '! تأكد من الحقول', state: ToastStates.ERROR);
     } else {
-      isLoading.value=true;
+      isLoading.value = true;
       saveCredentials(
         user_name: user_name,
         user_phone: user_phone,

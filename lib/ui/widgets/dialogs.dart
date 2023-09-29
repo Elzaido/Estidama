@@ -37,10 +37,8 @@ void showVerificationDialog(
                   ],
                 )),
             actions: <Widget>[
-              // Expanded(child: Container()),
               Row(
-                // crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(
                     height: 5,
@@ -62,7 +60,6 @@ void showVerificationDialog(
                   MaterialButton(
                     color: mainColor,
                     onPressed: () {
-                      // var registerController = Get.put(RegisterController());
                       registerController.signUpProcess(
                         name,
                         phone,
