@@ -30,7 +30,7 @@ class LoginController extends GetxController {
     var response = await postRequest(loginPageLink, {
       "number": phone,
       "password": "$password",
-      //  "user_token": token,
+      "new_token": token.toString(),
     });
     //only for testing purposes number is: 4365345, password is 11111111
 
