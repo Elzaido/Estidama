@@ -21,7 +21,7 @@ class MyVolunteeringReq extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return shimmerWidget(size: size);
           }
-          try {
+          try {  
             snapShotExceptionHandling(snapshot, size);
 
             if (snapshot.hasData) {

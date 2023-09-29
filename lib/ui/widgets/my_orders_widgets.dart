@@ -252,7 +252,7 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                   children: [
                     Text(
                       volunteerModel.volunteeringType == "1"
-                          ? 'نظافة'
+                          ? 'نظافة'  
                           : 'رعاية الحيوانات',
                       style: const TextStyle(
                         fontSize: 15,

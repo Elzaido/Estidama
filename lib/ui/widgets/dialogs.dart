@@ -352,7 +352,7 @@ void showVolunteeringDialog(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
                                   )),
-                            ],
+                            ],  
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
