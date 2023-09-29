@@ -18,6 +18,7 @@ class VolunteeringController extends GetxController {
     'مدرسة',
     'أهل حي',
     'جمعية خيرية',
+    'طلاب جامعة'
   ];
 
   RxString selectedVolunteringGroup = 'مدرسة'.obs;
@@ -68,7 +69,9 @@ class VolunteeringController extends GetxController {
       ? 1
       : selectedVolunteringType.value == 'أهل حي'
           ? 2
-          : 3;
+          : selectedVolunteringGroup.value == 'جمعية خيرية'
+              ? 3
+              : 4;
   RxString getAllNamesFromList() {
     RxString newSt = ''.obs;
     List<String> volunteerNames = [];
