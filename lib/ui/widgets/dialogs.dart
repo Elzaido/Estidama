@@ -349,17 +349,20 @@ void showVolunteeringDialog(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
                                   )),
-                            ],
+                            ],  
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
-                                volunteerModel.volunteerGroupType == 1
+                                volunteerModel.volunteerGroupType == "1"
                                     ? 'مدرسة'
-                                    : volunteerModel.volunteerGroupType == 2
+                                    : volunteerModel.volunteerGroupType == " 2"
                                         ? 'أهل الحي'
-                                        : 'جمعية خيرية',
+                                        : volunteerModel.volunteerGroupType ==
+                                                "3"
+                                            ? 'جمعية خيرية'
+                                            : "طلاب جامعة",
                                 style: const TextStyle(
                                   fontFamily: "Cairo",
                                   fontSize: 15,

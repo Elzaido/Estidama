@@ -235,7 +235,8 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
           children: [
             InkWell(
               onTap: () {
-                print("is_volunteering_accepted ${volunteerModel.is_volunteering_accepted}");
+                print(
+                    "is_volunteering_accepted ${volunteerModel.is_volunteering_accepted}");
                 showVolunteeringDialog(
                   context,
                   volunteerModel,
@@ -251,7 +252,7 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                   children: [
                     Text(
                       volunteerModel.volunteeringType == "1"
-                          ? 'نظافة'
+                          ? 'نظافة'  
                           : 'رعاية الحيوانات',
                       style: const TextStyle(
                         fontSize: 15,
@@ -265,7 +266,9 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
                           ? 'مدرسة'
                           : volunteerModel.volunteerGroupType == " 2"
                               ? 'أهل الحي'
-                              : 'جمعية خيرية',
+                              : volunteerModel.volunteerGroupType == "3"
+                                  ? 'جمعية خيرية'
+                                  : "طلاب جامعة",
                       style: const TextStyle(
                         fontFamily: "Cairo",
                         fontSize: 15,
