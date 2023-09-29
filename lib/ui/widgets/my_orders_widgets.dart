@@ -235,6 +235,7 @@ Widget volunteerItem(context, VolunteerModel volunteerModel,
           children: [
             InkWell(
               onTap: () {
+                print("is_volunteering_accepted ${volunteerModel.is_volunteering_accepted}");
                 showVolunteeringDialog(
                   context,
                   volunteerModel,
