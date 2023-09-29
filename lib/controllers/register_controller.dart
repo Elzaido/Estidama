@@ -96,8 +96,6 @@ class RegisterController extends GetxController {
     } catch (error) {
       print('Error getting FCM token: $error');
     }
-
-    print("otottoootototototoot $token");
     // Save credentials logic here.
     DateTime get_current_date = DateTime.now();
     DateFormat dateFormat = DateFormat('yyyy-MM-dd');

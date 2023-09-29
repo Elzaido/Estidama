@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:madenati/controllers/register_controller.dart';
 import 'package:madenati/ui/widgets/dialogs.dart';
 import 'package:madenati/ui/widgets/interface_components.dart';
+import 'package:madenati/ui/widgets/toast_widget.dart';
 import 'package:pinput/pinput.dart';
 
 //THIS CODE FEATURE WAS MADE BY EL ZAIDO
@@ -133,20 +134,13 @@ class _NameState extends State<Verification> {
         onPressed: () {
           code = "1971";
           if (code == '1971') {
-            // Perform the signup function here with the provided arguments
-            registerController.signUpProcess(
-              name,
-              phone,
-              registerController.selectedProvince.value,
-              registerController.isMaleSelected.value == true
-                  ? "male"
-                  : "female",
-              password,
-            );
-
             showVerificationDialog(
                 context, name, phone, password, registerController);
-          } else {}
+          } else {
+            defaultToast(
+                massage: 'الرجاء عدم تغير الرقم التجريبي',
+                state: ToastStates.ERROR);
+          }
         },
         child: const Text(
           'تحقق من رقم الهاتف',
