@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:madenati/constants/hotlinks.dart';
 import 'package:madenati/db/remote/sql.dart';
@@ -16,8 +17,21 @@ class LoginController extends GetxController {
   }
 
   loginRequest(phone, country, password) async {
-    var response = await postRequest(
-        loginPageLink, {"number": phone, "password": "$password"});
+    final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+    String? token;
+
+    try {
+      token = await firebaseMessaging.getToken();
+      print('FCM Token: $token');
+    } catch (error) {
+      print('Error getting FCM token: $error');
+    }
+
+    var response = await postRequest(loginPageLink, {
+      "number": phone,
+      "password": "$password",
+      //  "user_token": token,
+    });
     //only for testing purposes number is: 4365345, password is 11111111
 
     if (response['auth_status'] == "wrong" || response['status'] == "faild") {

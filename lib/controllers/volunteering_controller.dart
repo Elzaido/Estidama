@@ -64,7 +64,7 @@ class VolunteeringController extends GetxController {
       ? 1
       : selectedVolunteringType.value == 'رعاية الحيوانات'
           ? 2
-          : 1;   
+          : 1;
   fromVolunteerGroupToInteger() => selectedVolunteringGroup.value == 'مدرسة'
       ? 1
       : selectedVolunteringType.value == 'أهل حي'
@@ -98,11 +98,7 @@ class VolunteeringController extends GetxController {
   sendVolunteerRequest() async {
     var response;
     RxString getNames = getAllNamesFromList();
-    // print(getNames.toString());
-    // print(getAllNamesFromList().toString());
-    // loading();
-// Loading();
-    // loading();
+
     try {
       response = await postRequest(volunteeringApplicationLink, {
         "volunteering_type": fromVolunteerTypeToInteger().toString(),
